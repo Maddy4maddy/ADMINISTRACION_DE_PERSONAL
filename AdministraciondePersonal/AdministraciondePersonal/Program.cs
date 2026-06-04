@@ -4,10 +4,20 @@ using AdministraciondePersonal.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+
 builder.Services.AddScoped<DbConnectionFactory>();
+
 builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
+
+builder.Services.AddScoped<OferenteRepository>();
+builder.Services.AddScoped<OferenteService>();
+
+builder.Services.AddScoped<ConcursoRepository>();
+builder.Services.AddScoped<ConcursoService>();
+
 builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(5);
@@ -25,11 +35,15 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseSession();
+
 app.UseAuthorization();
 
 app.MapRazorPages();
+
 app.MapGet("/", context =>
 {
     context.Response.Redirect("/Login");

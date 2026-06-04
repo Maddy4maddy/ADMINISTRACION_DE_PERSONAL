@@ -1,0 +1,12 @@
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\bin\Debug\net10.0\AdministraciondePersonal.Entities.deps.json
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\bin\Debug\net10.0\AdministraciondePersonal.Entities.dll
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\bin\Debug\net10.0\AdministraciondePersonal.Entities.pdb
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\AdministraciondePersonal.Entities.csproj.AssemblyReference.cache
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\AdministraciondePersonal.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\AdministraciondePersonal.Entities.AssemblyInfoInputs.cache
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\AdministraciondePersonal.Entities.AssemblyInfo.cs
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\AdministraciondePersonal.Entities.csproj.CoreCompileInputs.cache
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\AdministraciondePersonal.Entities.dll
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\refint\AdministraciondePersonal.Entities.dll
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\AdministraciondePersonal.Entities.pdb
+C:\Users\limaw\Documents\CUC\Sitios\AdministraciondePersonal\AdministraciondePersonal.Entities\obj\Debug\net10.0\ref\AdministraciondePersonal.Entities.dll
