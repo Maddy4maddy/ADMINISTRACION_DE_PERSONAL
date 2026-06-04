@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="AdministraciondePersonal.Entities/AdministraciondePersonal.Entities.csproj" />
-  <Project Path="AdministraciondePersonal.Repository/AdministraciondePersonal.Repository.csproj" />
-  <Project Path="AdministraciondePersonal.Services/AdministraciondePersonal.Services.csproj" />
-  <Project Path="AdministraciondePersonal/AdministraciondePersonal.csproj" />
-</Solution>
