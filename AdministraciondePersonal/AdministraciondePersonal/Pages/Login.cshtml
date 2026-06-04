@@ -1,0 +1,61 @@
+﻿@page
+@model AdministraciondePersonal.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login del Sistema</title>
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <div class="login-logo-wrapper">
+            <div class="logo-side">
+                <img class="logo-img" src="~/css/images/logoempresa.png" alt="Logo">
+            </div>
+            <div class="login-form-side">
+                <div class="encabezado">
+                    <h1>Login del Sistema</h1>
+                    <p>Para ingresar al sistema ingrese su Usuario y Contraseña</p>
+                </div>
+
+                <form method="post">
+                    <div class="grupo-formulario">
+                        <label>Usuario</label>
+                        <input type="text" asp-for="Usuario" required>
+                    </div>
+                    <div class="grupo-formulario">
+                        <label>Contraseña</label>
+                        <input type="password" asp-for="Contrasenia" required>
+                    </div>
+                    <div class="contenedor-botones">
+                        <button type="submit" class="boton-aceptar">Aceptar</button>
+                    </div>
+                </form>
+
+                @if (!string.IsNullOrEmpty(Model.MensajeError))
+                {
+                    <div class="mensaje-error" style="color: red; text-align: center; margin-top: 15px;">
+                        @Model.MensajeError
+                    </div>
+                }
+
+                @if (Model.SesionExpirada)
+                {
+                    <div class="mensaje-expiracion" style="color: #d9534f; text-align: center; margin-top: 15px; font-weight: bold;">
+                        Su sesión ha expirado por inactividad. Por favor inicie sesión nuevamente.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
