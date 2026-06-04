@@ -1,0 +1,188 @@
+﻿@page
+@model AdministraciondePersonal.Pages.BienvenidaModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Bienvenido - Sistema Administración de Personal";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido - Sistema Administración de Personal</title>
+
+    <link rel="stylesheet" href="~/css/plantillaglobal.css">
+    <link rel="stylesheet" href="~/css/bienvenida.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="sidebar-header">
+            <div class="sistema-icono">
+                <img src="~/css/images/icono.png" alt="Icono del sistema">
+            </div>
+            <h3>AdminPersonal</h3>
+        </div>
+
+        <ul class="nav-menu">
+
+            <li class="nav-item">
+                <a href="/pages/frmRoles.html" class="nav-link">
+                    <span>Administración Roles</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Módulos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Usuarios</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/pages/oferentes.html" class="nav-link">
+                    <span>Registro Oferentes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/pages/concursos.html" class="nav-link">
+                    <span>Registro Concursos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/pages/preparacionAcademica.html" class="nav-link">
+                    <span>Registro Preparación Académica</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/pages/experienciaLaboral.html" class="nav-link">
+                    <span>Experiencia Laboral</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Agendar Entrevista</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Contratar Empleado</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Requisitos de Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Áreas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Acciones de Personal</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Vizualizar Bitácoras</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Parámetros</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Compañías</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Cargar Datos de Ubicación</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Instituciones Educativas</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="main-content">
+
+        <div class="topbar">
+
+            <div class="user-info">
+
+                <span class="user-name" id="nombreUsuario">
+                    @Model.NombreUsuario
+                </span>
+
+                <div class="user-avatar" id="userAvatar" style="background-color: @Model.ColorAvatar">
+                    @Model.InicialAvatar
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="page-container">
+
+            <div class="welcome-card">
+
+                <h2>
+                    Bienvenido,
+                    <span id="nombreCompleto">
+                        @Model.NombreCompleto
+                    </span>
+                </h2>
+
+                <div class="logo-empresa">
+
+                    <img src="~/css/images/icono.png"
+                         alt="Logo empresa"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

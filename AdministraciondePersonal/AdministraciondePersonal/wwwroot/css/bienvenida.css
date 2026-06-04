@@ -1,0 +1,17 @@
+﻿.welcome-card {
+    background: white;
+    border-radius: 30px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.08);
+}
+
+    .welcome-card h2 {
+        color: #80B0AA;
+        font-size: 42px;
+        margin-bottom: 30px;
+    }
+
+.logo-empresa img {
+    max-width: 200px;
+}
