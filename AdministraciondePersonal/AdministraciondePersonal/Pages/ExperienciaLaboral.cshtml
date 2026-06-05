@@ -1,16 +1,16 @@
 ﻿@page
-@model AdministraciondePersonal.Pages.OferentesModel
+@model AdministraciondePersonal.Pages.ExperienciaLaboralModel
 
 @{
     Layout = null;
-    ViewData["Title"] = "Registro de Oferentes";
+    ViewData["Title"] = "Registro Experiencia Laboral";
 }
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Registro de Oferentes</title>
+    <title>Registro Experiencia Laboral</title>
 
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
@@ -19,18 +19,18 @@
           rel="stylesheet">
 
     <style>
-            .acciones-oferente {
+            .acciones-experiencia {
                 display: flex;
                 gap: 6px;
                 align-items: center;
                 white-space: nowrap;
             }
 
-                .acciones-oferente form {
+                .acciones-experiencia form {
                     margin: 0;
                 }
 
-            .tabla-oferentes {
+            .tabla-experiencia {
                 font-size: 14px;
             }
     </style>
@@ -180,7 +180,7 @@
             <div class="container-fluid mt-4">
 
                 <h2 class="mb-4">
-                    Registro de Oferentes
+                    Registro Experiencia Laboral
                 </h2>
 
                 @if (!string.IsNullOrEmpty(Model.Mensaje))
@@ -199,7 +199,7 @@
 
                 <div class="card mb-4">
                     <div class="card-header">
-                        @(Model.ModoEdicion ? "Actualizar oferente" : "Nuevo oferente")
+                        @(Model.ModoEdicion ? "Actualizar experiencia laboral" : "Nueva experiencia laboral")
                     </div>
 
                     <div class="card-body">
@@ -207,120 +207,66 @@
                         <form method="post">
 
                             <input type="hidden" asp-for="ModoEdicion" />
+                            <input type="hidden" asp-for="Experiencia.IdExperiencia" />
+                            <input type="hidden" asp-for="IdentificacionOferenteSeleccionado" />
+                            <input type="hidden" asp-for="Experiencia.IdentificacionOferente" />
 
                             <div class="row">
 
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">
-                                        Identificación
+                                        Oferente
                                     </label>
 
-                                    <input asp-for="Oferente.Identificacion"
+                                    <input type="text"
                                            class="form-control"
-                                           readonly="@Model.ModoEdicion" />
+                                           value="@Model.IdentificacionOferenteSeleccionado"
+                                           readonly />
                                 </div>
 
-                                <div class="col-md-4 mb-3">
-
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">
-                                        Tipo de identificación
+                                        Nombre de la empresa
                                     </label>
 
-                                    <select asp-for="Oferente.TipoIdentificacion"
-                                            class="form-select">
-
-                                        <option value="">
-                                            Seleccione
-                                        </option>
-
-                                        <option value="Cédula de identidad">
-                                            Cédula de identidad
-                                        </option>
-
-                                        <option value="DIMEX">
-                                            DIMEX
-                                        </option>
-
-                                        <option value="Pasaporte">
-                                            Pasaporte
-                                        </option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-
-                                    <label class="form-label">
-                                        Nombre completo
-                                    </label>
-
-                                    <input asp-for="Oferente.NombreCompleto"
+                                    <input asp-for="Experiencia.NombreEmpresa"
+                                           maxlength="100"
                                            class="form-control" />
-
                                 </div>
 
                             </div>
 
                             <div class="row">
 
-                                <div class="col-md-4 mb-3">
-
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">
-                                        Fecha nacimiento
+                                        Puesto desempeñado
                                     </label>
 
-                                    <input asp-for="Oferente.FechaNacimiento"
+                                    <input asp-for="Experiencia.PuestoDesempenado"
+                                           maxlength="100"
+                                           class="form-control" />
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">
+                                        Fecha de inicio
+                                    </label>
+
+                                    <input asp-for="Experiencia.FechaInicio"
                                            type="date"
                                            class="form-control" />
-
                                 </div>
 
-                                <div class="col-md-4 mb-3">
-
+                                <div class="col-md-3 mb-3">
                                     <label class="form-label">
-                                        Correo
+                                        Fecha de fin
                                     </label>
 
-                                    <input asp-for="Oferente.Correo"
+                                    <input asp-for="Experiencia.FechaFin"
+                                           type="date"
                                            class="form-control" />
-
                                 </div>
-
-                                <div class="col-md-4 mb-3">
-
-                                    <label class="form-label">
-                                        Teléfono
-                                    </label>
-
-                                    <input asp-for="Oferente.Telefono"
-                                           class="form-control" />
-
-                                </div>
-
-                            </div>
-
-                            <div class="mb-3">
-
-                                <label class="form-label">
-                                    Concurso
-                                </label>
-
-                                <select asp-for="Oferente.CodigoConcurso"
-                                        class="form-select">
-
-                                    <option value="0">
-                                        Seleccione un concurso
-                                    </option>
-
-                                    @foreach (var concurso in Model.Concursos)
-                                    {
-                                        <option value="@concurso.CodigoConcurso">
-                                            @concurso.NombreConcurso
-                                        </option>
-                                    }
-
-                                </select>
 
                             </div>
 
@@ -332,7 +278,8 @@
                                     Actualizar
                                 </button>
 
-                                <a href="/Oferentes"
+                                <a asp-page="/ExperienciaLaboral"
+                                   asp-route-identificacionOferente="@Model.IdentificacionOferenteSeleccionado"
                                    class="btn btn-secondary">
                                     Cancelar
                                 </a>
@@ -346,73 +293,58 @@
                                 </button>
                             }
 
+                            <a asp-page="/Oferentes"
+                               class="btn btn-outline-secondary">
+                                Volver a oferentes
+                            </a>
+
                         </form>
 
                     </div>
                 </div>
 
                 <h4>
-                    Lista de Oferentes
+                    Historial de experiencia laboral
                 </h4>
 
                 <div class="table-responsive">
 
-                    <table class="table table-bordered table-striped tabla-oferentes">
+                    <table class="table table-bordered table-striped tabla-experiencia">
 
                         <thead>
-
                             <tr>
-                                <th>Identificación</th>
-                                <th>Tipo</th>
-                                <th>Nombre</th>
-                                <th>Fecha nacimiento</th>
-                                <th>Correo</th>
-                                <th>Teléfono</th>
-                                <th>Concurso</th>
+                                <th>ID</th>
+                                <th>Empresa</th>
+                                <th>Puesto desempeñado</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
                                 <th>Acciones</th>
                             </tr>
-
                         </thead>
 
                         <tbody>
 
-                            @foreach (var item in Model.ListaOferentes)
+                            @foreach (var item in Model.ListaExperiencias)
                             {
                                 <tr>
+                                    <td>@item.IdExperiencia</td>
 
-                                    <td>@item.Identificacion</td>
+                                    <td>@item.NombreEmpresa</td>
 
-                                    <td>@item.TipoIdentificacion</td>
+                                    <td>@item.PuestoDesempenado</td>
 
-                                    <td>@item.NombreCompleto</td>
+                                    <td>@item.FechaInicio.ToString("yyyy-MM-dd")</td>
 
-                                    <td>@item.FechaNacimiento.ToString("yyyy-MM-dd")</td>
-
-                                    <td>@item.Correo</td>
-
-                                    <td>@item.Telefono</td>
-
-                                    <td>@item.NombreConcurso</td>
+                                    <td>@item.FechaFin.ToString("yyyy-MM-dd")</td>
 
                                     <td>
-                                        <div class="acciones-oferente">
-
-                                            <a asp-page="/Oferentes"
-                                               asp-route-identificacion="@item.Identificacion"
-                                               class="btn btn-sm btn-warning">
-                                                Editar
-                                            </a>
-
-                                            <a asp-page="/PreparacionAcademica"
-                                               asp-route-identificacionOferente="@item.Identificacion"
-                                               class="btn btn-sm btn-secondary">
-                                                Preparación académica
-                                            </a>
+                                        <div class="acciones-experiencia">
 
                                             <a asp-page="/ExperienciaLaboral"
-                                               asp-route-identificacionOferente="@item.Identificacion"
-                                               class="btn btn-sm btn-secondary">
-                                                Experiencia laboral
+                                               asp-route-idExperiencia="@item.IdExperiencia"
+                                               asp-route-identificacionOferente="@Model.IdentificacionOferenteSeleccionado"
+                                               class="btn btn-sm btn-warning">
+                                                Editar
                                             </a>
 
                                             <form method="post"
@@ -420,8 +352,12 @@
                                                   onsubmit="return confirm('¿Realmente desea eliminar el elemento seleccionado?');">
 
                                                 <input type="hidden"
-                                                       name="identificacion"
-                                                       value="@item.Identificacion" />
+                                                       name="idExperiencia"
+                                                       value="@item.IdExperiencia" />
+
+                                                <input type="hidden"
+                                                       name="IdentificacionOferenteSeleccionado"
+                                                       value="@Model.IdentificacionOferenteSeleccionado" />
 
                                                 <button type="submit"
                                                         class="btn btn-sm btn-danger">
@@ -432,7 +368,6 @@
 
                                         </div>
                                     </td>
-
                                 </tr>
                             }
 

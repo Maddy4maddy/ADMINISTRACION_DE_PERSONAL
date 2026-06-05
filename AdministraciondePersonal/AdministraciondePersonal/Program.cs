@@ -19,6 +19,9 @@ builder.Services.AddScoped<ConcursoService>();
 builder.Services.AddScoped<PreparacionAcademicaRepository>();
 builder.Services.AddScoped<PreparacionAcademicaService>();
 
+builder.Services.AddScoped<ExperienciaLaboralRepository>();
+builder.Services.AddScoped<ExperienciaLaboralService>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
