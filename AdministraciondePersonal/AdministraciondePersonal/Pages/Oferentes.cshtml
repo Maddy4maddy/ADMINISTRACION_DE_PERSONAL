@@ -80,7 +80,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="/pages/preparacionAcademica.html" class="nav-link">
+                <a asp-page="/PreparacionAcademica" class="nav-link">
                     <span>Registro Preparación Académica</span>
                 </a>
             </li>
@@ -401,6 +401,12 @@
                                                asp-route-identificacion="@item.Identificacion"
                                                class="btn btn-sm btn-warning">
                                                 Editar
+                                            </a>
+
+                                            <a asp-page="/PreparacionAcademica"
+                                               asp-route-identificacionOferente="@item.Identificacion"
+                                               class="btn btn-sm btn-secondary">
+                                                Preparación académica
                                             </a>
 
                                             <form method="post"

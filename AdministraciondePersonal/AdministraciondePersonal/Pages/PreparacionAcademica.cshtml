@@ -1,16 +1,16 @@
 ﻿@page
-@model AdministraciondePersonal.Pages.ConcursosModel
+@model AdministraciondePersonal.Pages.PreparacionAcademicaModel
 
 @{
     Layout = null;
-    ViewData["Title"] = "Registro de Concursos";
+    ViewData["Title"] = "Registro Preparación Académica";
 }
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Registro de Concursos</title>
+    <title>Registro Preparación Académica</title>
 
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
@@ -19,18 +19,18 @@
           rel="stylesheet">
 
     <style>
-            .acciones-concurso {
+            .acciones-preparacion {
                 display: flex;
                 gap: 6px;
                 align-items: center;
                 white-space: nowrap;
             }
 
-                .acciones-concurso form {
+                .acciones-preparacion form {
                     margin: 0;
                 }
 
-            .tabla-concursos {
+            .tabla-preparacion {
                 font-size: 14px;
             }
     </style>
@@ -180,7 +180,7 @@
             <div class="container-fluid mt-4">
 
                 <h2 class="mb-4">
-                    Registro de Concursos
+                    Registro Preparación Académica
                 </h2>
 
                 @if (!string.IsNullOrEmpty(Model.Mensaje))
@@ -199,7 +199,7 @@
 
                 <div class="card mb-4">
                     <div class="card-header">
-                        @(Model.ModoEdicion ? "Actualizar concurso" : "Nuevo concurso")
+                        @(Model.ModoEdicion ? "Actualizar preparación académica" : "Nueva preparación académica")
                     </div>
 
                     <div class="card-body">
@@ -207,26 +207,56 @@
                         <form method="post">
 
                             <input type="hidden" asp-for="ModoEdicion" />
+                            <input type="hidden" asp-for="Preparacion.IdPreparacion" />
+                            <input type="hidden" asp-for="IdentificacionOferenteSeleccionado" />
+                            <input type="hidden" asp-for="Preparacion.IdentificacionOferente" />
 
                             <div class="row">
 
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">
-                                        Código del concurso
+                                        Oferente
                                     </label>
 
-                                    <input asp-for="Concurso.CodigoConcurso"
-                                           type="number"
+                                    <input type="text"
                                            class="form-control"
-                                           readonly="@Model.ModoEdicion" />
+                                           value="@Model.IdentificacionOferenteSeleccionado"
+                                           readonly />
                                 </div>
 
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">
-                                        Nombre del concurso
+                                        Institución educativa
                                     </label>
 
-                                    <input asp-for="Concurso.NombreConcurso"
+                                    <select asp-for="Preparacion.IdInstitucion"
+                                            class="form-select">
+
+                                        <option value="0">
+                                            Seleccione una institución
+                                        </option>
+
+                                        @foreach (var institucion in Model.Instituciones)
+                                        {
+                                            <option value="@institucion.IdInstitucion">
+                                                @institucion.NombreInstitucion
+                                            </option>
+                                        }
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">
+                                        Título obtenido
+                                    </label>
+
+                                    <input asp-for="Preparacion.TituloObtenido"
+                                           maxlength="100"
                                            class="form-control" />
                                 </div>
 
@@ -235,7 +265,7 @@
                                         Fecha de inicio
                                     </label>
 
-                                    <input asp-for="Concurso.FechaInicio"
+                                    <input asp-for="Preparacion.FechaInicio"
                                            type="date"
                                            class="form-control" />
                                 </div>
@@ -245,44 +275,11 @@
                                         Fecha de fin
                                     </label>
 
-                                    <input asp-for="Concurso.FechaFin"
+                                    <input asp-for="Preparacion.FechaFin"
                                            type="date"
                                            class="form-control" />
                                 </div>
 
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    Estado
-                                </label>
-
-                                @if (Model.ModoEdicion)
-                                {
-                                    <select asp-for="Concurso.Estado"
-                                            class="form-select">
-
-                                        <option value="Vigente">
-                                            Vigente
-                                        </option>
-
-                                        <option value="Vencido">
-                                            Vencido
-                                        </option>
-
-                                    </select>
-                                }
-                                else
-                                {
-                                    <input type="text"
-                                           class="form-control"
-                                           value="Vigente"
-                                           readonly />
-
-                                    <input type="hidden"
-                                           asp-for="Concurso.Estado"
-                                           value="Vigente" />
-                                }
                             </div>
 
                             @if (Model.ModoEdicion)
@@ -293,7 +290,8 @@
                                     Actualizar
                                 </button>
 
-                                <a href="/Concursos"
+                                <a asp-page="/PreparacionAcademica"
+                                   asp-route-identificacionOferente="@Model.IdentificacionOferenteSeleccionado"
                                    class="btn btn-secondary">
                                     Cancelar
                                 </a>
@@ -307,53 +305,56 @@
                                 </button>
                             }
 
+                            <a asp-page="/Oferentes"
+                               class="btn btn-outline-secondary">
+                                Volver a oferentes
+                            </a>
+
                         </form>
 
                     </div>
                 </div>
 
                 <h4>
-                    Lista de Concursos
+                    Historial de preparación académica
                 </h4>
 
                 <div class="table-responsive">
 
-                    <table class="table table-bordered table-striped tabla-concursos">
+                    <table class="table table-bordered table-striped tabla-preparacion">
 
                         <thead>
-
                             <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
+                                <th>ID</th>
+                                <th>Institución</th>
+                                <th>Título obtenido</th>
                                 <th>Fecha inicio</th>
                                 <th>Fecha fin</th>
-                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
-
                         </thead>
 
                         <tbody>
 
-                            @foreach (var item in Model.ListaConcursos)
+                            @foreach (var item in Model.ListaPreparaciones)
                             {
                                 <tr>
+                                    <td>@item.IdPreparacion</td>
 
-                                    <td>@item.CodigoConcurso</td>
+                                    <td>@item.NombreInstitucion</td>
 
-                                    <td>@item.NombreConcurso</td>
+                                    <td>@item.TituloObtenido</td>
 
                                     <td>@item.FechaInicio.ToString("yyyy-MM-dd")</td>
 
                                     <td>@item.FechaFin.ToString("yyyy-MM-dd")</td>
 
-                                    <td>@item.Estado</td>
-
                                     <td>
-                                        <div class="acciones-concurso">
+                                        <div class="acciones-preparacion">
 
-                                            <a asp-page="/Concursos"
-                                               asp-route-codigoConcurso="@item.CodigoConcurso"
+                                            <a asp-page="/PreparacionAcademica"
+                                               asp-route-idPreparacion="@item.IdPreparacion"
+                                               asp-route-identificacionOferente="@Model.IdentificacionOferenteSeleccionado"
                                                class="btn btn-sm btn-warning">
                                                 Editar
                                             </a>
@@ -363,8 +364,12 @@
                                                   onsubmit="return confirm('¿Realmente desea eliminar el elemento seleccionado?');">
 
                                                 <input type="hidden"
-                                                       name="codigoConcurso"
-                                                       value="@item.CodigoConcurso" />
+                                                       name="idPreparacion"
+                                                       value="@item.IdPreparacion" />
+
+                                                <input type="hidden"
+                                                       name="IdentificacionOferenteSeleccionado"
+                                                       value="@Model.IdentificacionOferenteSeleccionado" />
 
                                                 <button type="submit"
                                                         class="btn btn-sm btn-danger">
@@ -373,23 +378,8 @@
 
                                             </form>
 
-                                            <form method="post"
-                                                  asp-page-handler="CambiarEstado">
-
-                                                <input type="hidden"
-                                                       name="codigoConcurso"
-                                                       value="@item.CodigoConcurso" />
-
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-info">
-                                                    @(item.Estado == "Vigente" ? "Marcar vencido" : "Marcar vigente")
-                                                </button>
-
-                                            </form>
-
                                         </div>
                                     </td>
-
                                 </tr>
                             }
 

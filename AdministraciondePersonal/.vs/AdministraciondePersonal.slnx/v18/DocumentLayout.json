@@ -3,8 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\preparacionacademica.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\preparacionacademica.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\preparacionacademica.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\preparacionacademica.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9AD333A-CC81-840A-2206-3E7954372E60}|AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal.services\\preparacionacademicaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9AD333A-CC81-840A-2206-3E7954372E60}|AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj|solutionrelative:administraciondepersonal.services\\preparacionacademicaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B342F895-3BD5-FDD2-66B0-440BE6D31B89}|AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal.repository\\preparacionacademicarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B342F895-3BD5-FDD2-66B0-440BE6D31B89}|AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj|solutionrelative:administraciondepersonal.repository\\preparacionacademicarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\concursos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\concursos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\oferentes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\oferentes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\bienvenida.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\bienvenida.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal.entities\\institucioneducativa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|solutionrelative:administraciondepersonal.entities\\institucioneducativa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal.entities\\preparacionacademica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|solutionrelative:administraciondepersonal.entities\\preparacionacademica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\concursos.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,20 +59,8 @@
       "RelativeMoniker": "D:0:0:{B342F895-3BD5-FDD2-66B0-440BE6D31B89}|AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj|solutionrelative:administraciondepersonal.repository\\concursorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal.entities\\concurso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|solutionrelative:administraciondepersonal.entities\\concurso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\oferentes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\oferentes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\bienvenida.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\bienvenida.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\limaw\\documents\\cuc\\sitios\\administraciondepersonal\\administraciondepersonal\\pages\\oferentes.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -73,7 +97,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -109,7 +133,132 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Concursos.cshtml",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Concursos.cshtml",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Concursos.cshtml",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Concursos.cshtml",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Concursos.cshtml",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAAAFQAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-04T22:05:03.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PreparacionAcademicaRepository.cs",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\PreparacionAcademicaRepository.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Repository\\PreparacionAcademicaRepository.cs",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\PreparacionAcademicaRepository.cs*",
+              "RelativeToolTip": "AdministraciondePersonal.Repository\\PreparacionAcademicaRepository.cs*",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAAACEBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T14:41:21.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PreparacionAcademicaService.cs",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\PreparacionAcademicaService.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Services\\PreparacionAcademicaService.cs",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\PreparacionAcademicaService.cs*",
+              "RelativeToolTip": "AdministraciondePersonal.Services\\PreparacionAcademicaService.cs*",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAAAG4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T14:41:40.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "PreparacionAcademica.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml.cs",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml.cs*",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml.cs*",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAAAKgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T14:57:38.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PreparacionAcademica.cshtml",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml*",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\PreparacionAcademica.cshtml*",
+              "ViewState": "AgIAAHIBAAAAAAAAAAAAAI4BAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-05T14:42:45.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Bienvenida.cshtml",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAEAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-04T19:46:08.781Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Oferentes.cshtml",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Oferentes.cshtml",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Oferentes.cshtml",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Oferentes.cshtml",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Oferentes.cshtml",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-04T19:05:37.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InstitucionEducativa.cs",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\InstitucionEducativa.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Entities\\InstitucionEducativa.cs",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\InstitucionEducativa.cs",
+              "RelativeToolTip": "AdministraciondePersonal.Entities\\InstitucionEducativa.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T14:49:23.72Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PreparacionAcademica.cs",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\PreparacionAcademica.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Entities\\PreparacionAcademica.cs",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\PreparacionAcademica.cs",
+              "RelativeToolTip": "AdministraciondePersonal.Entities\\PreparacionAcademica.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T14:40:58.108Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Program.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Program.cs",
+              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Program.cs",
+              "RelativeToolTip": "AdministraciondePersonal\\Program.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAADgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-04T19:16:44.44Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "Concursos.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Concursos.cshtml.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Concursos.cshtml.cs",
@@ -117,12 +266,11 @@
               "RelativeToolTip": "AdministraciondePersonal\\Pages\\Concursos.cshtml.cs",
               "ViewState": "AgIAAIcAAAAAAAAAAAAuwJYAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T22:13:24.369Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T22:13:24.369Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "Concurso.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\Concurso.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal.Entities\\Concurso.cs",
@@ -130,25 +278,11 @@
               "RelativeToolTip": "AdministraciondePersonal.Entities\\Concurso.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T19:24:47.081Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T19:24:47.081Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Program.cs",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\Program.cs",
-              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Program.cs",
-              "RelativeToolTip": "AdministraciondePersonal\\Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAADQAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T19:16:44.44Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 12,
               "Title": "OferenteService.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\OferenteService.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal.Services\\OferenteService.cs",
@@ -156,12 +290,11 @@
               "RelativeToolTip": "AdministraciondePersonal.Services\\OferenteService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T19:02:04.219Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T19:02:04.219Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "ConcursoService.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\ConcursoService.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal.Services\\ConcursoService.cs",
@@ -169,25 +302,11 @@
               "RelativeToolTip": "AdministraciondePersonal.Services\\ConcursoService.cs",
               "ViewState": "AgIAAFcAAAAAAAAAAAAAAHMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T22:03:57.653Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T22:03:57.653Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Concursos.cshtml",
-              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Concursos.cshtml",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Concursos.cshtml",
-              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Concursos.cshtml",
-              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Concursos.cshtml",
-              "ViewState": "AgIAAIABAAAAAAAAAAAqwJgBAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-04T22:05:03.914Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "ConcursoRepository.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\ConcursoRepository.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal.Repository\\ConcursoRepository.cs",
@@ -195,38 +314,11 @@
               "RelativeToolTip": "AdministraciondePersonal.Repository\\ConcursoRepository.cs",
               "ViewState": "AgIAAL4AAAAAAAAAAAAAANoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T22:03:19.214Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T22:03:19.214Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Oferentes.cshtml",
-              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Oferentes.cshtml",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Oferentes.cshtml",
-              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Oferentes.cshtml",
-              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Oferentes.cshtml",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAAAE4AAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-04T19:05:37.394Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Bienvenida.cshtml",
-              "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
-              "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
-              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAADYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-04T19:46:08.781Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "oferentes.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\oferentes.cshtml.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\oferentes.cshtml.cs",
@@ -234,12 +326,11 @@
               "RelativeToolTip": "AdministraciondePersonal\\Pages\\oferentes.cshtml.cs",
               "ViewState": "AgIAAGIAAAAAAAAAAAAAAH4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T19:45:33.114Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T19:45:33.114Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "OferenteRepository.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\OferenteRepository.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal.Repository\\OferenteRepository.cs",
@@ -247,12 +338,11 @@
               "RelativeToolTip": "AdministraciondePersonal.Repository\\OferenteRepository.cs",
               "ViewState": "AgIAAGMBAAAAAAAAAAAqwHIBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T18:59:41.183Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T18:59:41.183Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "Oferente.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\Oferente.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal.Entities\\Oferente.cs",
@@ -260,12 +350,11 @@
               "RelativeToolTip": "AdministraciondePersonal.Entities\\Oferente.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAowBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T18:57:34.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T18:57:34.634Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "Usuario.cs",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\Usuario.cs",
               "RelativeDocumentMoniker": "AdministraciondePersonal.Entities\\Usuario.cs",
@@ -273,12 +362,11 @@
               "RelativeToolTip": "AdministraciondePersonal.Entities\\Usuario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-04T18:05:58.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T18:05:58.486Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\appsettings.json",
               "RelativeDocumentMoniker": "AdministraciondePersonal\\appsettings.json",
@@ -286,25 +374,23 @@
               "RelativeToolTip": "AdministraciondePersonal\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-06-04T18:15:55.105Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T18:15:55.105Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "AdministraciondePersonal",
+              "DocumentIndex": 20,
+              "Title": "AdministraciondePersonal.csproj",
               "DocumentMoniker": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj",
               "RelativeDocumentMoniker": "AdministraciondePersonal\\AdministraciondePersonal.csproj",
               "ToolTip": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj",
               "RelativeToolTip": "AdministraciondePersonal\\AdministraciondePersonal.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-06-04T18:06:11.606Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-04T18:06:11.606Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "Microsoft.NET.TargetFrameworkInference.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.TargetFrameworkInference.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.301\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.TargetFrameworkInference.targets",

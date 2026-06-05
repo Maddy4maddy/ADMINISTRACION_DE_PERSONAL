@@ -16,6 +16,9 @@ builder.Services.AddScoped<OferenteService>();
 builder.Services.AddScoped<ConcursoRepository>();
 builder.Services.AddScoped<ConcursoService>();
 
+builder.Services.AddScoped<PreparacionAcademicaRepository>();
+builder.Services.AddScoped<PreparacionAcademicaService>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
@@ -34,6 +37,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
