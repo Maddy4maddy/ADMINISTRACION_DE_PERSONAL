@@ -1,0 +1,124 @@
+﻿.bitacora-container {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.08);
+}
+
+.bitacora-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+    .bitacora-header h2 {
+        color: #80B0AA;
+        font-size: 28px;
+    }
+
+.filtros {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f7f4ea;
+    border-radius: 15px;
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .filtro-grupo label {
+        font-size: 12px;
+        font-weight: bold;
+        color: #273a77;
+    }
+
+    .filtro-grupo input,
+    .filtro-grupo select {
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 2px solid #C8EDED;
+        font-size: 14px;
+        min-width: 150px;
+    }
+
+    .filtro-grupo button {
+        background-color: #273a77;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+        .filtro-grupo button:hover {
+            background-color: #80B0AA;
+        }
+
+.tabla-bitacora {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+    .tabla-bitacora thead {
+        background-color: #80B0AA;
+        color: white;
+    }
+
+    .tabla-bitacora th,
+    .tabla-bitacora td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .tabla-bitacora tbody tr:hover {
+        background-color: #F9EAC1;
+    }
+
+.ordenar-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+    .paginacion a {
+        padding: 8px 15px;
+        background-color: #f7f4ea;
+        color: #273a77;
+        text-decoration: none;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+        .paginacion a:hover {
+            background-color: #80B0AA;
+            color: white;
+        }
+
+    .paginacion .active {
+        background-color: #273a77;
+        color: white;
+    }

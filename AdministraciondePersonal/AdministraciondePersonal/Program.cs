@@ -25,17 +25,22 @@ builder.Services.AddScoped<ExperienciaLaboralService>();
 builder.Services.AddScoped<EntrevistaRepository>();
 builder.Services.AddScoped<EntrevistaService>();
 
+builder.Services.AddScoped<BitacoraRepository>();     
+builder.Services.AddScoped<BitacoraService>();
+
 builder.Services.AddScoped<InstitucionEducativaRepository>();
 builder.Services.AddScoped<InstitucionEducativaService>();
 
 builder.Services.AddDistributedMemoryCache();
-
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(5);
+    options.IdleTimeout = TimeSpan.FromMinutes(1);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.MaxAge = TimeSpan.FromMinutes(1);
 });
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

@@ -12,6 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido - Sistema Administración de Personal</title>
 
+    <!-- AUTOREFRESH: Recarga la página cada 5 minutos (300 segundos) para verificar sesión -->
+    <meta http-equiv="refresh" content="300; url=/Login?expirada=true">
+
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
 </head>
@@ -108,8 +111,8 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Vizualizar Bitácoras</span>
+                <a asp-page="/Bitacora" class="nav-link">
+                    <span>Visualizar Bitácoras</span>
                 </a>
             </li>
 
@@ -136,6 +139,7 @@
                     <span>Administración Instituciones Educativas</span>
                 </a>
             </li>
+
 
         </ul>
 
@@ -172,7 +176,7 @@
 
                 <div class="logo-empresa">
 
-                    <img src="~/css/images/icono.png"
+                    <img src="~/css/images/logoempresa.png"
                          alt="Logo empresa"
                          onerror="this.style.display='none'">
 

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj": {}
+    "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
+    "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj",
         "projectName": "AdministraciondePersonal.Entities",
-        "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj",
-        "packagesPath": "C:\\Users\\limaw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\obj\\",
+        "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj",
+        "packagesPath": "C:\\Users\\maddy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\limaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -355,20 +356,20 @@
         }
       }
     },
-    "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
+    "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj",
         "projectName": "AdministraciondePersonal.Repository",
-        "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj",
-        "packagesPath": "C:\\Users\\limaw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\obj\\",
+        "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj",
+        "packagesPath": "C:\\Users\\maddy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\limaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -377,6 +378,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -384,8 +386,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
-                "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
+              "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
+                "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
               }
             }
           }
@@ -714,20 +716,20 @@
         }
       }
     },
-    "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj": {
+    "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
+        "projectUniqueName": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
         "projectName": "AdministraciondePersonal.Services",
-        "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
-        "packagesPath": "C:\\Users\\limaw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\obj\\",
+        "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
+        "packagesPath": "C:\\Users\\maddy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\limaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -736,6 +738,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -743,11 +746,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
-                "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
+              "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
+                "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
               },
-              "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
-                "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj"
+              "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
+                "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj"
               }
             }
           }
@@ -1072,20 +1075,20 @@
         }
       }
     },
-    "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj": {
+    "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj",
+        "projectUniqueName": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj",
         "projectName": "AdministraciondePersonal",
-        "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj",
-        "packagesPath": "C:\\Users\\limaw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal\\obj\\",
+        "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\AdministraciondePersonal.csproj",
+        "packagesPath": "C:\\Users\\maddy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\limaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1094,6 +1097,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -1101,14 +1105,14 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
-                "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
+              "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
+                "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
               },
-              "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
-                "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj"
+              "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
+                "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj"
               },
-              "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj": {
-                "projectPath": "C:\\Users\\limaw\\Documents\\CUC\\Sitios\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj"
+              "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj": {
+                "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj"
               }
             }
           }

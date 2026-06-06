@@ -1,0 +1,305 @@
+﻿@page
+@model AdministraciondePersonal.Pages.BitacoraModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Visualizar Bitácoras";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Visualizar Bitácoras</title>
+
+     <!-- AUTOREFRESH: Recarga la página cada 5 minutos (300 segundos) para verificar sesión -->
+    <meta http-equiv="refresh" content="300; url=/Login?expirada=true">
+
+    <link rel="stylesheet" href="~/css/plantillaglobal.css">
+    <link rel="stylesheet" href="~/css/bienvenida.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        .filtros-bitacora {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tabla-bitacora {
+            font-size: 14px;
+        }
+
+        .ordenar-btn {
+            text-decoration: none;
+            color: white;
+            margin-left: 5px;
+        }
+
+        .ordenar-btn:hover {
+            color: #FDB3CA;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="sidebar-header">
+            <div class="sistema-icono">
+                <img src="~/css/images/icono.png" alt="Icono del sistema">
+            </div>
+            <h3>AdminPersonal</h3>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/Bienvenida" class="nav-link">
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Roles</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Módulos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Usuarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Registro Oferentes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Registro Concursos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Registro Preparación Académica</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Experiencia Laboral</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Agendar Entrevista</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Contratar Empleado</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Puestos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Requisitos de Puestos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Áreas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Acciones de Personal</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/Bitacora" class="nav-link">
+                    <span>Visualizar Bitácoras</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Parámetros</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Compañías</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Cargar Datos de Ubicación</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Instituciones Educativas</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="main-content">
+
+        <div class="topbar">
+            <div class="user-info">
+                <span class="user-name" id="nombreUsuario">@Model.NombreUsuario</span>
+                <div class="user-avatar" id="userAvatar" style="background-color: @Model.ColorAvatar">
+                    @Model.InicialAvatar
+                </div>
+            </div>
+        </div>
+
+        <div class="page-container">
+
+            <div class="container-fluid mt-4">
+
+                <h2 class="mb-4">Visualizar Bitácoras</h2>
+
+                @if (!string.IsNullOrEmpty(Model.Mensaje))
+                {
+                    <div class="alert alert-success">@Model.Mensaje</div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Error))
+                {
+                    <div class="alert alert-danger">@Model.Error</div>
+                }
+
+                <!-- Filtros -->
+                <form method="get" class="filtros-bitacora row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Filtrar por Usuario</label>
+                        <select name="filtroUsuario" class="form-select" asp-for="FiltroUsuario" asp-items="Model.UsuariosList">
+                            <option value="">Todos los usuarios</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Buscar en Descripción</label>
+                        <input type="text" name="filtroDescripcion" class="form-control" asp-for="FiltroDescripcion" placeholder="Texto a buscar...">
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <a href="/Bitacora" class="btn btn-secondary w-100">Limpiar filtros</a>
+                    </div>
+                </form>
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped tabla-bitacora">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    Fecha
+                                    <a asp-page="./Bitacora" 
+                                       asp-route-ordenarPor="FechaBitacora" 
+                                       asp-route-direccion="@(Model.OrdenarPor == "FechaBitacora" && Model.Direccion == "DESC" ? "ASC" : "DESC")"
+                                       asp-route-filtroUsuario="@Model.FiltroUsuario"
+                                       asp-route-filtroDescripcion="@Model.FiltroDescripcion"
+                                       class="ordenar-btn">
+                                        @(Model.OrdenarPor == "FechaBitacora" ? (Model.Direccion == "DESC" ? "▲" : "▼") : "▲▼")
+                                    </a>
+                                </th>
+                                <th>
+                                    Usuario
+                                    <a asp-page="./Bitacora" 
+                                       asp-route-ordenarPor="Usuario" 
+                                       asp-route-direccion="@(Model.OrdenarPor == "Usuario" && Model.Direccion == "DESC" ? "ASC" : "DESC")"
+                                       asp-route-filtroUsuario="@Model.FiltroUsuario"
+                                       asp-route-filtroDescripcion="@Model.FiltroDescripcion"
+                                       class="ordenar-btn">
+                                        @(Model.OrdenarPor == "Usuario" ? (Model.Direccion == "DESC" ? "▲" : "▼") : "▲▼")
+                                    </a>
+                                </th>
+                                <th>Descripción de la Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.Bitacoras)
+                            {
+                                <tr>
+                                    <td>@item.FechaBitacora.ToString("dd/MM/yyyy HH:mm:ss")</td
+                                    <td>@item.Usuario</td
+                                    <td>@item.DescripcionAccion</td
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <!-- Paginación -->
+                <nav>
+                    <ul class="pagination">
+
+                        <li class="page-item @(Model.PageIndex <= 1 ? "disabled" : "")">
+                            <a class="page-link"
+                               asp-page="./Bitacora"
+                               asp-route-pageIndex="@(Model.PageIndex - 1)"
+                               asp-route-ordenarPor="@Model.OrdenarPor"
+                               asp-route-direccion="@Model.Direccion"
+                               asp-route-filtroUsuario="@Model.FiltroUsuario"
+                               asp-route-filtroDescripcion="@Model.FiltroDescripcion">
+                                Anterior
+                            </a>
+                        </li>
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                                <a class="page-link"
+                                   asp-page="./Bitacora"
+                                   asp-route-pageIndex="@i"
+                                   asp-route-ordenarPor="@Model.OrdenarPor"
+                                   asp-route-direccion="@Model.Direccion"
+                                   asp-route-filtroUsuario="@Model.FiltroUsuario"
+                                   asp-route-filtroDescripcion="@Model.FiltroDescripcion">
+                                    @i
+                                </a>
+                            </li>
+                        }
+
+                        <li class="page-item @(Model.PageIndex >= Model.TotalPages ? "disabled" : "")">
+                            <a class="page-link"
+                               asp-page="./Bitacora"
+                               asp-route-pageIndex="@(Model.PageIndex + 1)"
+                               asp-route-ordenarPor="@Model.OrdenarPor"
+                               asp-route-direccion="@Model.Direccion"
+                               asp-route-filtroUsuario="@Model.FiltroUsuario"
+                               asp-route-filtroDescripcion="@Model.FiltroDescripcion">
+                                Siguiente
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

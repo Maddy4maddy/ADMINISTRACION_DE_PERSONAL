@@ -12,14 +12,16 @@ namespace AdministraciondePersonal.Pages
 
         public IActionResult OnGet()
         {
-            
-            if (HttpContext.Session.GetString("Usuario") == null)
+            // Verificar sesión manualmente
+            var usuario = HttpContext.Session.GetString("Usuario");
+
+            if (string.IsNullOrEmpty(usuario))
             {
                 return RedirectToPage("/Login", new { expirada = true });
             }
 
-            
-            NombreUsuario = HttpContext.Session.GetString("Usuario");
+            // Obtener datos de la sesión
+            NombreUsuario = usuario;
             NombreCompleto = HttpContext.Session.GetString("NombreCompleto");
 
             if (string.IsNullOrEmpty(NombreCompleto))
@@ -27,10 +29,10 @@ namespace AdministraciondePersonal.Pages
                 NombreCompleto = NombreUsuario;
             }
 
-            
+            // Generar inicial del avatar
             InicialAvatar = NombreCompleto.Length > 0 ? NombreCompleto.Substring(0, 1).ToUpper() : "U";
 
-        
+            // Generar color basado en el nombre de usuario
             int hash = 0;
             foreach (char c in NombreUsuario)
             {
