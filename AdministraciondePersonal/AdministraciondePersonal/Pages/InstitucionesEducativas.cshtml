@@ -1,16 +1,16 @@
 ﻿@page
-@model AdministraciondePersonal.Pages.EntrevistasModel
+@model AdministraciondePersonal.Pages.InstitucionesEducativasModel
 
 @{
     Layout = null;
-    ViewData["Title"] = "Agendar Entrevistas";
+    ViewData["Title"] = "Administración Instituciones Educativas";
 }
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Agendar Entrevistas</title>
+    <title>Administración Instituciones Educativas</title>
 
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
@@ -19,18 +19,18 @@
           rel="stylesheet">
 
     <style>
-            .acciones-entrevista {
+            .acciones-institucion {
                 display: flex;
                 gap: 6px;
                 align-items: center;
                 white-space: nowrap;
             }
 
-                .acciones-entrevista form {
-                    margin: 0;
-                }
+            .acciones-institucion form {
+                margin: 0;
+            }
 
-            .tabla-entrevistas {
+            .tabla-instituciones {
                 font-size: 14px;
             }
     </style>
@@ -174,54 +174,119 @@
 
             <div class="container-fluid mt-4">
 
-                <h2 class="mb-4">Agendar Entrevistas</h2>
+                <h2 class="mb-4">
+                    Administración Instituciones Educativas
+                </h2>
 
                 @if (!string.IsNullOrEmpty(Model.Mensaje))
                 {
-                    <div class="alert alert-success">@Model.Mensaje</div>
+                    <div class="alert alert-success">
+                        @Model.Mensaje
+                    </div>
                 }
 
                 @if (!string.IsNullOrEmpty(Model.Error))
                 {
-                    <div class="alert alert-danger">@Model.Error</div>
+                    <div class="alert alert-danger">
+                        @Model.Error
+                    </div>
                 }
 
-                <a asp-page="/EntrevistaFormulario"
-                   class="btn btn-primary mb-3">
-                    Agendar nueva entrevista
-                </a>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        @(Model.ModoEdicion ? "Actualizar institución educativa" : "Nueva institución educativa")
+                    </div>
+
+                    <div class="card-body">
+
+                        <form method="post">
+
+                            <input type="hidden" asp-for="ModoEdicion" />
+                            <input type="hidden" asp-for="Institucion.IdInstitucion" />
+
+                            <div class="row">
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">
+                                        Código de la institución
+                                    </label>
+
+                                    <input asp-for="Institucion.IdInstitucion"
+                                           class="form-control"
+                                           readonly />
+                                </div>
+
+                                <div class="col-md-8 mb-3">
+                                    <label class="form-label">
+                                        Nombre
+                                    </label>
+
+                                    <input asp-for="Institucion.NombreInstitucion"
+                                           maxlength="150"
+                                           class="form-control" />
+                                </div>
+
+                            </div>
+
+                            @if (Model.ModoEdicion)
+                            {
+                                <button type="submit"
+                                        asp-page-handler="Actualizar"
+                                        class="btn btn-warning">
+                                    Actualizar
+                                </button>
+
+                                <a href="/InstitucionesEducativas"
+                                   class="btn btn-secondary">
+                                    Cancelar
+                                </a>
+                            }
+                            else
+                            {
+                                <button type="submit"
+                                        asp-page-handler="Guardar"
+                                        class="btn btn-primary">
+                                    Guardar
+                                </button>
+                            }
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <h4>
+                    Lista de instituciones educativas
+                </h4>
 
                 <div class="table-responsive">
 
-                    <table class="table table-bordered table-striped tabla-entrevistas">
+                    <table class="table table-bordered table-striped tabla-instituciones">
 
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Oferente</th>
-                                <th>Entrevistador</th>
-                                <th>Fecha entrevista</th>
-                                <th>Estado</th>
+                                <th>Código</th>
+                                <th>Nombre</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach (var item in Model.ListaEntrevistas)
+
+                            @foreach (var item in Model.ListaInstituciones)
                             {
                                 <tr>
-                                    <td>@item.IdEntrevista</td>
-                                    <td>@item.IdentificacionOferente - @item.NombreOferente</td>
-                                    <td>@item.NombreEntrevistador</td>
-                                    <td>@item.FechaEntrevista.ToString("yyyy-MM-dd HH:mm")</td>
-                                    <td>@item.Estado</td>
-                                    <td>
-                                        <div class="acciones-entrevista">
+                                    <td>@item.IdInstitucion</td>
 
-                                            <a asp-page="/EntrevistaFormulario"
-                                               asp-route-idEntrevista="@item.IdEntrevista"
+                                    <td>@item.NombreInstitucion</td>
+
+                                    <td>
+                                        <div class="acciones-institucion">
+
+                                            <a asp-page="/InstitucionesEducativas"
+                                               asp-route-idInstitucion="@item.IdInstitucion"
                                                class="btn btn-sm btn-warning">
-                                                Cambiar datos
+                                                Editar
                                             </a>
 
                                             <form method="post"
@@ -229,12 +294,8 @@
                                                   onsubmit="return confirm('¿Realmente desea eliminar el elemento seleccionado?');">
 
                                                 <input type="hidden"
-                                                       name="idEntrevista"
-                                                       value="@item.IdEntrevista" />
-
-                                                <input type="hidden"
-                                                       name="paginaActual"
-                                                       value="@Model.PaginaActual" />
+                                                       name="idInstitucion"
+                                                       value="@item.IdInstitucion" />
 
                                                 <button type="submit"
                                                         class="btn btn-sm btn-danger">
@@ -243,67 +304,16 @@
 
                                             </form>
 
-                                            <form method="post"
-                                                  asp-page-handler="MarcarRealizada">
-
-                                                <input type="hidden"
-                                                       name="idEntrevista"
-                                                       value="@item.IdEntrevista" />
-
-                                                <input type="hidden"
-                                                       name="paginaActual"
-                                                       value="@Model.PaginaActual" />
-
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-success"
-                                                        disabled="@(item.Estado == "Realizada")">
-                                                    Marcar realizada
-                                                </button>
-
-                                            </form>
-
                                         </div>
                                     </td>
                                 </tr>
                             }
+
                         </tbody>
 
                     </table>
 
                 </div>
-
-                <nav>
-                    <ul class="pagination">
-
-                        <li class="page-item @(Model.PaginaActual <= 1 ? "disabled" : "")">
-                            <a class="page-link"
-                               asp-page="/Entrevistas"
-                               asp-route-pagina="@(Model.PaginaActual - 1)">
-                                Anterior
-                            </a>
-                        </li>
-
-                        @for (int i = 1; i <= Model.TotalPaginas; i++)
-                        {
-                            <li class="page-item @(Model.PaginaActual == i ? "active" : "")">
-                                <a class="page-link"
-                                   asp-page="/Entrevistas"
-                                   asp-route-pagina="@i">
-                                    @i
-                                </a>
-                            </li>
-                        }
-
-                        <li class="page-item @(Model.PaginaActual >= Model.TotalPaginas ? "disabled" : "")">
-                            <a class="page-link"
-                               asp-page="/Entrevistas"
-                               asp-route-pagina="@(Model.PaginaActual + 1)">
-                                Siguiente
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
 
             </div>
 
