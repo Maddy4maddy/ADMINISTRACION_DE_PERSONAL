@@ -6,137 +6,145 @@
 
 <link rel="stylesheet" href="~/css/plantillaglobal.css">
 
-<style>
-    
-    .modal-content {
-        background: white;
-        padding: 25px;
-        border-radius: 20px;
-        width: 450px;
-        max-height: 80vh;
-        overflow-y: auto;
-    }
+<body>
 
-    
-    .pantallas-container {
-        max-height: 250px;
-        overflow-y: auto;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 10px;
-        margin-bottom: 15px;
-    }
-</style>
+    <div class="sidebar">
 
-<div class="page-container">
+        <div class="sidebar-header">
+            <div class="sistema-icono">
+                <img src="~/css/images/icono.png" />
+            </div>
+            <h3>AdminPersonal</h3>
+        </div>
 
-    <div class="crud-container">
+        <ul class="nav-menu">
 
-        <h2 class="crud-title">Administración de Roles</h2>
+            <li class="nav-item">
+                <a href="/Bienvenida" class="nav-link">Dashboard</a>
+            </li>
 
-        <button type="button" class="btn-nuevo" onclick="abrirModal()">
-            + Nuevo Rol
-        </button>
+            <li class="nav-item">
+                <a href="/Roles" class="nav-link">Administración Roles</a>
+            </li>
 
-        <table class="table-roles">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
+            <li class="nav-item"><a href="/Oferentes" class="nav-link">Oferentes</a></li>
+            <li class="nav-item"><a href="/Concursos" class="nav-link">Concursos</a></li>
+            <li class="nav-item"><a href="/Bitacora" class="nav-link">Bitácora</a></li>
 
-            <tbody>
-                @foreach (var rol in Model.ListaRoles)
-                {
-                    <tr>
-                        <td>@rol.IdRol</td>
-                        <td>@rol.NombreRol</td>
-                        <td>
-
-                            <button class="btn-editar"
-                                    onclick="editarRol(@rol.IdRol, '@rol.NombreRol')">
-                                Editar
-                            </button>
-
-                            <form method="post" asp-page-handler="Delete" style="display:inline;">
-                                <input type="hidden" name="idRol" value="@rol.IdRol" />
-                                <button type="submit" class="btn-eliminar">
-                                    Eliminar
-                                </button>
-                            </form>
-
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
+        </ul>
 
     </div>
 
-</div>
+    <div class="main-content">
 
+        <div class="page-container">
 
+            <div class="crud-container">
 
-<form method="post">
+                <h2 class="crud-title">Administración de Roles</h2>
 
-    <div id="modalRol" class="modal">
+                <button type="button" class="btn-nuevo" onclick="abrirModal()">
+                    + Nuevo Rol
+                </button>
 
-        <div class="modal-content">
+                <table class="table-roles">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-            <h3>Gestión de Rol</h3>
+                    <tbody>
+                        @foreach (var rol in Model.ListaRoles)
+                        {
+                            <tr>
+                                <td>@rol.IdRol</td>
+                                <td>@rol.NombreRol</td>
+                                <td>
 
-            <input type="hidden" asp-for="IdRolEditar" />
+                                    <button class="btn-editar"
+                                            onclick="editarRol(@rol.IdRol, '@rol.NombreRol')">
+                                        Editar
+                                    </button>
 
-            <label>Nombre del Rol</label>
-            <input asp-for="NombreRol" class="form-control" />
+                                    <form method="post" asp-page-handler="Delete" style="display:inline;">
+                                        <input type="hidden" name="idRol" value="@rol.IdRol" />
+                                        <button type="submit" class="btn-eliminar">
+                                            Eliminar
+                                        </button>
+                                    </form>
 
-            <br />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
 
-            <h4>Pantallas disponibles</h4>
-
-            <div class="pantallas-container">
-
-                @for (int i = 0; i < Model.Pantallas.Count; i++)
-                {
-                    <div>
-                        <input type="checkbox" asp-for="Pantallas[i].Seleccionada" />
-                        <input type="hidden" asp-for="Pantallas[i].IdPantalla" />
-                        @Model.Pantallas[i].NombrePantalla
-                    </div>
-                }
+                </table>
 
             </div>
-
-            <button type="submit" class="btn-guardar">
-                Guardar
-            </button>
-
-            <button type="button" class="btn-cancelar" onclick="cerrarModal()">
-                Cancelar
-            </button>
 
         </div>
 
     </div>
 
-</form>
+    <form method="post">
 
+        <div id="modalRol" class="modal">
 
-<script>
-    function abrirModal() {
-        document.getElementById("modalRol").style.display = "flex";
-    }
+            <div class="modal-content">
 
-    function cerrarModal() {
-        document.getElementById("modalRol").style.display = "none";
-    }
+                <h3>Gestión de Rol</h3>
 
-    function editarRol(id, nombre) {
-        document.querySelector("[name='IdRolEditar']").value = id;
-        document.querySelector("[name='NombreRol']").value = nombre;
-        abrirModal();
-    }
-</script>
+                <input type="hidden" asp-for="IdRolEditar" />
+
+                <label>Nombre del Rol</label>
+                <input asp-for="NombreRol" class="form-control" />
+
+                <br />
+
+                <h4>Pantallas disponibles</h4>
+
+                <div class="pantallas-container">
+
+                    @for (int i = 0; i < Model.Pantallas.Count; i++)
+                    {
+                        <div>
+                            <input type="checkbox" asp-for="Pantallas[i].Seleccionada" />
+                            <input type="hidden" asp-for="Pantallas[i].IdPantalla" />
+                            @Model.Pantallas[i].NombrePantalla
+                        </div>
+                    }
+
+                </div>
+
+                <button type="submit" class="btn-guardar">Guardar</button>
+
+                <button type="button" class="btn-cancelar" onclick="cerrarModal()">
+                    Cancelar
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <script>
+        function abrirModal() {
+            document.getElementById("modalRol").style.display = "flex";
+        }
+
+        function cerrarModal() {
+            document.getElementById("modalRol").style.display = "none";
+        }
+
+        function editarRol(id, nombre) {
+            document.querySelector("[name='IdRolEditar']").value = id;
+            document.querySelector("[name='NombreRol']").value = nombre;
+            abrirModal();
+        }
+    </script>
+
+</body>

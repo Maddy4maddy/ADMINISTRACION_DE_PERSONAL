@@ -15,10 +15,10 @@ namespace AdministraciondePersonal.Pages
         }
 
         [BindProperty]
-        public string NombreRol { get; set; }
+        public int IdRolEditar { get; set; }
 
         [BindProperty]
-        public int IdRolEditar { get; set; }
+        public string NombreRol { get; set; }
 
         [BindProperty]
         public List<Pantalla> Pantallas { get; set; } = new();
@@ -28,7 +28,15 @@ namespace AdministraciondePersonal.Pages
         public void OnGet()
         {
             ListaRoles = _service.ObtenerRoles();
-            Pantallas = _service.ObtenerPantallas();
+
+            var pantallas = _service.ObtenerPantallas();
+
+            foreach (var p in pantallas)
+            {
+                p.Seleccionada = false;
+            }
+
+            Pantallas = pantallas;
         }
 
         public IActionResult OnPost()
@@ -40,28 +48,14 @@ namespace AdministraciondePersonal.Pages
                 return Page();
             }
 
-            _service.CrearRolConPantallas(NombreRol, Pantallas);
+            _service.GuardarRol(IdRolEditar, NombreRol, Pantallas);
 
             return RedirectToPage();
         }
 
         public IActionResult OnPostDelete(int idRol)
         {
-            try
-            {
-                _service.EliminarRol(idRol);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-            }
-
-            return RedirectToPage();
-        }
-
-        public IActionResult OnPostEditar()
-        {
-            _service.EditarRol(IdRolEditar, NombreRol);
+            _service.EliminarRol(idRol);
             return RedirectToPage();
         }
     }
