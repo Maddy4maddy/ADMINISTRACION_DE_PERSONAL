@@ -12,6 +12,9 @@
     <meta charset="utf-8" />
     <title>@ViewData["Title"]</title>
 
+    <!-- AUTOREFRESH: Recarga la página cada 5 minutos para verificar sesión -->
+    <meta http-equiv="refresh" content="300; url=/Login?expirada=true">
+
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
 
@@ -111,8 +114,8 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Vizualizar Bitácoras</span>
+                <a asp-page="/Bitacora" class="nav-link">
+                    <span>Visualizar Bitácoras</span>
                 </a>
             </li>
 
@@ -148,8 +151,13 @@
 
         <div class="topbar">
             <div class="user-info">
-                <span class="user-name" id="nombreUsuario">Usuario</span>
-                <div class="user-avatar" id="userAvatar">U</div>
+                <span class="user-name" id="nombreUsuario">
+                    @Model.NombreUsuario
+                </span>
+
+                <div class="user-avatar" id="userAvatar" style="background-color: @Model.ColorAvatar">
+                    @Model.InicialAvatar
+                </div>
             </div>
         </div>
 
