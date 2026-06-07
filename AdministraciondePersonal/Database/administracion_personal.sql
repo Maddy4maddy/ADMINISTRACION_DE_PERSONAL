@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: administracion_personal
+-- Host: localhost    Database: administracion_personal
 -- ------------------------------------------------------
--- Server version	8.0.43
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -274,8 +274,9 @@ DROP TABLE IF EXISTS `pantallas`;
 CREATE TABLE `pantallas` (
   `id_pantalla` int NOT NULL AUTO_INCREMENT,
   `nombre_pantalla` varchar(100) NOT NULL,
+  `ruta` varchar(200) NOT NULL,
   PRIMARY KEY (`id_pantalla`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,6 +285,7 @@ CREATE TABLE `pantallas` (
 
 LOCK TABLES `pantallas` WRITE;
 /*!40000 ALTER TABLE `pantallas` DISABLE KEYS */;
+INSERT INTO `pantallas` VALUES (1,'Administración Roles','/Roles'),(2,'Administración Módulos','#'),(3,'Administración Usuarios','#'),(4,'Registro Oferentes','/Oferentes'),(5,'Registro Concursos','/Concursos'),(6,'Preparación Académica','/PreparacionAcademica'),(7,'Experiencia Laboral','/ExperienciaLaboral'),(8,'Agendar Entrevista','/Entrevistas'),(9,'Visualizar Bitácoras','/Bitacora'),(10,'Contratar Empleado','#'),(11,'Administración Puestos','#'),(12,'Administración Requisitos de Puestos','#'),(13,'Administración Áreas','#'),(14,'Administración Acciones de Personal','#'),(15,'Administración Parámetros','#'),(16,'Administración Compañías','#'),(17,'Cargar Datos de Ubicación','#'),(18,'Administración Instituciones Educativas','/InstitucionesEducativas');
 /*!40000 ALTER TABLE `pantallas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,7 +358,7 @@ CREATE TABLE `roles` (
   `nombre_rol` varchar(40) NOT NULL,
   PRIMARY KEY (`id_rol`),
   UNIQUE KEY `nombre_rol` (`nombre_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,8 +367,35 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Administracion'),(2,'Reclutador'),(7,'RRHH'),(4,'Supervisor');
+INSERT INTO `roles` VALUES (1,'Administracion'),(8,'PruebaRol'),(2,'Reclutador'),(11,'SECRETARIA'),(4,'Supervisor');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rolpantalla`
+--
+
+DROP TABLE IF EXISTS `rolpantalla`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rolpantalla` (
+  `id_rol` int NOT NULL,
+  `id_pantalla` int NOT NULL,
+  PRIMARY KEY (`id_rol`,`id_pantalla`),
+  KEY `id_pantalla` (`id_pantalla`),
+  CONSTRAINT `rolpantalla_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rolpantalla_ibfk_2` FOREIGN KEY (`id_pantalla`) REFERENCES `pantallas` (`id_pantalla`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rolpantalla`
+--
+
+LOCK TABLES `rolpantalla` WRITE;
+/*!40000 ALTER TABLE `rolpantalla` DISABLE KEYS */;
+INSERT INTO `rolpantalla` VALUES (8,1),(11,2),(1,3),(8,4),(11,5),(11,6);
+/*!40000 ALTER TABLE `rolpantalla` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -399,7 +428,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'maddy','Madeline Cordero','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',0,0,'activo','admin@gmail.com',NULL),(2,'admin','Johan Alvarado','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2',0,0,'activo','Johan@gmail.com',1);
+INSERT INTO `usuarios` VALUES (1,'maddy','Madeline Cordero','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',0,0,'activo','admin@gmail.com',11),(2,'admin','Johan Alvarado','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2',0,0,'activo','Johan@gmail.com',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -412,4 +441,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-05 13:18:33
+-- Dump completed on 2026-06-07 15:08:17
