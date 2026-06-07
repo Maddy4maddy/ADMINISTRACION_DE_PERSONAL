@@ -31,6 +31,9 @@ builder.Services.AddScoped<BitacoraService>();
 builder.Services.AddScoped<InstitucionEducativaRepository>();
 builder.Services.AddScoped<InstitucionEducativaService>();
 
+builder.Services.AddScoped<RolService>();
+builder.Services.AddScoped<RolRepository>();
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {

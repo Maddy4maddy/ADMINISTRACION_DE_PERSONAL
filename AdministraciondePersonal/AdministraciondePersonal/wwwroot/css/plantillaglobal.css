@@ -281,3 +281,11 @@ body {
     flex: 1;
     cursor: pointer;
 }
+
+.pantallas-container {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+}

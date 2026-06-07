@@ -1,0 +1,142 @@
+﻿@page
+@model AdministraciondePersonal.Pages.RolesModel
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/plantillaglobal.css">
+
+<style>
+    
+    .modal-content {
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        width: 450px;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    
+    .pantallas-container {
+        max-height: 250px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="page-container">
+
+    <div class="crud-container">
+
+        <h2 class="crud-title">Administración de Roles</h2>
+
+        <button type="button" class="btn-nuevo" onclick="abrirModal()">
+            + Nuevo Rol
+        </button>
+
+        <table class="table-roles">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var rol in Model.ListaRoles)
+                {
+                    <tr>
+                        <td>@rol.IdRol</td>
+                        <td>@rol.NombreRol</td>
+                        <td>
+
+                            <button class="btn-editar"
+                                    onclick="editarRol(@rol.IdRol, '@rol.NombreRol')">
+                                Editar
+                            </button>
+
+                            <form method="post" asp-page-handler="Delete" style="display:inline;">
+                                <input type="hidden" name="idRol" value="@rol.IdRol" />
+                                <button type="submit" class="btn-eliminar">
+                                    Eliminar
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<form method="post">
+
+    <div id="modalRol" class="modal">
+
+        <div class="modal-content">
+
+            <h3>Gestión de Rol</h3>
+
+            <input type="hidden" asp-for="IdRolEditar" />
+
+            <label>Nombre del Rol</label>
+            <input asp-for="NombreRol" class="form-control" />
+
+            <br />
+
+            <h4>Pantallas disponibles</h4>
+
+            <div class="pantallas-container">
+
+                @for (int i = 0; i < Model.Pantallas.Count; i++)
+                {
+                    <div>
+                        <input type="checkbox" asp-for="Pantallas[i].Seleccionada" />
+                        <input type="hidden" asp-for="Pantallas[i].IdPantalla" />
+                        @Model.Pantallas[i].NombrePantalla
+                    </div>
+                }
+
+            </div>
+
+            <button type="submit" class="btn-guardar">
+                Guardar
+            </button>
+
+            <button type="button" class="btn-cancelar" onclick="cerrarModal()">
+                Cancelar
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+<script>
+    function abrirModal() {
+        document.getElementById("modalRol").style.display = "flex";
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalRol").style.display = "none";
+    }
+
+    function editarRol(id, nombre) {
+        document.querySelector("[name='IdRolEditar']").value = id;
+        document.querySelector("[name='NombreRol']").value = nombre;
+        abrirModal();
+    }
+</script>

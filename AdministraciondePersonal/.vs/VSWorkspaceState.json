@@ -1,16 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AdministraciondePersonal",
-    "\\AdministraciondePersonal.Repository",
-    "\\AdministraciondePersonal.Services",
     "\\AdministraciondePersonal\\bin",
-    "\\AdministraciondePersonal\\obj",
     "\\AdministraciondePersonal\\Pages",
     "\\AdministraciondePersonal\\Properties",
-    "\\AdministraciondePersonal\\wwwroot",
-    "\\Database"
+    "\\AdministraciondePersonal\\wwwroot"
   ],
-  "SelectedNode": "\\AdministraciondePersonal\\AdministraciondePersonal.csproj.user",
   "PreviewInSolutionExplorer": false
 }
