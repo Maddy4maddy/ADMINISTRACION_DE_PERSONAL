@@ -25,17 +25,18 @@ builder.Services.AddScoped<ExperienciaLaboralService>();
 builder.Services.AddScoped<EntrevistaRepository>();
 builder.Services.AddScoped<EntrevistaService>();
 
-builder.Services.AddScoped<BitacoraRepository>();     
+builder.Services.AddScoped<BitacoraRepository>();
 builder.Services.AddScoped<BitacoraService>();
 
 builder.Services.AddScoped<InstitucionEducativaRepository>();
 builder.Services.AddScoped<InstitucionEducativaService>();
 
+
 builder.Services.AddScoped<RolService>();
 builder.Services.AddScoped<RolRepository>();
 
-
 builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(5);
@@ -55,9 +56,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseSession();
