@@ -266,6 +266,42 @@ namespace AdministraciondePersonal.Repository
             }
         }
 
+        // Verificar combinación usuario + rol
+        public bool ExisteNombreUsuarioConRol(string nombreUsuario, int idRol, int? idExcluir = null)
+        {
+            using (IDbConnection conn = _dbFactory.GetConnection())
+            {
+                string sql = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = @nombreUsuario AND id_rol = @idRol";
+                if (idExcluir.HasValue) sql += " AND id_usuario != @idExcluir";
+                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
+                {
+                    cmd.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
+                    cmd.Parameters.AddWithValue("@idRol", idRol);
+                    if (idExcluir.HasValue) cmd.Parameters.AddWithValue("@idExcluir", idExcluir.Value);
+                    conn.Open();
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                }
+            }
+        }
+
+        // combinación correo + rol
+        public bool ExisteCorreoConRol(string correo, int idRol, int? idExcluir = null)
+        {
+            using (IDbConnection conn = _dbFactory.GetConnection())
+            {
+                string sql = "SELECT COUNT(*) FROM usuarios WHERE correo = @correo AND id_rol = @idRol";
+                if (idExcluir.HasValue) sql += " AND id_usuario != @idExcluir";
+                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
+                {
+                    cmd.Parameters.AddWithValue("@correo", correo);
+                    cmd.Parameters.AddWithValue("@idRol", idRol);
+                    if (idExcluir.HasValue) cmd.Parameters.AddWithValue("@idExcluir", idExcluir.Value);
+                    conn.Open();
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                }
+            }
+        }
+
         public int CrearUsuario(Usuario usuario, string contrasena)
         {
             string contrasenaEncriptada = EncriptarSHA2(contrasena);

@@ -116,10 +116,13 @@ namespace AdministraciondePersonal.Services
                 return (false, "Debe seleccionar un rol");
             if (!ValidarContrasena(contrasena, out string error))
                 return (false, error);
-            if (_usuarioRepository.ExisteNombreUsuario(usuario.NombreUsuario))
-                return (false, "El nombre de usuario ya existe");
-            if (_usuarioRepository.ExisteCorreo(usuario.Correo))
-                return (false, "El correo ya está registrado");
+
+           
+            if (_usuarioRepository.ExisteNombreUsuarioConRol(usuario.NombreUsuario, usuario.IdRol))
+                return (false, "El nombre de usuario ya existe con este rol");
+
+            if (_usuarioRepository.ExisteCorreoConRol(usuario.Correo, usuario.IdRol))
+                return (false, "El correo ya está registrado con este rol");
 
             try
             {
@@ -149,10 +152,14 @@ namespace AdministraciondePersonal.Services
                 if (!ValidarContrasena(nuevaContrasena, out string error))
                     return (false, error);
             }
-            if (_usuarioRepository.ExisteNombreUsuario(usuario.NombreUsuario, usuario.IdUsuario))
-                return (false, "El nombre de usuario ya existe");
-            if (_usuarioRepository.ExisteCorreo(usuario.Correo, usuario.IdUsuario))
-                return (false, "El correo ya está registrado");
+
+            
+            if (_usuarioRepository.ExisteNombreUsuarioConRol(usuario.NombreUsuario, usuario.IdRol, usuario.IdUsuario))
+                return (false, "El nombre de usuario ya existe con este rol");
+
+            
+            if (_usuarioRepository.ExisteCorreoConRol(usuario.Correo, usuario.IdRol, usuario.IdUsuario))
+                return (false, "El correo ya está registrado con este rol");
 
             try
             {
