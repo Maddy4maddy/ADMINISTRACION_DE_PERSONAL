@@ -17,8 +17,12 @@
     <div class="sidebar">
 
         <div class="sidebar-header">
-            <h3>Sistema</h3>
+            <div class="sistema-icono">
+                <img src="~/css/images/icono.png" alt="Icono del sistema">
+            </div>
+            <h3>AdminPersonal</h3>
         </div>
+
 
         <ul class="nav-menu">
 
@@ -125,7 +129,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="/Pantalla" class="nav-link">
+                <a href="/Pantallas" class="nav-link">
                     <span>Administracion de Pantallas</span>
                 </a>
             </li>
@@ -294,7 +298,7 @@
 
         function editarPantalla(id) {
 
-            fetch(`/Pantallas?handler=Pantalla&id=${id}`)
+            fetch(`/Pantalla?handler=Pantalla&id=${id}`)
                 .then(r => r.json())
                 .then(data => {
 

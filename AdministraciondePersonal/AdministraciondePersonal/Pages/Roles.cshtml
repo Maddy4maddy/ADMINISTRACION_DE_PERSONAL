@@ -15,11 +15,16 @@
 <body>
 
     <div class="sidebar">
+
         <div class="sidebar-header">
-            <h3>Sistema</h3>
+            <div class="sistema-icono">
+                <img src="~/css/images/icono.png" alt="Icono del sistema">
+            </div>
+            <h3>AdminPersonal</h3>
         </div>
 
         <ul class="nav-menu">
+
             <li class="nav-item">
                 <a href="/Roles" class="nav-link">
                     <span>Administración Roles</span>
@@ -27,14 +32,15 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Módulos</span>
+                <a href="/Usuarios" class="nav-link">
+                    <span>Administración Usuarios</span>
                 </a>
             </li>
 
+
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <span>Administración Usuarios</span>
+                    <span>Administración Módulos</span>
                 </a>
             </li>
 
@@ -105,7 +111,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/Parametros" class="nav-link">
                     <span>Administración Parámetros</span>
                 </a>
             </li>
@@ -123,11 +129,19 @@
             </li>
 
             <li class="nav-item">
+                <a href="/Pantalla" class="nav-link">
+                    <span>Administracion de Pantallas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a asp-page="/InstitucionesEducativas" class="nav-link">
                     <span>Administración Instituciones Educativas</span>
                 </a>
             </li>
+
         </ul>
+
     </div>
 
     <div class="main-content">
@@ -163,6 +177,7 @@
                             <tr>
                                 <td>@rol.NombreRol</td>
                                 <td>
+
                                     <button type="button"
                                             class="btn-editar"
                                             onclick="editarRol(@rol.IdRol)">
@@ -175,6 +190,7 @@
                                             Eliminar
                                         </button>
                                     </form>
+
                                 </td>
                             </tr>
                         }
@@ -185,7 +201,6 @@
         </div>
     </div>
 
-    <!-- MODAL -->
     <div class="modal" id="modalRol">
 
         <div class="modal-content">
@@ -196,8 +211,6 @@
 
                 <label>Nombre Rol</label>
                 <input type="text" asp-for="NombreRol" />
-
-                <label>Pantallas</label>
 
                 <label>Pantallas</label>
 
@@ -227,6 +240,7 @@
     </div>
 
     <script>
+
         function abrirModal() {
             limpiarFormulario();
             document.getElementById("modalRol").style.display = "flex";
@@ -254,12 +268,10 @@
                     document.querySelector("[name='NombreRol']").value = data.rol.nombreRol;
                     document.querySelector("[name='IdRolEditar']").value = data.rol.idRol;
 
-                    // limpiar checks primero
                     document.querySelectorAll(".chkPantalla").forEach(c => {
                         c.checked = false;
                     });
 
-                    // marcar solo los que vienen del backend
                     data.pantallas.forEach(p => {
                         const chk = document.querySelector(
                             `.chkPantalla[value='${p.idPantalla}']`
@@ -271,6 +283,7 @@
                     document.getElementById("modalRol").style.display = "flex";
                 });
         }
+
     </script>
 
 </body>

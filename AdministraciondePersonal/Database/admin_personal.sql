@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
 -- Host: localhost    Database: administracion_personal
 -- ------------------------------------------------------
--- Server version	8.0.46
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `bitacora` (
   `usuario` varchar(100) NOT NULL,
   `descripcion_accion` text NOT NULL,
   PRIMARY KEY (`id_bitacora`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `bitacora` (
 
 LOCK TABLES `bitacora` WRITE;
 /*!40000 ALTER TABLE `bitacora` DISABLE KEYS */;
-INSERT INTO `bitacora` VALUES (1,'2026-05-27 17:48:03','Usuario','Actualización de oferente Angie Romero Ceciliano'),(2,'2026-05-27 17:49:17','Usuario','Registro de oferente Yorleny Ceciliano Araya'),(3,'2026-05-27 17:49:44','Usuario','Actualización de oferente Andrea Gómez Solano'),(4,'2026-05-27 18:08:34','Usuario','Actualización de oferente Angie Romero Ceciliano'),(5,'2026-05-28 13:50:59','Usuario','Actualización de oferente Angie Romero Ceciliano'),(6,'2026-05-28 13:57:11','Usuario','Actualización de oferente Yorleny Ceciliano Araya'),(7,'2026-05-29 18:18:13','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(8,'2026-05-29 20:06:02','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(9,'2026-05-29 20:06:47','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(10,'2026-05-29 20:08:48','Usuario','Registro de oferente Juan Hidalgo Muñoz'),(11,'2026-05-29 20:13:04','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(12,'2026-05-29 20:13:17','Usuario','Actualización de oferente Andrea Gómez Solano'),(13,'2026-06-07 18:40:37','admin','Cambio de estado de usuario maddy: activo → inactivo'),(14,'2026-06-07 20:50:43','admin','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":11}'),(15,'2026-06-07 21:00:10','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(16,'2026-06-07 21:00:26','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo'),(17,'2026-06-07 21:00:46','Maria Ruiz','Actualización de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":2}'),(18,'2026-06-07 21:10:36','admin','Creación de usuario: {\"NombreUsuario\":\"Josh Silver\",\"NombreCompleto\":\"Josh Silver\",\"Correo\":\"jonnysrr@gmail.com\",\"Estado\":\"activo\",\"IdRol\":1}');
+INSERT INTO `bitacora` VALUES (1,'2026-05-27 17:48:03','Usuario','Actualización de oferente Angie Romero Ceciliano'),(2,'2026-05-27 17:49:17','Usuario','Registro de oferente Yorleny Ceciliano Araya'),(3,'2026-05-27 17:49:44','Usuario','Actualización de oferente Andrea Gómez Solano'),(4,'2026-05-27 18:08:34','Usuario','Actualización de oferente Angie Romero Ceciliano'),(5,'2026-05-28 13:50:59','Usuario','Actualización de oferente Angie Romero Ceciliano'),(6,'2026-05-28 13:57:11','Usuario','Actualización de oferente Yorleny Ceciliano Araya'),(7,'2026-05-29 18:18:13','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(8,'2026-05-29 20:06:02','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(9,'2026-05-29 20:06:47','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(10,'2026-05-29 20:08:48','Usuario','Registro de oferente Juan Hidalgo Muñoz'),(11,'2026-05-29 20:13:04','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(12,'2026-05-29 20:13:17','Usuario','Actualización de oferente Andrea Gómez Solano'),(13,'2026-06-07 18:40:37','admin','Cambio de estado de usuario maddy: activo → inactivo'),(14,'2026-06-07 20:50:43','admin','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":11}'),(15,'2026-06-07 21:00:10','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(16,'2026-06-07 21:00:26','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo'),(17,'2026-06-07 21:00:46','Maria Ruiz','Actualización de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":2}'),(18,'2026-06-07 21:10:36','admin','Creación de usuario: {\"NombreUsuario\":\"Josh Silver\",\"NombreCompleto\":\"Josh Silver\",\"Correo\":\"jonnysrr@gmail.com\",\"Estado\":\"activo\",\"IdRol\":1}'),(19,'2026-06-07 23:47:55','admin','El usuario consulta concursos.'),(20,'2026-06-07 23:48:03','admin','El usuario consulta concursos.'),(21,'2026-06-07 23:58:57','admin','El usuario consulta experiencia laboral del oferente .'),(22,'2026-06-07 23:59:01','admin','El usuario consulta experiencia laboral del oferente .');
 /*!40000 ALTER TABLE `bitacora` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +276,7 @@ CREATE TABLE `pantallas` (
   `nombre_pantalla` varchar(100) NOT NULL,
   `ruta` varchar(200) NOT NULL,
   PRIMARY KEY (`id_pantalla`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,8 +285,34 @@ CREATE TABLE `pantallas` (
 
 LOCK TABLES `pantallas` WRITE;
 /*!40000 ALTER TABLE `pantallas` DISABLE KEYS */;
-INSERT INTO `pantallas` VALUES (1,'Administración Roles','/Roles'),(2,'Administración Módulos','#'),(3,'Administración Usuarios','#'),(4,'Registro Oferentes','/Oferentes'),(5,'Registro Concursos','/Concursos'),(6,'Preparación Académica','/PreparacionAcademica'),(7,'Experiencia Laboral','/ExperienciaLaboral'),(8,'Agendar Entrevista','/Entrevistas'),(9,'Visualizar Bitácoras','/Bitacora'),(10,'Contratar Empleado','#'),(11,'Administración Puestos','#'),(12,'Administración Requisitos de Puestos','#'),(13,'Administración Áreas','#'),(14,'Administración Acciones de Personal','#'),(15,'Administración Parámetros','#'),(16,'Administración Compañías','#'),(17,'Cargar Datos de Ubicación','#'),(18,'Administración Instituciones Educativas','/InstitucionesEducativas');
+INSERT INTO `pantallas` VALUES (1,'Administración Roles','/Roles'),(2,'Administración Módulos','#'),(3,'Administración Usuarios','#'),(4,'Registro Oferentes','/Oferentes'),(5,'Registro Concursos','/Concursos'),(6,'Preparación Académica','/PreparacionAcademica'),(7,'Experiencia Laboral','/ExperienciaLaboral'),(8,'Agendar Entrevista','/Entrevistas'),(9,'Visualizar Bitácoras','/Bitacora'),(10,'Contratar Empleado','#'),(11,'Administración Puestos','#'),(12,'Administración Requisitos de Puestos','#'),(13,'Administración Áreas','#'),(14,'Administración Acciones de Personal','#'),(15,'Administración Parámetros','#'),(16,'Administración Compañías','#'),(17,'Cargar Datos de Ubicación','#'),(18,'Administración Instituciones Educativas','/InstitucionesEducativas'),(22,'Prueba_Pantalla','/prueba');
 /*!40000 ALTER TABLE `pantallas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `parametros`
+--
+
+DROP TABLE IF EXISTS `parametros`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `parametros` (
+  `id_parametro` int NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(100) NOT NULL,
+  `valor` varchar(500) NOT NULL,
+  PRIMARY KEY (`id_parametro`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `parametros`
+--
+
+LOCK TABLES `parametros` WRITE;
+/*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
+INSERT INTO `parametros` VALUES (1,'MAX_INTENTOS_LOGIN','3'),(2,'DIAS_VIGENCIA_CONCURSO','30'),(3,'EDAD_MINIMA_OFERENTE','18'),(4,'MAX_ENTREVISTAS_OFERENTE','5'),(5,'CORREO_RRHH','rrhh@empresa.com'),(6,'NOMBRE_SISTEMA','Administracion de Personal ');
+/*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -358,7 +384,7 @@ CREATE TABLE `roles` (
   `nombre_rol` varchar(40) NOT NULL,
   PRIMARY KEY (`id_rol`),
   UNIQUE KEY `nombre_rol` (`nombre_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,4 +467,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-07 21:23:45
+-- Dump completed on 2026-06-08  0:06:07
