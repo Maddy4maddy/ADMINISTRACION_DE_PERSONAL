@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net8.0": {
       "BouncyCastle.Cryptography/2.6.2": {
@@ -68,6 +68,39 @@
         },
         "runtime": {
           "lib/net6.0/K4os.Hash.xxHash.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "System.Text.Encodings.Web": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {
             "related": ".xml"
           }
         }
@@ -320,6 +353,19 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Text.Encodings.Web/4.5.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Windows.Extensions/8.0.0": {
         "type": "package",
         "compile": {
@@ -367,6 +413,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "AdministraciondePersonal.Entities": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration": "10.0.8",
           "MySql.Data": "9.7.0",
           "System.Drawing.Common": "10.0.8"
@@ -485,6 +532,32 @@
         "lib/netstandard2.0/K4os.Hash.xxHash.xml",
         "lib/netstandard2.1/K4os.Hash.xxHash.dll",
         "lib/netstandard2.1/K4os.Hash.xxHash.xml"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "sha512": "Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.xml",
+        "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Features/2.2.0": {
+      "sha512": "ziFz5zH8f33En4dX81LW84I6XrYXKf9jg6aM39cM+LffN9KJahViKZ61dGMSO2gd3e+qe5yBRwsesvyqlZaSMg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.features/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.xml",
+        "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.features.nuspec"
       ]
     },
     "Microsoft.Extensions.Configuration/10.0.8": {
@@ -855,6 +928,25 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "System.Text.Encodings.Web/4.5.0": {
+      "sha512": "Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
+      "type": "package",
+      "path": "system.text.encodings.web/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netstandard1.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard1.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.0/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.4.5.0.nupkg.sha512",
+        "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Windows.Extensions/8.0.0": {
       "sha512": "Obg3a90MkOw9mYKxrardLpY2u0axDMrSmy4JCdq2cYbelM2cUwmUir5Bomvd1yxmPL9h5LVHU1tuKBZpUjfASg==",
       "type": "package",
@@ -917,28 +1009,30 @@
     "net8.0": [
       "AdministraciondePersonal.Entities >= 1.0.0",
       "AdministraciondePersonal.Repository >= 1.0.0",
+      "Microsoft.AspNetCore.Http.Abstractions >= 2.2.0",
+      "Microsoft.Extensions.Configuration.Abstractions >= 10.0.8",
       "MySql.Data >= 9.7.0",
       "System.Drawing.Common >= 10.0.8"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nazareth\\.nuget\\packages\\": {},
+    "C:\\Users\\maddy\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
+      "projectUniqueName": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
       "projectName": "AdministraciondePersonal.Services",
-      "projectPath": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
-      "packagesPath": "C:\\Users\\Nazareth\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\obj\\",
+      "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj",
+      "packagesPath": "C:\\Users\\maddy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Nazareth\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\maddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -947,17 +1041,19 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
-              "projectPath": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
+            "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj": {
+              "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj"
             },
-            "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
-              "projectPath": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj"
+            "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj": {
+              "projectPath": "C:\\Users\\maddy\\Documents\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj"
             }
           }
         }
@@ -972,12 +1068,21 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net8.0": {
+        "framework": "net8.0",
         "targetAlias": "net8.0",
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
+          "Microsoft.Extensions.Configuration.Abstractions": {
+            "target": "Package",
+            "version": "[10.0.8, )"
+          },
           "MySql.Data": {
             "target": "Package",
             "version": "[9.7.0, )"
@@ -1003,7 +1108,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.314/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -34,13 +34,14 @@ builder.Services.AddScoped<InstitucionEducativaService>();
 builder.Services.AddScoped<RolService>();
 builder.Services.AddScoped<RolRepository>();
 
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(1);
+    options.IdleTimeout = TimeSpan.FromMinutes(5);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
-    options.Cookie.MaxAge = TimeSpan.FromMinutes(1);
+    options.Cookie.MaxAge = TimeSpan.FromMinutes(5);
 });
 
 builder.Services.AddHttpContextAccessor();

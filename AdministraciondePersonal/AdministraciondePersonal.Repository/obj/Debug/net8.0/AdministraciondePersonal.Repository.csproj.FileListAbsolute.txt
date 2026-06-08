@@ -1,16 +1,16 @@
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Repository.deps.json
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Repository.dll
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Repository.pdb
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Entities.dll
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Entities.pdb
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.csproj.AssemblyReference.cache
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.AssemblyInfoInputs.cache
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.AssemblyInfo.cs
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.csproj.CoreCompileInputs.cache
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.sourcelink.json
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\Administ.9AB3CD67.Up2Date
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.dll
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\refint\AdministraciondePersonal.Repository.dll
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.pdb
-C:\Users\Nazareth\Documents\TI\Admin Sitios Web\Proyecto Bueno\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\ref\AdministraciondePersonal.Repository.dll
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.csproj.AssemblyReference.cache
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.AssemblyInfoInputs.cache
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.AssemblyInfo.cs
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.csproj.CoreCompileInputs.cache
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.sourcelink.json
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Repository.deps.json
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Repository.dll
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Repository.pdb
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Entities.dll
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\bin\Debug\net8.0\AdministraciondePersonal.Entities.pdb
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\Administ.9AB3CD67.Up2Date
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.dll
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\refint\AdministraciondePersonal.Repository.dll
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\AdministraciondePersonal.Repository.pdb
+C:\Users\maddy\Documents\ADMINISTRACION_DE_PERSONAL\AdministraciondePersonal\AdministraciondePersonal.Repository\obj\Debug\net8.0\ref\AdministraciondePersonal.Repository.dll
