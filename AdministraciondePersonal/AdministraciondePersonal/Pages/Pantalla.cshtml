@@ -1,0 +1,317 @@
+﻿@page
+@model AdministraciondePersonal.Pages.PantallasModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Pantallas</title>
+    <link rel="stylesheet" href="/css/plantillaGlobal.css" />
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="sidebar-header">
+            <h3>Sistema</h3>
+        </div>
+
+        <ul class="nav-menu">
+
+            <li class="nav-item">
+                <a href="/Roles" class="nav-link">
+                    <span>Administración Roles</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Módulos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Usuarios</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Oferentes" class="nav-link">
+                    <span>Registro Oferentes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Concursos" class="nav-link">
+                    <span>Registro Concursos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/PreparacionAcademica" class="nav-link">
+                    <span>Registro Preparación Académica</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/ExperienciaLaboral" class="nav-link">
+                    <span>Experiencia Laboral</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Entrevistas" class="nav-link">
+                    <span>Agendar Entrevista</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Contratar Empleado</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Requisitos de Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Áreas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Acciones de Personal</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Bitacora" class="nav-link">
+                    <span>Visualizar Bitácoras</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/Parametros" class="nav-link">
+                    <span>Administración Parámetros</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Compañías</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Cargar Datos de Ubicación</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/Pantalla" class="nav-link">
+                    <span>Administracion de Pantallas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/InstitucionesEducativas" class="nav-link">
+                    <span>Administración Instituciones Educativas</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="main-content">
+
+        <div class="page-container">
+
+            <div class="welcome-card">
+
+                <h2>Administración de Pantallas</h2>
+
+                <p>
+                    Permite administrar las pantallas disponibles
+                    dentro del sistema.
+                </p>
+
+            </div>
+
+            <div class="crud-container">
+
+                <h2 class="crud-title">
+                    Gestión de Pantallas
+                </h2>
+
+                <button type="button"
+                        class="btn-nuevo"
+                        onclick="abrirModal()">
+                    Nueva Pantalla
+                </button>
+
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="mensaje-alerta">
+                        @TempData["Mensaje"]
+                    </div>
+                }
+
+                <table class="table-roles">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Pantalla</th>
+                            <th>Ruta</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var p in Model.ListaPantallas)
+                        {
+                            <tr>
+
+                                <td>@p.IdPantalla</td>
+
+                                <td>@p.NombrePantalla</td>
+
+                                <td>@p.Ruta</td>
+
+                                <td>
+
+                                    <button type="button"
+                                            class="btn-editar"
+                                            onclick="editarPantalla(@p.IdPantalla)">
+                                        Editar
+                                    </button>
+
+                                    <form method="post"
+                                          asp-page-handler="Delete"
+                                          style="display:inline;">
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@p.IdPantalla" />
+
+                                        <button type="submit"
+                                                class="btn-eliminar">
+                                            Eliminar
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal" id="modalPantalla">
+
+        <div class="modal-content">
+
+            <form method="post">
+
+                <input type="hidden" asp-for="IdPantalla" />
+
+                <label>Nombre de la Pantalla</label>
+
+                <input asp-for="NombrePantalla"
+                       maxlength="100"
+                       required />
+
+                <label>Ruta</label>
+
+                <input asp-for="Ruta"
+                       maxlength="200"
+                       required />
+
+                <div class="modal-buttons">
+
+                    <button type="submit"
+                            class="btn-guardar">
+                        Guardar
+                    </button>
+
+                    <button type="button"
+                            class="btn-cancelar"
+                            onclick="cerrarModal()">
+                        Cancelar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function abrirModal() {
+
+            document.querySelector("[name='IdPantalla']").value = "0";
+            document.querySelector("[name='NombrePantalla']").value = "";
+            document.querySelector("[name='Ruta']").value = "";
+
+            document.getElementById("modalPantalla").style.display = "flex";
+        }
+
+        function cerrarModal() {
+
+            document.getElementById("modalPantalla").style.display = "none";
+        }
+
+        function editarPantalla(id) {
+
+            fetch(`/Pantallas?handler=Pantalla&id=${id}`)
+                .then(r => r.json())
+                .then(data => {
+
+                    document.querySelector("[name='IdPantalla']").value =
+                        data.idPantalla;
+
+                    document.querySelector("[name='NombrePantalla']").value =
+                        data.nombrePantalla;
+
+                    document.querySelector("[name='Ruta']").value =
+                        data.ruta;
+
+                    document.getElementById("modalPantalla").style.display = "flex";
+                });
+        }
+
+    </script>
+
+</body>
+</html>

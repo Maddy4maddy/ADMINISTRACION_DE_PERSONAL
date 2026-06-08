@@ -4,45 +4,130 @@
     Layout = null;
 }
 
-<link rel="stylesheet" href="~/css/plantillaglobal.css">
-
-<style>
-    .pantallas-container {
-        max-height: 250px;
-        overflow-y: auto;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 10px;
-    }
-</style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Roles</title>
+    <link rel="stylesheet" href="~/css/plantillaGlobal.css" />
+</head>
 
 <body>
 
     <div class="sidebar">
-
         <div class="sidebar-header">
-            <div class="sistema-icono">
-                <img src="~/css/images/icono.png" />
-            </div>
-            <h3>AdminPersonal</h3>
+            <h3>Sistema</h3>
         </div>
 
         <ul class="nav-menu">
-
             <li class="nav-item">
-                <a href="/Bienvenida" class="nav-link">Dashboard</a>
+                <a href="/Roles" class="nav-link">
+                    <span>Administración Roles</span>
+                </a>
             </li>
 
             <li class="nav-item">
-                <a href="/Roles" class="nav-link">Administración Roles</a>
+                <a href="#" class="nav-link">
+                    <span>Administración Módulos</span>
+                </a>
             </li>
 
-            <li class="nav-item"><a href="/Oferentes" class="nav-link">Oferentes</a></li>
-            <li class="nav-item"><a href="/Concursos" class="nav-link">Concursos</a></li>
-            <li class="nav-item"><a href="/Bitacora" class="nav-link">Bitácora</a></li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Usuarios</span>
+                </a>
+            </li>
 
+            <li class="nav-item">
+                <a asp-page="/Oferentes" class="nav-link">
+                    <span>Registro Oferentes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Concursos" class="nav-link">
+                    <span>Registro Concursos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/PreparacionAcademica" class="nav-link">
+                    <span>Registro Preparación Académica</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/ExperienciaLaboral" class="nav-link">
+                    <span>Experiencia Laboral</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Entrevistas" class="nav-link">
+                    <span>Agendar Entrevista</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Contratar Empleado</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Requisitos de Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Áreas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Acciones de Personal</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Bitacora" class="nav-link">
+                    <span>Visualizar Bitácoras</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Parámetros</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Compañías</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Cargar Datos de Ubicación</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/InstitucionesEducativas" class="nav-link">
+                    <span>Administración Instituciones Educativas</span>
+                </a>
+            </li>
         </ul>
-
     </div>
 
     <div class="main-content">
@@ -51,17 +136,22 @@
 
             <div class="crud-container">
 
-                <h2 class="crud-title">Administración de Roles</h2>
+                <h2 class="crud-title">Gestión de Roles</h2>
 
                 <button type="button" class="btn-nuevo" onclick="abrirModal()">
-                    + Nuevo Rol
+                    Nuevo Rol
                 </button>
 
-                <table class="table-roles">
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="mensaje-alerta">
+                        @TempData["Mensaje"]
+                    </div>
+                }
 
+                <table class="table-roles">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Rol</th>
                             <th>Acciones</th>
                         </tr>
@@ -71,12 +161,11 @@
                         @foreach (var rol in Model.ListaRoles)
                         {
                             <tr>
-                                <td>@rol.IdRol</td>
                                 <td>@rol.NombreRol</td>
                                 <td>
-
-                                    <button class="btn-editar"
-                                            onclick="editarRol(@rol.IdRol, '@rol.NombreRol')">
+                                    <button type="button"
+                                            class="btn-editar"
+                                            onclick="editarRol(@rol.IdRol)">
                                         Editar
                                     </button>
 
@@ -86,64 +175,60 @@
                                             Eliminar
                                         </button>
                                     </form>
-
                                 </td>
                             </tr>
                         }
                     </tbody>
-
                 </table>
 
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modalRol">
+
+        <div class="modal-content">
+
+            <form method="post">
+
+                <input type="hidden" asp-for="IdRolEditar" />
+
+                <label>Nombre Rol</label>
+                <input type="text" asp-for="NombreRol" />
+
+                <label>Pantallas</label>
+
+                <label>Pantallas</label>
+
+                <div class="pantallas-container">
+                    @foreach (var p in Model.Pantallas)
+                    {
+                        <div>
+                            <input type="checkbox"
+                                   class="chkPantalla"
+                                   name="PantallasSeleccionadas"
+                                   value="@p.IdPantalla" />
+
+                            <label>@p.NombrePantalla</label>
+                        </div>
+                    }
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-guardar">Guardar</button>
+                    <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                </div>
+
+            </form>
 
         </div>
 
     </div>
 
-    <form method="post">
-
-        <div id="modalRol" class="modal">
-
-            <div class="modal-content">
-
-                <h3>Gestión de Rol</h3>
-
-                <input type="hidden" asp-for="IdRolEditar" />
-
-                <label>Nombre del Rol</label>
-                <input asp-for="NombreRol" class="form-control" />
-
-                <br />
-
-                <h4>Pantallas disponibles</h4>
-
-                <div class="pantallas-container">
-
-                    @for (int i = 0; i < Model.Pantallas.Count; i++)
-                    {
-                        <div>
-                            <input type="checkbox" asp-for="Pantallas[i].Seleccionada" />
-                            <input type="hidden" asp-for="Pantallas[i].IdPantalla" />
-                            @Model.Pantallas[i].NombrePantalla
-                        </div>
-                    }
-
-                </div>
-
-                <button type="submit" class="btn-guardar">Guardar</button>
-
-                <button type="button" class="btn-cancelar" onclick="cerrarModal()">
-                    Cancelar
-                </button>
-
-            </div>
-
-        </div>
-
-    </form>
-
     <script>
         function abrirModal() {
+            limpiarFormulario();
             document.getElementById("modalRol").style.display = "flex";
         }
 
@@ -151,11 +236,42 @@
             document.getElementById("modalRol").style.display = "none";
         }
 
-        function editarRol(id, nombre) {
-            document.querySelector("[name='IdRolEditar']").value = id;
-            document.querySelector("[name='NombreRol']").value = nombre;
-            abrirModal();
+        function limpiarFormulario() {
+            document.querySelector("[name='NombreRol']").value = "";
+            document.querySelector("[name='IdRolEditar']").value = "0";
+
+            document.querySelectorAll(".chkPantalla").forEach(c => {
+                c.checked = false;
+            });
+        }
+
+        function editarRol(id) {
+
+            fetch(`/Roles?handler=Rol&id=${id}`)
+                .then(r => r.json())
+                .then(data => {
+
+                    document.querySelector("[name='NombreRol']").value = data.rol.nombreRol;
+                    document.querySelector("[name='IdRolEditar']").value = data.rol.idRol;
+
+                    // limpiar checks primero
+                    document.querySelectorAll(".chkPantalla").forEach(c => {
+                        c.checked = false;
+                    });
+
+                    // marcar solo los que vienen del backend
+                    data.pantallas.forEach(p => {
+                        const chk = document.querySelector(
+                            `.chkPantalla[value='${p.idPantalla}']`
+                        );
+
+                        if (chk) chk.checked = true;
+                    });
+
+                    document.getElementById("modalRol").style.display = "flex";
+                });
         }
     </script>
 
 </body>
+</html>

@@ -1,34 +1,42 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\",
+  "WorkspaceRootPath": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto bueno\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\pages\\roles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\roles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto bueno\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\wwwroot\\css\\plantillaglobal.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\wwwroot\\css\\plantillaglobal.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto bueno\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto bueno\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal.entities\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|solutionrelative:administraciondepersonal.entities\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto bueno\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\pages\\roles.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\roles.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\pages\\pantalla.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\pantalla.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9AD333A-CC81-840A-2206-3E7954372E60}|AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto bueno\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal.services\\rolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9AD333A-CC81-840A-2206-3E7954372E60}|AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj|solutionrelative:administraciondepersonal.services\\rolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\pages\\pantalla.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\pantalla.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B342F895-3BD5-FDD2-66B0-440BE6D31B89}|AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto bueno\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal.repository\\rolrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B342F895-3BD5-FDD2-66B0-440BE6D31B89}|AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj|solutionrelative:administraciondepersonal.repository\\rolrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E9AD333A-CC81-840A-2206-3E7954372E60}|AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal.services\\pantallaservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9AD333A-CC81-840A-2206-3E7954372E60}|AdministraciondePersonal.Services\\AdministraciondePersonal.Services.csproj|solutionrelative:administraciondepersonal.services\\pantallaservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B342F895-3BD5-FDD2-66B0-440BE6D31B89}|AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal.repository\\pantallarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B342F895-3BD5-FDD2-66B0-440BE6D31B89}|AdministraciondePersonal.Repository\\AdministraciondePersonal.Repository.csproj|solutionrelative:administraciondepersonal.repository\\pantallarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\pages\\bienvenida.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\bienvenida.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal.entities\\pantalla.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C014991-A867-45F2-7ED7-0542314381B2}|AdministraciondePersonal.Entities\\AdministraciondePersonal.Entities.csproj|solutionrelative:administraciondepersonal.entities\\pantalla.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|c:\\users\\nazareth\\documents\\ti\\admin sitios web\\proyecto final\\administracion_de_personal\\administraciondepersonal\\administraciondepersonal\\pages\\roles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3DE84236-AFB5-B5AA-21C8-79945A8602D4}|AdministraciondePersonal\\AdministraciondePersonal.csproj|solutionrelative:administraciondepersonal\\pages\\roles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 15,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -77,98 +85,124 @@
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Privacy.cshtml",
-              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Privacy.cshtml",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Privacy.cshtml",
-              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Privacy.cshtml",
-              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Privacy.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-07T20:17:51.867Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\appsettings.json",
               "RelativeDocumentMoniker": "AdministraciondePersonal\\appsettings.json",
-              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\appsettings.json",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\appsettings.json",
               "RelativeToolTip": "AdministraciondePersonal\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-06-07T19:11:25.94Z",
+              "WhenOpened": "2026-06-08T04:19:54.061Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "plantillaglobal.css",
-              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\wwwroot\\css\\plantillaglobal.css",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\wwwroot\\css\\plantillaglobal.css",
-              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\wwwroot\\css\\plantillaglobal.css",
-              "RelativeToolTip": "AdministraciondePersonal\\wwwroot\\css\\plantillaglobal.css",
-              "ViewState": "AgIAABcBAAAAAAAAAAAAABwBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-06-07T19:04:27.78Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RolRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\RolRepository.cs",
-              "RelativeDocumentMoniker": "AdministraciondePersonal.Repository\\RolRepository.cs",
-              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\RolRepository.cs",
-              "RelativeToolTip": "AdministraciondePersonal.Repository\\RolRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH4AAAABAAAAAAAAAA==",
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\Usuario.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Entities\\Usuario.cs",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\Usuario.cs",
+              "RelativeToolTip": "AdministraciondePersonal.Entities\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-07T18:50:55.927Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RolService.cs",
-              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\RolService.cs",
-              "RelativeDocumentMoniker": "AdministraciondePersonal.Services\\RolService.cs",
-              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\RolService.cs",
-              "RelativeToolTip": "AdministraciondePersonal.Services\\RolService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-07T18:50:30.658Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Roles.cshtml",
-              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Roles.cshtml",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Roles.cshtml",
-              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Roles.cshtml",
-              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Roles.cshtml",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAYwKAAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-07T18:49:08.392Z",
+              "WhenOpened": "2026-06-08T04:19:32.491Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Roles.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Roles.cshtml.cs",
-              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Roles.cshtml.cs",
-              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\Proyecto Bueno\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Roles.cshtml.cs",
-              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Roles.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAABAAAAAAAAAA==",
+              "Title": "PantallaServices.cs",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\PantallaServices.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Services\\PantallaServices.cs",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Services\\PantallaServices.cs",
+              "RelativeToolTip": "AdministraciondePersonal.Services\\PantallaServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-07T18:14:49.906Z",
+              "WhenOpened": "2026-06-08T04:13:19.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PantallaRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\PantallaRepository.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Repository\\PantallaRepository.cs",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Repository\\PantallaRepository.cs",
+              "RelativeToolTip": "AdministraciondePersonal.Repository\\PantallaRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-08T04:09:32.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Pantalla.cs",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\Pantalla.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal.Entities\\Pantalla.cs",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal.Entities\\Pantalla.cs",
+              "RelativeToolTip": "AdministraciondePersonal.Entities\\Pantalla.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-08T04:09:27.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Pantalla.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Pantalla.cshtml.cs",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Pantalla.cshtml.cs",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Pantalla.cshtml.cs",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Pantalla.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-08T04:08:23.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Pantalla.cshtml",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Pantalla.cshtml",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Pantalla.cshtml",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Pantalla.cshtml",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Pantalla.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-08T04:08:18.245Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Bienvenida.cshtml",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Bienvenida.cshtml",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-08T04:07:23.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Roles.cshtml",
+              "DocumentMoniker": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Roles.cshtml",
+              "RelativeDocumentMoniker": "AdministraciondePersonal\\Pages\\Roles.cshtml",
+              "ToolTip": "C:\\Users\\Nazareth\\Documents\\TI\\Admin Sitios Web\\ProyectO Final\\ADMINISTRACION_DE_PERSONAL\\AdministraciondePersonal\\AdministraciondePersonal\\Pages\\Roles.cshtml",
+              "RelativeToolTip": "AdministraciondePersonal\\Pages\\Roles.cshtml",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-08T03:59:32.728Z",
               "EditorCaption": ""
             }
           ]

@@ -1,0 +1,49 @@
+﻿@page "/{rutaPersonalizada}"
+@model AdministraciondePersonal.Pages.PantallaGenericaModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@Model.NombrePantalla</title>
+
+    <link rel="stylesheet"
+          href="~/css/plantillaGlobal.css" />
+</head>
+
+<body>
+
+    <div class="main-content">
+
+        <div class="page-container">
+
+            <div class="welcome-card">
+
+                <h1>
+                    @Model.NombrePantalla
+                </h1>
+
+                <br />
+
+                <p>
+                    Esta pantalla fue creada desde la
+                    Administración de Pantallas.
+                </p>
+
+                <br />
+
+                <p>
+                    Aún no tiene funcionalidad implementada.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

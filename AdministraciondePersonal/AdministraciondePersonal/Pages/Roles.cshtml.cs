@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AdministraciondePersonal.Entities;
 using AdministraciondePersonal.Services;
+using AdministraciondePersonal.Entities;
 
 namespace AdministraciondePersonal.Pages
 {
@@ -15,48 +15,71 @@ namespace AdministraciondePersonal.Pages
         }
 
         [BindProperty]
-        public int IdRolEditar { get; set; }
-
-        [BindProperty]
         public string NombreRol { get; set; }
 
         [BindProperty]
-        public List<Pantalla> Pantallas { get; set; } = new();
+        public int IdRolEditar { get; set; }
 
-        public List<rol> ListaRoles { get; set; }
+        [BindProperty]
+        public List<int> PantallasSeleccionadas { get; set; } = new();
+
+        public List<rol> ListaRoles { get; set; } = new();
+
+        public List<Pantalla> Pantallas { get; set; } = new();
 
         public void OnGet()
         {
+            ModelState.Clear();
+
             ListaRoles = _service.ObtenerRoles();
-
-            var pantallas = _service.ObtenerPantallas();
-
-            foreach (var p in pantallas)
-            {
-                p.Seleccionada = false;
-            }
-
-            Pantallas = pantallas;
+            Pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
         }
 
         public IActionResult OnPost()
         {
-            if (string.IsNullOrWhiteSpace(NombreRol))
+            var pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
+
+            foreach (var p in pantallas)
             {
-                ListaRoles = _service.ObtenerRoles();
-                Pantallas = _service.ObtenerPantallas();
-                return Page();
+                p.Seleccionada = PantallasSeleccionadas.Contains(p.IdPantalla);
             }
 
-            _service.GuardarRol(IdRolEditar, NombreRol, Pantallas);
+            if (IdRolEditar == 0)
+                _service.CrearRolConPantallas(NombreRol, pantallas);
+            else
+                _service.EditarRol(IdRolEditar, NombreRol, pantallas);
 
             return RedirectToPage();
         }
 
         public IActionResult OnPostDelete(int idRol)
         {
-            _service.EliminarRol(idRol);
+            TempData["Mensaje"] = _service.EliminarRol(idRol);
             return RedirectToPage();
         }
+
+        public JsonResult OnGetRol(int id)
+        {
+            var rol = _service.ObtenerRoles()
+                .FirstOrDefault(x => x.IdRol == id);
+
+            var pantallasAsignadas = _service.ObtenerPantallasPorRol(id);
+
+            var pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
+
+            return new JsonResult(new
+            {
+                rol = new
+                {
+                    idRol = rol.IdRol,
+                    nombreRol = rol.NombreRol
+                },
+                pantallas = pantallasAsignadas.Select(idPantalla => new
+                {
+                    idPantalla
+                })
+            });
+        }
     }
+    
 }

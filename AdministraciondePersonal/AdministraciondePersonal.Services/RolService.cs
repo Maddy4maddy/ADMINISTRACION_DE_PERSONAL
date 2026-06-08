@@ -1,5 +1,5 @@
-﻿using AdministraciondePersonal.Entities;
-using AdministraciondePersonal.Repository;
+﻿using AdministraciondePersonal.Repository;
+using AdministraciondePersonal.Entities;
 
 namespace AdministraciondePersonal.Services
 {
@@ -22,34 +22,50 @@ namespace AdministraciondePersonal.Services
             return _repo.ObtenerPantallas();
         }
 
-        public void GuardarRol(int? idRol, string nombreRol, List<Pantalla> pantallas)
+        public List<int> ObtenerPantallasPorRol(int idRol)
         {
-            int rolId;
+            return _repo.ObtenerPantallasPorRol(idRol);
+        }
 
-            if (idRol == null || idRol == 0)
-            {
-                rolId = _repo.CrearRol(nombreRol);
-            }
-            else
-            {
-                rolId = idRol.Value;
-                _repo.ActualizarRol(rolId, nombreRol);
-                _repo.EliminarPantallasRol(rolId);
-            }
+        public void CrearRolConPantallas(string nombreRol, List<Pantalla> pantallas)
+        {
+            int idRol = _repo.CrearRol(nombreRol);
 
             foreach (var p in pantallas)
             {
                 if (p.Seleccionada)
                 {
-                    _repo.AsignarPantalla(rolId, p.IdPantalla);
+                    _repo.AsignarPantalla(idRol, p.IdPantalla);
                 }
             }
         }
 
-        public void EliminarRol(int idRol)
+        public void EditarRol(int idRol, string nombreRol, List<Pantalla> pantallas)
         {
-            _repo.EliminarPantallasRol(idRol);
+            _repo.EditarRol(idRol, nombreRol);
+
+            _repo.EliminarPantallasPorRol(idRol);
+
+            foreach (var p in pantallas)
+            {
+                if (p.Seleccionada)
+                {
+                    _repo.AsignarPantalla(idRol, p.IdPantalla);
+                }
+            }
+        }
+
+        public string EliminarRol(int idRol)
+        {
+            if (_repo.RolTieneUsuarios(idRol))
+            {
+                return "No se puede eliminar el rol porque tiene usuarios asignados.";
+            }
+
+            _repo.EliminarPantallasPorRol(idRol);
             _repo.EliminarRol(idRol);
+
+            return "OK";
         }
     }
 }

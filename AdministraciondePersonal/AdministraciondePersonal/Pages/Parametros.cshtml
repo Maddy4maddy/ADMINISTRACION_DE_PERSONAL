@@ -1,0 +1,336 @@
+﻿@page
+@model AdministraciondePersonal.Pages.ParametrosModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Parámetros</title>
+    <link rel="stylesheet" href="~/css/plantillaGlobal.css" />
+</head>
+
+<body>
+    <div class="sidebar">
+
+        <div class="sidebar-header">
+            <h3>Sistema</h3>
+        </div>
+
+        <ul class="nav-menu">
+
+            <li class="nav-item">
+                <a asp-page="/Roles" class="nav-link">
+                    <span>Administración Roles</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Módulos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Usuarios</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Oferentes" class="nav-link">
+                    <span>Registro Oferentes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Concursos" class="nav-link">
+                    <span>Registro Concursos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/PreparacionAcademica" class="nav-link">
+                    <span>Registro Preparación Académica</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/ExperienciaLaboral" class="nav-link">
+                    <span>Experiencia Laboral</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Entrevistas" class="nav-link">
+                    <span>Agendar Entrevista</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Contratar Empleado</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Requisitos de Puestos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Áreas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Acciones de Personal</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/Bitacora" class="nav-link">
+                    <span>Visualizar Bitácoras</span>
+                </a>
+            </li>
+
+            <li class="nav-item active">
+                <a asp-page="/Parametros" class="nav-link">
+                    <span>Administración Parámetros</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Compañías</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Cargar Datos de Ubicación</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-page="/InstitucionesEducativas" class="nav-link">
+                    <span>Administración Instituciones Educativas</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="main-content">
+
+            <div class="page-container">
+
+                <div class="welcome-card">
+
+                    <h2>⚙️ Administración de Parámetros</h2>
+
+                    <p>
+                        Configure los valores globales utilizados por el sistema.
+                        Los cambios realizados aquí afectan el comportamiento general
+                        de la aplicación.
+                    </p>
+
+                </div>
+
+                <div class="parametros-dashboard">
+
+                    <div class="param-card">
+
+                        <h3>@Model.ListaParametros.Count</h3>
+
+                        <span>Parámetros Registrados</span>
+
+                    </div>
+
+                    <div class="param-card">
+
+                        <h3>500</h3>
+
+                        <span>Máximo caracteres por valor</span>
+
+                    </div>
+
+                </div>
+
+                <div class="crud-container">
+
+                    <h2 class="crud-title">
+                        Gestión de Parámetros
+                    </h2>
+
+                    <button type="button"
+                            class="btn-nuevo"
+                            onclick="abrirModal()">
+                        Nuevo Parámetro
+                    </button>
+
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="mensaje-alerta">
+                        @TempData["Mensaje"]
+                    </div>
+                }
+
+                    <table class="table-roles">
+
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Valor</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var p in Model.ListaParametros)
+                            {
+                                <tr>
+
+                                    <td>@p.Codigo</td>
+
+                                    <td>@p.Valor</td>
+
+                                    <td>
+
+                                        <button type="button"
+                                                class="btn-editar"
+                                                onclick="editarParametro(@p.IdParametro)">
+                                            Editar
+                                        </button>
+
+                                        <form method="post"
+                                              asp-page-handler="Delete"
+                                              style="display:inline;">
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@p.IdParametro" />
+
+                                            <button type="submit"
+                                                    class="btn-eliminar">
+                                                Eliminar
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    <div class="modal" id="modalParametro">
+
+        <div class="modal-content">
+
+            <form method="post">
+
+                <input type="hidden" asp-for="IdParametro" />
+
+                <label>Código</label>
+
+                <input type="text"
+                       asp-for="Codigo"
+                       maxlength="100"
+                       required />
+
+                <label>Valor</label>
+
+                <textarea asp-for="Valor"
+                          maxlength="500"
+                          required></textarea>
+
+                <div class="modal-buttons">
+
+                    <button type="submit"
+                            class="btn-guardar">
+                        Guardar
+                    </button>
+
+                    <button type="button"
+                            class="btn-cancelar"
+                            onclick="cerrarModal()">
+                        Cancelar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function abrirModal() {
+
+            limpiarFormulario();
+
+            document.getElementById("modalParametro").style.display = "flex";
+        }
+
+        function cerrarModal() {
+
+            document.getElementById("modalParametro").style.display = "none";
+        }
+
+        function limpiarFormulario() {
+
+            document.querySelector("[name='IdParametro']").value = "0";
+            document.querySelector("[name='Codigo']").value = "";
+            document.querySelector("[name='Valor']").value = "";
+        }
+
+        function editarParametro(id) {
+
+            fetch(`/Parametros?handler=Parametro&id=${id}`)
+                .then(r => r.json())
+                .then(data => {
+
+                    document.querySelector("[name='IdParametro']").value =
+                        data.idParametro;
+
+                    document.querySelector("[name='Codigo']").value =
+                        data.codigo;
+
+                    document.querySelector("[name='Valor']").value =
+                        data.valor;
+
+                    document.getElementById("modalParametro").style.display = "flex";
+                });
+        }
+
+    </script>
+
+</body>
+</html>

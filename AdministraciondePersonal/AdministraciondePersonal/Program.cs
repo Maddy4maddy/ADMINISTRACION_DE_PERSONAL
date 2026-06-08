@@ -35,6 +35,15 @@ builder.Services.AddScoped<InstitucionEducativaService>();
 builder.Services.AddScoped<RolService>();
 builder.Services.AddScoped<RolRepository>();
 
+builder.Services.AddScoped<ParametroRepository>();
+builder.Services.AddScoped<ParametroService>();
+
+builder.Services.AddScoped<PantallaRepository>();
+builder.Services.AddScoped<PantallaService>();
+
+builder.Services.AddScoped<PantallaRepository>();
+builder.Services.AddScoped<PantallaService>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
