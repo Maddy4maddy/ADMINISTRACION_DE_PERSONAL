@@ -8,10 +8,12 @@ namespace AdministraciondePersonal.Pages
     public class RolesModel : PageModel
     {
         private readonly RolService _service;
+        private readonly BitacoraService _bitacoraService;
 
-        public RolesModel(RolService service)
+        public RolesModel(RolService service, BitacoraService bitacoraService)
         {
             _service = service;
+            _bitacoraService = bitacoraService;
         }
 
         [BindProperty]
@@ -45,9 +47,23 @@ namespace AdministraciondePersonal.Pages
             }
 
             if (IdRolEditar == 0)
+            {
                 _service.CrearRolConPantallas(NombreRol, pantallas);
+
+                _bitacoraService.RegistrarAccion(
+                    User.Identity?.Name ?? "Sistema",
+                    $"Creó el rol: {NombreRol}"
+                );
+            }
             else
+            {
                 _service.EditarRol(IdRolEditar, NombreRol, pantallas);
+
+                _bitacoraService.RegistrarAccion(
+                    User.Identity?.Name ?? "Sistema",
+                    $"Editó el rol ID {IdRolEditar} - {NombreRol}"
+                );
+            }
 
             return RedirectToPage();
         }
@@ -55,6 +71,12 @@ namespace AdministraciondePersonal.Pages
         public IActionResult OnPostDelete(int idRol)
         {
             TempData["Mensaje"] = _service.EliminarRol(idRol);
+
+            _bitacoraService.RegistrarAccion(
+                User.Identity?.Name ?? "Sistema",
+                $"Eliminó el rol ID {idRol}"
+            );
+
             return RedirectToPage();
         }
 

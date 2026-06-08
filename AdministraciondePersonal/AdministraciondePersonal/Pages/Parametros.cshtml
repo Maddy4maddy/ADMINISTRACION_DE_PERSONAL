@@ -10,6 +10,10 @@
 <head>
     <meta charset="utf-8" />
     <title>Parámetros</title>
+
+    <!-- AUTOREFRESH: Recarga la página cada 5 minutos para verificar sesión -->
+    <meta http-equiv="refresh" content="300; url=/Login?expirada=true">
+
     <link rel="stylesheet" href="~/css/plantillaGlobal.css" />
 </head>
 
@@ -17,25 +21,22 @@
     <div class="sidebar">
 
         <div class="sidebar-header">
-            <h3>Sistema</h3>
+            <div class="sistema-icono">
+                <img src="~/css/images/icono.png" alt="Icono del sistema">
+            </div>
+            <h3>AdminPersonal</h3>
         </div>
 
         <ul class="nav-menu">
 
             <li class="nav-item">
-                <a asp-page="/Roles" class="nav-link">
+                <a href="/Roles" class="nav-link">
                     <span>Administración Roles</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Módulos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/Usuarios" class="nav-link">
                     <span>Administración Usuarios</span>
                 </a>
             </li>
@@ -106,8 +107,8 @@
                 </a>
             </li>
 
-            <li class="nav-item active">
-                <a asp-page="/Parametros" class="nav-link">
+            <li class="nav-item">
+                <a href="/Parametros" class="nav-link">
                     <span>Administración Parámetros</span>
                 </a>
             </li>
@@ -125,8 +126,19 @@
             </li>
 
             <li class="nav-item">
+                <a href="/Pantalla" class="nav-link">
+                    <span>Administracion de Pantallas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a asp-page="/InstitucionesEducativas" class="nav-link">
                     <span>Administración Instituciones Educativas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span>Administración Módulos</span>
                 </a>
             </li>
 

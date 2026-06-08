@@ -8,10 +8,12 @@ namespace AdministraciondePersonal.Pages
     public class ParametrosModel : PageModel
     {
         private readonly ParametroService _service;
+        private readonly BitacoraService _bitacoraService;
 
-        public ParametrosModel(ParametroService service)
+        public ParametrosModel(ParametroService service, BitacoraService bitacoraService)
         {
             _service = service;
+            _bitacoraService = bitacoraService;
         }
 
         public List<Parametros> ListaParametros { get; set; } = new();
@@ -29,16 +31,26 @@ namespace AdministraciondePersonal.Pages
         {
             ListaParametros = _service.ObtenerParametros();
         }
-
         public IActionResult OnPost()
         {
-            _service.GuardarParametro(
-                IdParametro,
-                Codigo,
-                Valor);
+            _service.GuardarParametro(IdParametro, Codigo, Valor);
+
+            if (IdParametro == 0)
+            {
+                _bitacoraService.RegistrarAccion(
+                    User.Identity?.Name ?? "Sistema",
+                    $"Creó el parámetro: {Codigo}"
+                );
+            }
+            else
+            {
+                _bitacoraService.RegistrarAccion(
+                    User.Identity?.Name ?? "Sistema",
+                    $"Modificó el parámetro ID {IdParametro} - {Codigo}"
+                );
+            }
 
             TempData["Mensaje"] = "Parámetro guardado correctamente.";
-
             return RedirectToPage();
         }
 
@@ -46,8 +58,12 @@ namespace AdministraciondePersonal.Pages
         {
             _service.EliminarParametro(id);
 
-            TempData["Mensaje"] = "Parámetro eliminado correctamente.";
+            _bitacoraService.RegistrarAccion(
+                User.Identity?.Name ?? "Sistema",
+                $"Eliminó el parámetro ID {id}"
+            );
 
+            TempData["Mensaje"] = "Parámetro eliminado correctamente.";
             return RedirectToPage();
         }
 
