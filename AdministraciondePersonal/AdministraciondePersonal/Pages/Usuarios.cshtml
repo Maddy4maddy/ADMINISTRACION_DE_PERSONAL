@@ -11,7 +11,6 @@
     <meta charset="utf-8" />
     <title>Administración de Usuarios</title>
 
-    <meta http-equiv="refresh" content="300; url=/Login?expirada=true">
 
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
@@ -487,7 +486,7 @@
 
                 <label>Contraseña</label>
                 <input type="password" asp-for="NuevaContrasena" />
-                <small class="small-text">Mínimo 8 caracteres: mayúsculas, minúsculas, números y carácter especial. Dejar en blanco para mantener la actual (en edición).</small>
+                <small class="small-text">Mínimo 8 caracteres: mayúsculas, minúsculas, números y carácter especial. .</small>
 
                 <label>Rol</label>
                 <select asp-for="UsuarioEditando.IdRol" class="form-control" required>
@@ -517,7 +516,7 @@
             @if (Model.MostrarModal)
             {
                     <text>
-                        // El modal ya se muestra con el style="display:flex"
+                       
                     </text>
             }
     </script>
