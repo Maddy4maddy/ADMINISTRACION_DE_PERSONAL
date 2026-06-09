@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
 --
 -- Host: localhost    Database: administracion_personal
 -- ------------------------------------------------------
--- Server version	8.0.42
+-- Server version	8.0.46
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `bitacora` (
   `usuario` varchar(100) NOT NULL,
   `descripcion_accion` text NOT NULL,
   PRIMARY KEY (`id_bitacora`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `bitacora` (
 
 LOCK TABLES `bitacora` WRITE;
 /*!40000 ALTER TABLE `bitacora` DISABLE KEYS */;
-INSERT INTO `bitacora` VALUES (1,'2026-05-27 17:48:03','Usuario','Actualización de oferente Angie Romero Ceciliano'),(2,'2026-05-27 17:49:17','Usuario','Registro de oferente Yorleny Ceciliano Araya'),(3,'2026-05-27 17:49:44','Usuario','Actualización de oferente Andrea Gómez Solano'),(4,'2026-05-27 18:08:34','Usuario','Actualización de oferente Angie Romero Ceciliano'),(5,'2026-05-28 13:50:59','Usuario','Actualización de oferente Angie Romero Ceciliano'),(6,'2026-05-28 13:57:11','Usuario','Actualización de oferente Yorleny Ceciliano Araya'),(7,'2026-05-29 18:18:13','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(8,'2026-05-29 20:06:02','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(9,'2026-05-29 20:06:47','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(10,'2026-05-29 20:08:48','Usuario','Registro de oferente Juan Hidalgo Muñoz'),(11,'2026-05-29 20:13:04','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(12,'2026-05-29 20:13:17','Usuario','Actualización de oferente Andrea Gómez Solano'),(13,'2026-06-07 18:40:37','admin','Cambio de estado de usuario maddy: activo → inactivo'),(14,'2026-06-07 20:50:43','admin','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":11}'),(15,'2026-06-07 21:00:10','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(16,'2026-06-07 21:00:26','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo'),(17,'2026-06-07 21:00:46','Maria Ruiz','Actualización de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":2}'),(18,'2026-06-07 21:10:36','admin','Creación de usuario: {\"NombreUsuario\":\"Josh Silver\",\"NombreCompleto\":\"Josh Silver\",\"Correo\":\"jonnysrr@gmail.com\",\"Estado\":\"activo\",\"IdRol\":1}'),(19,'2026-06-07 23:47:55','admin','El usuario consulta concursos.'),(20,'2026-06-07 23:48:03','admin','El usuario consulta concursos.'),(21,'2026-06-07 23:58:57','admin','El usuario consulta experiencia laboral del oferente .'),(22,'2026-06-07 23:59:01','admin','El usuario consulta experiencia laboral del oferente .'),(23,'2026-06-08 09:28:41','Maria Ruiz','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":4}'),(24,'2026-06-08 09:37:25','Maria Ruiz','El usuario consulta concursos.'),(25,'2026-06-08 09:41:43','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(26,'2026-06-08 09:41:54','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo');
+INSERT INTO `bitacora` VALUES (1,'2026-05-27 17:48:03','Usuario','Actualización de oferente Angie Romero Ceciliano'),(2,'2026-05-27 17:49:17','Usuario','Registro de oferente Yorleny Ceciliano Araya'),(3,'2026-05-27 17:49:44','Usuario','Actualización de oferente Andrea Gómez Solano'),(4,'2026-05-27 18:08:34','Usuario','Actualización de oferente Angie Romero Ceciliano'),(5,'2026-05-28 13:50:59','Usuario','Actualización de oferente Angie Romero Ceciliano'),(6,'2026-05-28 13:57:11','Usuario','Actualización de oferente Yorleny Ceciliano Araya'),(7,'2026-05-29 18:18:13','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(8,'2026-05-29 20:06:02','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(9,'2026-05-29 20:06:47','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(10,'2026-05-29 20:08:48','Usuario','Registro de oferente Juan Hidalgo Muñoz'),(11,'2026-05-29 20:13:04','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(12,'2026-05-29 20:13:17','Usuario','Actualización de oferente Andrea Gómez Solano'),(13,'2026-06-07 18:40:37','admin','Cambio de estado de usuario maddy: activo → inactivo'),(14,'2026-06-07 20:50:43','admin','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":11}'),(15,'2026-06-07 21:00:10','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(16,'2026-06-07 21:00:26','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo'),(17,'2026-06-07 21:00:46','Maria Ruiz','Actualización de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":2}'),(18,'2026-06-07 21:10:36','admin','Creación de usuario: {\"NombreUsuario\":\"Josh Silver\",\"NombreCompleto\":\"Josh Silver\",\"Correo\":\"jonnysrr@gmail.com\",\"Estado\":\"activo\",\"IdRol\":1}'),(19,'2026-06-07 23:47:55','admin','El usuario consulta concursos.'),(20,'2026-06-07 23:48:03','admin','El usuario consulta concursos.'),(21,'2026-06-07 23:58:57','admin','El usuario consulta experiencia laboral del oferente .'),(22,'2026-06-07 23:59:01','admin','El usuario consulta experiencia laboral del oferente .'),(23,'2026-06-08 09:28:41','Maria Ruiz','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":4}'),(24,'2026-06-08 09:37:25','Maria Ruiz','El usuario consulta concursos.'),(25,'2026-06-08 09:41:43','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(26,'2026-06-08 09:41:54','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo'),(27,'2026-06-09 01:54:13','admin','El usuario consulta oferentes.'),(28,'2026-06-09 01:54:13','admin','El usuario consulta oferentes.'),(29,'2026-06-09 01:54:20','admin','El usuario consulta preparación académica del oferente .'),(30,'2026-06-09 01:54:21','admin','El usuario consulta preparación académica del oferente .'),(31,'2026-06-09 01:54:22','admin','El usuario consulta preparación académica del oferente .'),(32,'2026-06-09 01:54:23','admin','El usuario consulta preparación académica del oferente .'),(33,'2026-06-09 01:54:24','admin','El usuario consulta experiencia laboral del oferente .'),(34,'2026-06-09 01:54:25','admin','El usuario consulta entrevistas agendadas.'),(35,'2026-06-09 02:00:14','admin','Eliminación de usuario: {\"NombreUsuario\":\"Maicol Cordero \",\"NombreCompleto\":\"Maicol Cordero Calvo\",\"Correo\":\"maicol@gmail.com\"}'),(36,'2026-06-09 02:04:17','admin','Creación de usuario: {\"NombreUsuario\":\"Naza\",\"NombreCompleto\":\"Nazareth Artavia Perez\",\"Correo\":\"nanaz@gmail.com\",\"Estado\":\"activo\",\"IdRol\":2}'),(37,'2026-06-09 02:04:45','admin','Creación de usuario: {\"NombreUsuario\":\"Naza\",\"NombreCompleto\":\"Nazareth Artavia Perez\",\"Correo\":\"nanaz@gmail.com\",\"Estado\":\"activo\",\"IdRol\":1}'),(38,'2026-06-09 02:05:37','admin','Cambio de estado de usuario maddy: activo → inactivo'),(39,'2026-06-09 02:06:31','admin','Cambio de estado de usuario maddy: inactivo → activo');
 /*!40000 ALTER TABLE `bitacora` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,7 +469,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `idx_usuario_rol` (`nombre_usuario`,`id_rol`),
   KEY `fk_usuarios_roles` (`id_rol`),
   CONSTRAINT `fk_usuarios_roles` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -478,7 +478,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'maddy','Madeline Cordero','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',0,0,'activo','admin@gmail.com',11),(2,'admin','Johan Alvarado','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2',0,0,'activo','Johan@gmail.com',1),(5,'Maria Ruiz','Maria Ruiz Lopez','b9e909168d8d6b8bd6dcc48023df6d91188babec308d0be1bf7e099ab33d75d9',0,0,'activo','marims@gmail.com',2),(8,'Maria Ruiz','Maria Ruiz Lopez','b9e909168d8d6b8bd6dcc48023df6d91188babec308d0be1bf7e099ab33d75d9',0,0,'activo','marims@gmail.com',4);
+INSERT INTO `usuarios` VALUES (2,'admin','Johan Alvarado','3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2',0,0,'activo','Johan@gmail.com',1),(5,'Maria Ruiz','Maria Ruiz Lopez','b9e909168d8d6b8bd6dcc48023df6d91188babec308d0be1bf7e099ab33d75d9',0,0,'activo','marims@gmail.com',2),(8,'Maria Ruiz','Maria Ruiz Lopez','b9e909168d8d6b8bd6dcc48023df6d91188babec308d0be1bf7e099ab33d75d9',0,0,'activo','marims@gmail.com',4),(10,'Naza','Nazareth Artavia Perez','e7a2c6361f41f1d3bdb9c7e495aa1c6e145c72c495fa825bcd5b92c08c12ee23',0,0,'activo','nanaz@gmail.com',2),(11,'Naza','Nazareth Artavia Perez','e7a2c6361f41f1d3bdb9c7e495aa1c6e145c72c495fa825bcd5b92c08c12ee23',0,0,'activo','nanaz@gmail.com',1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -491,4 +491,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-09  1:29:16
+-- Dump completed on 2026-06-09  2:17:38
