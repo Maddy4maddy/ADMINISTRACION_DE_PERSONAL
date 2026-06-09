@@ -211,8 +211,8 @@ body {
     }
 
 .btn-editar {
-    background-color: #80B0AA;
-    color: white;
+    background-color: #ffc107;
+    color: #000;
     padding: 8px 12px;
     border-radius: 10px;
     border: none;
@@ -221,7 +221,7 @@ body {
 }
 
 .btn-eliminar {
-    background-color: #FDB3CA;
+    background-color: #dc3545;
     color: white;
     padding: 8px 12px;
     border-radius: 10px;

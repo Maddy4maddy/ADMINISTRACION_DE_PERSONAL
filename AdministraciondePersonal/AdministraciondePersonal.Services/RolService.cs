@@ -29,6 +29,12 @@ namespace AdministraciondePersonal.Services
 
         public void CrearRolConPantallas(string nombreRol, List<Pantalla> pantallas)
         {
+            if (string.IsNullOrWhiteSpace(nombreRol))
+                throw new Exception("El nombre del rol es requerido.");
+
+            if (nombreRol.Length > 40)
+                throw new Exception("No se puede registrar un rol con más de 40 caracteres.");
+
             int idRol = _repo.CrearRol(nombreRol);
 
             foreach (var p in pantallas)
@@ -42,6 +48,12 @@ namespace AdministraciondePersonal.Services
 
         public void EditarRol(int idRol, string nombreRol, List<Pantalla> pantallas)
         {
+            if (string.IsNullOrWhiteSpace(nombreRol))
+                throw new Exception("El nombre del rol es requerido.");
+
+            if (nombreRol.Length > 40)
+                throw new Exception("No se puede registrar un rol con más de 40 caracteres.");
+
             _repo.EditarRol(idRol, nombreRol);
 
             _repo.EliminarPantallasPorRol(idRol);

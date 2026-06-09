@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
 -- Host: localhost    Database: administracion_personal
 -- ------------------------------------------------------
--- Server version	8.0.46
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -39,6 +39,30 @@ LOCK TABLES `bitacora` WRITE;
 /*!40000 ALTER TABLE `bitacora` DISABLE KEYS */;
 INSERT INTO `bitacora` VALUES (1,'2026-05-27 17:48:03','Usuario','Actualización de oferente Angie Romero Ceciliano'),(2,'2026-05-27 17:49:17','Usuario','Registro de oferente Yorleny Ceciliano Araya'),(3,'2026-05-27 17:49:44','Usuario','Actualización de oferente Andrea Gómez Solano'),(4,'2026-05-27 18:08:34','Usuario','Actualización de oferente Angie Romero Ceciliano'),(5,'2026-05-28 13:50:59','Usuario','Actualización de oferente Angie Romero Ceciliano'),(6,'2026-05-28 13:57:11','Usuario','Actualización de oferente Yorleny Ceciliano Araya'),(7,'2026-05-29 18:18:13','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(8,'2026-05-29 20:06:02','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(9,'2026-05-29 20:06:47','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(10,'2026-05-29 20:08:48','Usuario','Registro de oferente Juan Hidalgo Muñoz'),(11,'2026-05-29 20:13:04','Usuario','Actualización de oferente Santiago Madriz Ceciliano'),(12,'2026-05-29 20:13:17','Usuario','Actualización de oferente Andrea Gómez Solano'),(13,'2026-06-07 18:40:37','admin','Cambio de estado de usuario maddy: activo → inactivo'),(14,'2026-06-07 20:50:43','admin','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":11}'),(15,'2026-06-07 21:00:10','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(16,'2026-06-07 21:00:26','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo'),(17,'2026-06-07 21:00:46','Maria Ruiz','Actualización de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":2}'),(18,'2026-06-07 21:10:36','admin','Creación de usuario: {\"NombreUsuario\":\"Josh Silver\",\"NombreCompleto\":\"Josh Silver\",\"Correo\":\"jonnysrr@gmail.com\",\"Estado\":\"activo\",\"IdRol\":1}'),(19,'2026-06-07 23:47:55','admin','El usuario consulta concursos.'),(20,'2026-06-07 23:48:03','admin','El usuario consulta concursos.'),(21,'2026-06-07 23:58:57','admin','El usuario consulta experiencia laboral del oferente .'),(22,'2026-06-07 23:59:01','admin','El usuario consulta experiencia laboral del oferente .'),(23,'2026-06-08 09:28:41','Maria Ruiz','Creación de usuario: {\"NombreUsuario\":\"Maria Ruiz\",\"NombreCompleto\":\"Maria Ruiz Lopez\",\"Correo\":\"marims@gmail.com\",\"Estado\":\"activo\",\"IdRol\":4}'),(24,'2026-06-08 09:37:25','Maria Ruiz','El usuario consulta concursos.'),(25,'2026-06-08 09:41:43','Maria Ruiz','Cambio de estado de usuario maddy: activo → inactivo'),(26,'2026-06-08 09:41:54','Maria Ruiz','Cambio de estado de usuario maddy: inactivo → activo');
 /*!40000 ALTER TABLE `bitacora` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `companias`
+--
+
+DROP TABLE IF EXISTS `companias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `companias` (
+  `id_compania` int NOT NULL AUTO_INCREMENT,
+  `nombre_compania` varchar(150) NOT NULL,
+  PRIMARY KEY (`id_compania`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `companias`
+--
+
+LOCK TABLES `companias` WRITE;
+/*!40000 ALTER TABLE `companias` DISABLE KEYS */;
+INSERT INTO `companias` VALUES (1,'El Muisicologo C.R');
+/*!40000 ALTER TABLE `companias` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -467,4 +491,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-08  9:49:35
+-- Dump completed on 2026-06-09  1:29:16

@@ -39,33 +39,45 @@ namespace AdministraciondePersonal.Pages
 
         public IActionResult OnPost()
         {
-            var pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
-
-            foreach (var p in pantallas)
+            try
             {
-                p.Seleccionada = PantallasSeleccionadas.Contains(p.IdPantalla);
-            }
+                var pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
 
-            if (IdRolEditar == 0)
+                foreach (var p in pantallas)
+                {
+                    p.Seleccionada = PantallasSeleccionadas.Contains(p.IdPantalla);
+                }
+
+                if (IdRolEditar == 0)
+                {
+                    _service.CrearRolConPantallas(NombreRol, pantallas);
+
+                    _bitacoraService.RegistrarAccion(
+                        User.Identity?.Name ?? "Sistema",
+                        $"Creó el rol: {NombreRol}"
+                    );
+                }
+                else
+                {
+                    _service.EditarRol(IdRolEditar, NombreRol, pantallas);
+
+                    _bitacoraService.RegistrarAccion(
+                        User.Identity?.Name ?? "Sistema",
+                        $"Editó el rol ID {IdRolEditar} - {NombreRol}"
+                    );
+                }
+
+                return RedirectToPage();
+            }
+            catch (Exception ex)
             {
-                _service.CrearRolConPantallas(NombreRol, pantallas);
+                TempData["Mensaje"] = ex.Message;
 
-                _bitacoraService.RegistrarAccion(
-                    User.Identity?.Name ?? "Sistema",
-                    $"Creó el rol: {NombreRol}"
-                );
+                ListaRoles = _service.ObtenerRoles();
+                Pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
+
+                return Page();
             }
-            else
-            {
-                _service.EditarRol(IdRolEditar, NombreRol, pantallas);
-
-                _bitacoraService.RegistrarAccion(
-                    User.Identity?.Name ?? "Sistema",
-                    $"Editó el rol ID {IdRolEditar} - {NombreRol}"
-                );
-            }
-
-            return RedirectToPage();
         }
 
         public IActionResult OnPostDelete(int idRol)

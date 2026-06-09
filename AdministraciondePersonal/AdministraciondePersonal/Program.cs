@@ -41,6 +41,9 @@ builder.Services.AddScoped<ParametroService>();
 builder.Services.AddScoped<PantallaRepository>();
 builder.Services.AddScoped<PantallaService>();
 
+builder.Services.AddScoped<CompaniaRepository>();
+builder.Services.AddScoped<CompaniaService>();
+
 
 builder.Services.AddDistributedMemoryCache();
 

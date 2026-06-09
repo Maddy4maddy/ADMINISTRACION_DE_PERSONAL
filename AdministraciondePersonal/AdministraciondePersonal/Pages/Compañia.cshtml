@@ -1,24 +1,20 @@
 ﻿@page
-@model AdministraciondePersonal.Pages.PantallasModel
-@{
-    Layout = null;
-}
+@model AdministraciondePersonal.Pages.CompaniasModel
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Pantallas</title>
+    <title>Compañías</title>
 
-    <!-- AUTOREFRESH: Recarga la página cada 5 minutos para verificar sesión -->
     <meta http-equiv="refresh" content="300; url=/Login?expirada=true">
 
-
-    <link rel="stylesheet" href="/css/plantillaGlobal.css" />
+    <link rel="stylesheet" href="~/css/plantillaGlobal.css" />
 </head>
 
 <body>
 
+    <!-- SIDEBAR -->
     <div class="sidebar">
 
         <div class="sidebar-header">
@@ -72,33 +68,9 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Contratar Empleado</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Puestos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Requisitos de Puestos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Áreas</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Acciones de Personal</span>
+            <li class="nav-item active">
+                <a href="/Companias" class="nav-link">
+                    <span>Administración Compañías</span>
                 </a>
             </li>
 
@@ -115,20 +87,8 @@
             </li>
 
             <li class="nav-item">
-                <a href="/Compañia" class="nav-link">
-                    <span>Administración Compañías</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Cargar Datos de Ubicación</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a href="/Pantalla" class="nav-link">
-                    <span>Administracion de Pantallas</span>
+                    <span>Administración Pantallas</span>
                 </a>
             </li>
 
@@ -137,42 +97,21 @@
                     <span>Administración Instituciones Educativas</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Módulos</span>
-                </a>
-            </li>
 
         </ul>
 
     </div>
 
+    <!-- CONTENIDO -->
     <div class="main-content">
 
         <div class="page-container">
 
-            <div class="welcome-card">
-
-                <h2>Administración de Pantallas</h2>
-
-                <p>
-                    Permite administrar las pantallas disponibles
-                    dentro del sistema.
-                </p>
-
-            </div>
-
             <div class="crud-container">
 
                 <h2 class="crud-title">
-                    Gestión de Pantallas
+                    Administración de Compañías
                 </h2>
-
-                <button type="button"
-                        class="btn-nuevo"
-                        onclick="abrirModal()">
-                    Nueva Pantalla
-                </button>
 
                 @if (TempData["Mensaje"] != null)
                 {
@@ -181,47 +120,49 @@
                     </div>
                 }
 
+                <button class="btn-nuevo" onclick="abrirModal()">
+                    + Nueva Compañía
+                </button>
+
                 <table class="table-roles">
 
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre Pantalla</th>
-                            <th>Ruta</th>
+                            <th>Código</th>
+                            <th>Nombre</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                        @foreach (var p in Model.ListaPantallas)
+                        @foreach (var item in Model.ListaCompanias)
                         {
                             <tr>
 
-                                <td>@p.IdPantalla</td>
+                                <td>@item.IdCompania</td>
 
-                                <td>@p.NombrePantalla</td>
-
-                                <td>@p.Ruta</td>
+                                <td>@item.NombreCompania</td>
 
                                 <td>
 
                                     <button type="button"
                                             class="btn-editar"
-                                            onclick="editarPantalla(@p.IdPantalla)">
-                                        Editar
+                                            onclick="editarCompania('@item.IdCompania','@item.NombreCompania')">
+                                        Modificar
                                     </button>
 
                                     <form method="post"
-                                          asp-page-handler="Delete"
+                                          asp-page-handler="Eliminar"
                                           style="display:inline;">
 
                                         <input type="hidden"
                                                name="id"
-                                               value="@p.IdPantalla" />
+                                               value="@item.IdCompania" />
 
                                         <button type="submit"
-                                                class="btn-eliminar">
+                                                class="btn-eliminar"
+                                                onclick="return confirm('¿Desea eliminar esta compañía?')">
                                             Eliminar
                                         </button>
 
@@ -242,30 +183,31 @@
 
     </div>
 
-    <div class="modal" id="modalPantalla">
+    <!-- MODAL -->
+    <div id="modalCompania" class="modal">
 
         <div class="modal-content">
 
-            <form method="post">
+            <h3 id="tituloModal">
+                Nueva Compañía
+            </h3>
 
-                <input type="hidden" asp-for="IdPantalla" />
+            <form method="post" asp-page-handler="Guardar">
 
-                <label>Nombre de la Pantalla</label>
+                <input type="hidden"
+                       asp-for="Compania.IdCompania"
+                       id="IdCompania" />
 
-                <input asp-for="NombrePantalla"
-                       maxlength="100"
-                       required />
+                <label>Nombre *</label>
 
-                <label>Ruta</label>
-
-                <input asp-for="Ruta"
-                       maxlength="200"
+                <input asp-for="Compania.NombreCompania"
+                       id="NombreCompania"
+                       maxlength="150"
                        required />
 
                 <div class="modal-buttons">
 
-                    <button type="submit"
-                            class="btn-guardar">
+                    <button type="submit" class="btn-guardar">
                         Guardar
                     </button>
 
@@ -285,38 +227,33 @@
 
     <script>
 
-        function abrirModal() {
+            function abrirModal() {
+                document.getElementById("tituloModal").innerText =
+                    "Nueva Compañía";
 
-            document.querySelector("[name='IdPantalla']").value = "0";
-            document.querySelector("[name='NombrePantalla']").value = "";
-            document.querySelector("[name='Ruta']").value = "";
+                document.getElementById("IdCompania").value = "";
+                document.getElementById("NombreCompania").value = "";
 
-            document.getElementById("modalPantalla").style.display = "flex";
-        }
+                document.getElementById("modalCompania").style.display =
+                    "flex";
+            }
 
-        function cerrarModal() {
+            function cerrarModal() {
+                document.getElementById("modalCompania").style.display =
+                    "none";
+            }
 
-            document.getElementById("modalPantalla").style.display = "none";
-        }
+            function editarCompania(id, nombre) {
 
-        function editarPantalla(id) {
+                document.getElementById("tituloModal").innerText =
+                    "Modificar Compañía";
 
-            fetch(`/Pantalla?handler=Pantalla&id=${id}`)
-                .then(r => r.json())
-                .then(data => {
+                document.getElementById("IdCompania").value = id;
+                document.getElementById("NombreCompania").value = nombre;
 
-                    document.querySelector("[name='IdPantalla']").value =
-                        data.idPantalla;
-
-                    document.querySelector("[name='NombrePantalla']").value =
-                        data.nombrePantalla;
-
-                    document.querySelector("[name='Ruta']").value =
-                        data.ruta;
-
-                    document.getElementById("modalPantalla").style.display = "flex";
-                });
-        }
+                document.getElementById("modalCompania").style.display =
+                    "flex";
+            }
 
     </script>
 
