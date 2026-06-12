@@ -24,16 +24,16 @@ namespace AdministraciondePersonal.Pages
         [BindProperty]
         public bool ModoEdicion { get; set; }
 
+        public bool MostrarFormulario { get; set; }
+        public bool MostrarMensajeModal { get; set; }
+
         public List<Concurso> ListaConcursos { get; set; } = new List<Concurso>();
 
         public string Mensaje { get; set; }
-
         public string Error { get; set; }
 
         public string NombreUsuario { get; set; }
-
         public string InicialAvatar { get; set; }
-
         public string ColorAvatar { get; set; }
 
         private bool PrepararSesion()
@@ -67,7 +67,7 @@ namespace AdministraciondePersonal.Pages
             return true;
         }
 
-        public IActionResult OnGet(int? codigoConcurso)
+        public IActionResult OnGet(int? codigoConcurso, bool nuevo = false)
         {
             if (!PrepararSesion())
             {
@@ -82,7 +82,17 @@ namespace AdministraciondePersonal.Pages
                     NombreUsuario,
                     "El usuario consulta concursos.");
 
-                if (codigoConcurso.HasValue && codigoConcurso.Value > 0)
+                if (nuevo)
+                {
+                    Concurso = new Concurso
+                    {
+                        Estado = "Vigente"
+                    };
+
+                    ModoEdicion = false;
+                    MostrarFormulario = true;
+                }
+                else if (codigoConcurso.HasValue && codigoConcurso.Value > 0)
                 {
                     var concursoEncontrado =
                         _concursoService.ObtenerPorCodigo(codigoConcurso.Value);
@@ -91,11 +101,16 @@ namespace AdministraciondePersonal.Pages
                     {
                         Concurso = concursoEncontrado;
                         ModoEdicion = true;
+                        MostrarFormulario = true;
                     }
                     else
                     {
                         Error = "El concurso seleccionado no existe.";
-                        Concurso = new Concurso();
+                        MostrarMensajeModal = true;
+                        Concurso = new Concurso
+                        {
+                            Estado = "Vigente"
+                        };
                         ModoEdicion = false;
                     }
                 }
@@ -107,6 +122,7 @@ namespace AdministraciondePersonal.Pages
                     };
 
                     ModoEdicion = false;
+                    MostrarFormulario = false;
                 }
 
                 return Page();
@@ -118,6 +134,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al consultar concursos: " + ex.Message);
 
                 Error = "Ocurrió un error al consultar los concursos.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -132,12 +149,16 @@ namespace AdministraciondePersonal.Pages
 
             try
             {
+                Concurso.Estado = "Vigente";
+
                 string resultado =
                     _concursoService.Registrar(Concurso);
 
                 if (resultado == "El concurso ha sido registrado correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     _bitacoraService.RegistrarAccion(
                         NombreUsuario,
@@ -153,6 +174,9 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
+                    ModoEdicion = false;
                 }
 
                 CargarDatos();
@@ -165,6 +189,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al registrar concurso: " + ex.Message);
 
                 Error = "Ocurrió un error al registrar el concurso.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -188,6 +214,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "El concurso ha sido actualizado correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     if (concursoAnterior != null)
                     {
@@ -214,6 +242,8 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
                     ModoEdicion = true;
                 }
 
@@ -227,6 +257,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al actualizar concurso: " + ex.Message);
 
                 Error = "Ocurrió un error al actualizar el concurso.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -250,6 +282,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "El concurso ha sido eliminado correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (concursoEliminado != null)
                     {
@@ -267,6 +300,7 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
                 Concurso = new Concurso
@@ -275,6 +309,7 @@ namespace AdministraciondePersonal.Pages
                 };
 
                 ModoEdicion = false;
+                MostrarFormulario = false;
 
                 CargarDatos();
                 return Page();
@@ -286,6 +321,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al eliminar concurso: " + ex.Message);
 
                 Error = "Ocurrió un error al eliminar el concurso.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -312,6 +348,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "El estado del concurso ha sido actualizado correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (concursoAnterior != null && concursoActual != null)
                     {
@@ -329,6 +366,7 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
                 Concurso = new Concurso
@@ -337,6 +375,7 @@ namespace AdministraciondePersonal.Pages
                 };
 
                 ModoEdicion = false;
+                MostrarFormulario = false;
 
                 CargarDatos();
                 return Page();
@@ -348,6 +387,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al cambiar estado de concurso: " + ex.Message);
 
                 Error = "Ocurrió un error al cambiar el estado del concurso.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -355,8 +395,7 @@ namespace AdministraciondePersonal.Pages
 
         private void CargarDatos()
         {
-            ListaConcursos =
-                _concursoService.ObtenerTodos();
+            ListaConcursos = _concursoService.ObtenerTodos();
         }
     }
 }

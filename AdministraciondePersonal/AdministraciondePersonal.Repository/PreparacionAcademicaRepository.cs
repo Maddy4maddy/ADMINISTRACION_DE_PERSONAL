@@ -1,5 +1,5 @@
 ﻿using AdministraciondePersonal.Entities;
-using MySql.Data.MySqlClient;
+using Dapper;
 using System.Data;
 
 namespace AdministraciondePersonal.Repository
@@ -15,104 +15,58 @@ namespace AdministraciondePersonal.Repository
 
         public List<PreparacionAcademica> ObtenerPorOferente(string identificacionOferente)
         {
-            List<PreparacionAcademica> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            string sql = @"
                 SELECT
-                    pa.id_preparacion,
-                    pa.identificacion_oferente,
-                    pa.id_institucion,
-                    ie.nombre_institucion,
-                    pa.titulo_obtenido,
-                    pa.fecha_inicio,
-                    pa.fecha_fin
+                    pa.id_preparacion AS IdPreparacion,
+                    pa.identificacion_oferente AS IdentificacionOferente,
+                    pa.id_institucion AS IdInstitucion,
+                    ie.nombre_institucion AS NombreInstitucion,
+                    pa.titulo_obtenido AS TituloObtenido,
+                    pa.fecha_inicio AS FechaInicio,
+                    pa.fecha_fin AS FechaFin
                 FROM preparacion_academica pa
                 INNER JOIN instituciones_educativas ie
                     ON pa.id_institucion = ie.id_institucion
-                WHERE pa.identificacion_oferente = @identificacion_oferente
-                ORDER BY pa.id_preparacion DESC";
+                WHERE pa.identificacion_oferente = @IdentificacionOferente
+                ORDER BY pa.id_preparacion DESC;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@identificacion_oferente", identificacionOferente);
-
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new PreparacionAcademica
-                            {
-                                IdPreparacion = Convert.ToInt32(reader["id_preparacion"]),
-                                IdentificacionOferente = reader["identificacion_oferente"].ToString(),
-                                IdInstitucion = Convert.ToInt32(reader["id_institucion"]),
-                                NombreInstitucion = reader["nombre_institucion"].ToString(),
-                                TituloObtenido = reader["titulo_obtenido"].ToString(),
-                                FechaInicio = Convert.ToDateTime(reader["fecha_inicio"]),
-                                FechaFin = Convert.ToDateTime(reader["fecha_fin"])
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return conn.Query<PreparacionAcademica>(sql, new
+            {
+                IdentificacionOferente = identificacionOferente
+            }).ToList();
         }
 
         public PreparacionAcademica ObtenerPorId(int idPreparacion)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 SELECT
-                    pa.id_preparacion,
-                    pa.identificacion_oferente,
-                    pa.id_institucion,
-                    ie.nombre_institucion,
-                    pa.titulo_obtenido,
-                    pa.fecha_inicio,
-                    pa.fecha_fin
+                    pa.id_preparacion AS IdPreparacion,
+                    pa.identificacion_oferente AS IdentificacionOferente,
+                    pa.id_institucion AS IdInstitucion,
+                    ie.nombre_institucion AS NombreInstitucion,
+                    pa.titulo_obtenido AS TituloObtenido,
+                    pa.fecha_inicio AS FechaInicio,
+                    pa.fecha_fin AS FechaFin
                 FROM preparacion_academica pa
                 INNER JOIN instituciones_educativas ie
                     ON pa.id_institucion = ie.id_institucion
-                WHERE pa.id_preparacion = @id_preparacion";
+                WHERE pa.id_preparacion = @IdPreparacion;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_preparacion", idPreparacion);
-
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return new PreparacionAcademica
-                            {
-                                IdPreparacion = Convert.ToInt32(reader["id_preparacion"]),
-                                IdentificacionOferente = reader["identificacion_oferente"].ToString(),
-                                IdInstitucion = Convert.ToInt32(reader["id_institucion"]),
-                                NombreInstitucion = reader["nombre_institucion"].ToString(),
-                                TituloObtenido = reader["titulo_obtenido"].ToString(),
-                                FechaInicio = Convert.ToDateTime(reader["fecha_inicio"]),
-                                FechaFin = Convert.ToDateTime(reader["fecha_fin"])
-                            };
-                        }
-                    }
-                }
-            }
-
-            return null;
+            return conn.QueryFirstOrDefault<PreparacionAcademica>(sql, new
+            {
+                IdPreparacion = idPreparacion
+            });
         }
 
         public void Insertar(PreparacionAcademica preparacion)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 INSERT INTO preparacion_academica
                 (
                     identificacion_oferente,
@@ -123,168 +77,94 @@ namespace AdministraciondePersonal.Repository
                 )
                 VALUES
                 (
-                    @identificacion_oferente,
-                    @id_institucion,
-                    @titulo_obtenido,
-                    @fecha_inicio,
-                    @fecha_fin
-                )";
+                    @IdentificacionOferente,
+                    @IdInstitucion,
+                    @TituloObtenido,
+                    @FechaInicio,
+                    @FechaFin
+                );";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@identificacion_oferente", preparacion.IdentificacionOferente);
-                    cmd.Parameters.AddWithValue("@id_institucion", preparacion.IdInstitucion);
-                    cmd.Parameters.AddWithValue("@titulo_obtenido", preparacion.TituloObtenido);
-                    cmd.Parameters.AddWithValue("@fecha_inicio", preparacion.FechaInicio);
-                    cmd.Parameters.AddWithValue("@fecha_fin", preparacion.FechaFin);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, preparacion);
         }
 
         public void Actualizar(PreparacionAcademica preparacion)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 UPDATE preparacion_academica
                 SET
-                    identificacion_oferente = @identificacion_oferente,
-                    id_institucion = @id_institucion,
-                    titulo_obtenido = @titulo_obtenido,
-                    fecha_inicio = @fecha_inicio,
-                    fecha_fin = @fecha_fin
-                WHERE id_preparacion = @id_preparacion";
+                    identificacion_oferente = @IdentificacionOferente,
+                    id_institucion = @IdInstitucion,
+                    titulo_obtenido = @TituloObtenido,
+                    fecha_inicio = @FechaInicio,
+                    fecha_fin = @FechaFin
+                WHERE id_preparacion = @IdPreparacion;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_preparacion", preparacion.IdPreparacion);
-                    cmd.Parameters.AddWithValue("@identificacion_oferente", preparacion.IdentificacionOferente);
-                    cmd.Parameters.AddWithValue("@id_institucion", preparacion.IdInstitucion);
-                    cmd.Parameters.AddWithValue("@titulo_obtenido", preparacion.TituloObtenido);
-                    cmd.Parameters.AddWithValue("@fecha_inicio", preparacion.FechaInicio);
-                    cmd.Parameters.AddWithValue("@fecha_fin", preparacion.FechaFin);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, preparacion);
         }
 
         public bool TieneDatosRelacionados(int idPreparacion)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 SELECT COUNT(*)
                 FROM preparacion_academica_asignacion
-                WHERE id_preparacion = @id_preparacion";
+                WHERE id_preparacion = @IdPreparacion;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_preparacion", idPreparacion);
+            int total = conn.ExecuteScalar<int>(sql, new
+            {
+                IdPreparacion = idPreparacion
+            });
 
-                    conn.Open();
-
-                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-                }
-            }
+            return total > 0;
         }
 
         public void Eliminar(int idPreparacion)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 DELETE FROM preparacion_academica
-                WHERE id_preparacion = @id_preparacion";
+                WHERE id_preparacion = @IdPreparacion;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_preparacion", idPreparacion);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, new
+            {
+                IdPreparacion = idPreparacion
+            });
         }
 
         public List<InstitucionEducativa> ObtenerInstituciones()
         {
-            List<InstitucionEducativa> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            string sql = @"
                 SELECT
-                    id_institucion,
-                    nombre_institucion
+                    id_institucion AS IdInstitucion,
+                    nombre_institucion AS NombreInstitucion
                 FROM instituciones_educativas
-                ORDER BY nombre_institucion";
+                ORDER BY nombre_institucion;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new InstitucionEducativa
-                            {
-                                IdInstitucion = Convert.ToInt32(reader["id_institucion"]),
-                                NombreInstitucion = reader["nombre_institucion"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return conn.Query<InstitucionEducativa>(sql).ToList();
         }
 
         public List<Oferente> ObtenerOferentes()
         {
-            List<Oferente> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            string sql = @"
                 SELECT
-                    identificacion,
-                    tipo_identificacion,
-                    nombre_completo,
-                    fecha_nacimiento,
-                    correo,
-                    telefono
+                    identificacion AS Identificacion,
+                    tipo_identificacion AS TipoIdentificacion,
+                    nombre_completo AS NombreCompleto,
+                    fecha_nacimiento AS FechaNacimiento,
+                    correo AS Correo,
+                    telefono AS Telefono
                 FROM oferentes
-                ORDER BY nombre_completo";
+                ORDER BY nombre_completo;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new Oferente
-                            {
-                                Identificacion = reader["identificacion"].ToString(),
-                                TipoIdentificacion = reader["tipo_identificacion"].ToString(),
-                                NombreCompleto = reader["nombre_completo"].ToString(),
-                                FechaNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"]),
-                                Correo = reader["correo"].ToString(),
-                                Telefono = reader["telefono"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return conn.Query<Oferente>(sql).ToList();
         }
     }
 }

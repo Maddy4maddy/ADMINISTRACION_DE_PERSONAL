@@ -24,16 +24,16 @@ namespace AdministraciondePersonal.Pages
         [BindProperty]
         public bool ModoEdicion { get; set; }
 
+        public bool MostrarFormulario { get; set; }
+        public bool MostrarMensajeModal { get; set; }
+
         public List<InstitucionEducativa> ListaInstituciones { get; set; } = new List<InstitucionEducativa>();
 
         public string Mensaje { get; set; }
-
         public string Error { get; set; }
 
         public string NombreUsuario { get; set; }
-
         public string InicialAvatar { get; set; }
-
         public string ColorAvatar { get; set; }
 
         private bool PrepararSesion()
@@ -67,7 +67,7 @@ namespace AdministraciondePersonal.Pages
             return true;
         }
 
-        public IActionResult OnGet(int? idInstitucion)
+        public IActionResult OnGet(int? idInstitucion, bool nuevo = false)
         {
             if (!PrepararSesion())
             {
@@ -82,7 +82,13 @@ namespace AdministraciondePersonal.Pages
                     NombreUsuario,
                     "El usuario consulta instituciones educativas.");
 
-                if (idInstitucion.HasValue && idInstitucion.Value > 0)
+                if (nuevo)
+                {
+                    Institucion = new InstitucionEducativa();
+                    ModoEdicion = false;
+                    MostrarFormulario = true;
+                }
+                else if (idInstitucion.HasValue && idInstitucion.Value > 0)
                 {
                     var institucionEncontrada =
                         _institucionService.ObtenerPorId(idInstitucion.Value);
@@ -91,10 +97,12 @@ namespace AdministraciondePersonal.Pages
                     {
                         Institucion = institucionEncontrada;
                         ModoEdicion = true;
+                        MostrarFormulario = true;
                     }
                     else
                     {
                         Error = "La institución educativa seleccionada no existe.";
+                        MostrarMensajeModal = true;
                         Institucion = new InstitucionEducativa();
                         ModoEdicion = false;
                     }
@@ -103,6 +111,7 @@ namespace AdministraciondePersonal.Pages
                 {
                     Institucion = new InstitucionEducativa();
                     ModoEdicion = false;
+                    MostrarFormulario = false;
                 }
 
                 return Page();
@@ -114,6 +123,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al consultar instituciones educativas: " + ex.Message);
 
                 Error = "Ocurrió un error al consultar las instituciones educativas.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -134,6 +144,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La institución educativa ha sido registrada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     _bitacoraService.RegistrarAccion(
                         NombreUsuario,
@@ -145,6 +157,9 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
+                    ModoEdicion = false;
                 }
 
                 CargarDatos();
@@ -157,6 +172,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al registrar institución educativa: " + ex.Message);
 
                 Error = "Ocurrió un error al registrar la institución educativa.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -180,6 +197,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La institución educativa ha sido actualizada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     if (institucionAnterior != null)
                     {
@@ -202,6 +221,8 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
                     ModoEdicion = true;
                 }
 
@@ -215,6 +236,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al actualizar institución educativa: " + ex.Message);
 
                 Error = "Ocurrió un error al actualizar la institución educativa.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -238,6 +261,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La institución educativa ha sido eliminada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (institucionEliminada != null)
                     {
@@ -255,10 +279,12 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
                 Institucion = new InstitucionEducativa();
                 ModoEdicion = false;
+                MostrarFormulario = false;
 
                 CargarDatos();
                 return Page();
@@ -270,6 +296,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al eliminar institución educativa: " + ex.Message);
 
                 Error = "Ocurrió un error al eliminar la institución educativa.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }

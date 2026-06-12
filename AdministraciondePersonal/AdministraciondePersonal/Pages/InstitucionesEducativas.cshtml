@@ -12,7 +12,6 @@
     <meta charset="utf-8" />
     <title>Administración Instituciones Educativas</title>
 
-
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
 
@@ -20,19 +19,198 @@
           rel="stylesheet">
 
     <style>
-            .acciones-institucion {
-                display: flex;
-                gap: 6px;
-                align-items: center;
-                white-space: nowrap;
+            .instituciones-container {
+                background: white;
+                border-radius: 30px;
+                padding: 30px;
+                box-shadow: 0px 8px 25px rgba(0,0,0,0.08);
             }
 
-                .acciones-institucion form {
-                    margin: 0;
+            .header-acciones {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 25px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+                .header-acciones h2 {
+                    color: #80B0AA;
+                    font-size: 28px;
+                }
+
+            .btn-nuevo {
+                background-color: #273a77;
+                color: white;
+                border: none;
+                padding: 12px 25px;
+                border-radius: 15px;
+                font-size: 15px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+                text-decoration: none;
+            }
+
+                .btn-nuevo:hover {
+                    background-color: #80B0AA;
+                    color: white;
                 }
 
             .tabla-instituciones {
+                width: 100%;
+                border-collapse: collapse;
+                overflow: hidden;
+                border-radius: 20px;
                 font-size: 14px;
+            }
+
+                .tabla-instituciones thead {
+                    background-color: #80B0AA;
+                    color: white;
+                }
+
+                .tabla-instituciones th,
+                .tabla-instituciones td {
+                    padding: 15px;
+                    text-align: center;
+                    border-bottom: 1px solid #eeeeee;
+                    vertical-align: middle;
+                }
+
+                .tabla-instituciones tbody tr:hover {
+                    background-color: #F9EAC1;
+                }
+
+            .acciones-institucion {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                justify-content: center;
+                white-space: nowrap;
+            }
+
+            .btn-accion {
+                background: none;
+                border: none;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 0 3px;
+                padding: 5px 8px;
+                border-radius: 10px;
+                transition: 0.3s;
+                text-decoration: none;
+                display: inline-block;
+                white-space: nowrap;
+            }
+
+            .btn-editar {
+                color: #273a77;
+            }
+
+                .btn-editar:hover {
+                    background-color: #80B0AA;
+                    color: white;
+                }
+
+            .btn-eliminar {
+                color: #d9534f;
+            }
+
+                .btn-eliminar:hover {
+                    background-color: #d9534f;
+                    color: white;
+                }
+
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                z-index: 2000;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .modal-content {
+                background-color: white;
+                border-radius: 30px;
+                padding: 30px;
+                width: 90%;
+                max-width: 650px;
+                box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+                .modal-content h3 {
+                    color: #273a77;
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                }
+
+                .modal-content label {
+                    display: block;
+                    margin-bottom: 5px;
+                    color: #273a77;
+                    font-weight: bold;
+                }
+
+                .modal-content input {
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 2px solid #C8EDED;
+                    font-size: 14px;
+                    margin-bottom: 15px;
+                    outline: none;
+                }
+
+                    .modal-content input:focus {
+                        border-color: #FDB3CA;
+                    }
+
+            .modal-buttons {
+                display: flex;
+                gap: 15px;
+                justify-content: flex-end;
+                margin-top: 20px;
+            }
+
+                .modal-buttons button,
+                .modal-buttons a {
+                    padding: 10px 20px;
+                    border-radius: 15px;
+                    border: none;
+                    cursor: pointer;
+                    font-weight: bold;
+                    text-decoration: none;
+                }
+
+            .btn-guardar {
+                background-color: #273a77;
+                color: white;
+            }
+
+            .btn-cancelar {
+                background-color: #ccc;
+                color: #333;
+            }
+
+            .mensaje-exito h3 {
+                color: #2ECC71;
+            }
+
+            .mensaje-error h3 {
+                color: #E74C3C;
+            }
+
+            .mensaje-confirmacion h3 {
+                color: #273a77;
             }
     </style>
 </head>
@@ -40,7 +218,6 @@
 <body>
 
     <div class="sidebar">
-
         <div class="sidebar-header">
             <div class="sistema-icono">
                 <img src="~/css/images/icono.png" alt="Icono del sistema">
@@ -49,289 +226,167 @@
         </div>
 
         <ul class="nav-menu">
-
-            <li class="nav-item">
-                <a href="/Roles" class="nav-link">
-                    <span>Administración Roles</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="/Usuarios" class="nav-link">
-                    <span>Administración Usuarios</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/Oferentes" class="nav-link">
-                    <span>Registro Oferentes</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/Concursos" class="nav-link">
-                    <span>Registro Concursos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/PreparacionAcademica" class="nav-link">
-                    <span>Registro Preparación Académica</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/ExperienciaLaboral" class="nav-link">
-                    <span>Experiencia Laboral</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/Entrevistas" class="nav-link">
-                    <span>Agendar Entrevista</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Contratar Empleado</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Puestos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Requisitos de Puestos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Áreas</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Acciones de Personal</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/Bitacora" class="nav-link">
-                    <span>Visualizar Bitácoras</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="/Parametros" class="nav-link">
-                    <span>Administración Parámetros</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="/Compañia" class="nav-link">
-                    <span>Administración Compañías</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Cargar Datos de Ubicación</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="/Pantalla" class="nav-link">
-                    <span>Administracion de Pantallas</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/InstitucionesEducativas" class="nav-link">
-                    <span>Administración Instituciones Educativas</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Módulos</span>
-                </a>
-            </li>
-
-
+            <li class="nav-item"><a href="/Bienvenida" class="nav-link">Dashboard</a></li>
+            <li class="nav-item"><a href="/Roles" class="nav-link">Administración Roles</a></li>
+            <li class="nav-item"><a href="/Usuarios" class="nav-link">Administración Usuarios</a></li>
+            <li class="nav-item"><a href="/Oferentes" class="nav-link">Registro Oferentes</a></li>
+            <li class="nav-item"><a href="/Concursos" class="nav-link">Registro Concursos</a></li>
+            <li class="nav-item"><a href="/PreparacionAcademica" class="nav-link">Registro Preparación Académica</a></li>
+            <li class="nav-item"><a href="/ExperienciaLaboral" class="nav-link">Experiencia Laboral</a></li>
+            <li class="nav-item"><a href="/Entrevistas" class="nav-link">Agendar Entrevista</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Contratar Empleado</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Administración Puestos</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Administración Requisitos de Puestos</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Administración Áreas</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Administración Acciones de Personal</a></li>
+            <li class="nav-item"><a href="/Bitacora" class="nav-link">Visualizar Bitácoras</a></li>
+            <li class="nav-item"><a href="/Parametros" class="nav-link">Administración Parámetros</a></li>
+            <li class="nav-item"><a href="/Compañia" class="nav-link">Administración Compañías</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Cargar Datos de Ubicación</a></li>
+            <li class="nav-item"><a href="/Pantalla" class="nav-link">Administracion de Pantallas</a></li>
+            <li class="nav-item"><a href="/InstitucionesEducativas" class="nav-link">Administración Instituciones Educativas</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Administración Módulos</a></li>
         </ul>
-
     </div>
 
     <div class="main-content">
-
         <div class="topbar">
             <div class="user-info">
-                <span class="user-name" id="nombreUsuario">
-                    @Model.NombreUsuario
-                </span>
-
-                <div class="user-avatar" id="userAvatar" style="background-color: @Model.ColorAvatar">
+                <span class="user-name">@Model.NombreUsuario</span>
+                <div class="user-avatar" style="background-color: @Model.ColorAvatar">
                     @Model.InicialAvatar
                 </div>
             </div>
         </div>
 
         <div class="page-container">
-
             <div class="container-fluid mt-4">
+                <h2 class="mb-4">Administración Instituciones Educativas</h2>
 
-                <h2 class="mb-4">
-                    Administración Instituciones Educativas
-                </h2>
-
-                @if (!string.IsNullOrEmpty(Model.Mensaje))
-                {
-                    <div class="alert alert-success">
-                        @Model.Mensaje
-                    </div>
-                }
-
-                @if (!string.IsNullOrEmpty(Model.Error))
-                {
-                    <div class="alert alert-danger">
-                        @Model.Error
-                    </div>
-                }
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        @(Model.ModoEdicion ? "Actualizar institución educativa" : "Nueva institución educativa")
+                <div class="instituciones-container">
+                    <div class="header-acciones">
+                        <h2>Lista de Instituciones Educativas</h2>
+                        <a href="/InstitucionesEducativas?nuevo=true" class="btn-nuevo">
+                            + Nueva Institución
+                        </a>
                     </div>
 
-                    <div class="card-body">
-
-                        <form method="post">
-
-                            <input type="hidden" asp-for="ModoEdicion" />
-                            <input type="hidden" asp-for="Institucion.IdInstitucion" />
-
-                            <div class="row">
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">
-                                        Código de la institución
-                                    </label>
-
-                                    <input asp-for="Institucion.IdInstitucion"
-                                           class="form-control"
-                                           readonly />
-                                </div>
-
-                                <div class="col-md-8 mb-3">
-                                    <label class="form-label">
-                                        Nombre
-                                    </label>
-
-                                    <input asp-for="Institucion.NombreInstitucion"
-                                           maxlength="150"
-                                           class="form-control" />
-                                </div>
-
-                            </div>
-
-                            @if (Model.ModoEdicion)
-                            {
-                                <button type="submit"
-                                        asp-page-handler="Actualizar"
-                                        class="btn btn-warning">
-                                    Actualizar
-                                </button>
-
-                                <a href="/InstitucionesEducativas"
-                                   class="btn btn-secondary">
-                                    Cancelar
-                                </a>
-                            }
-                            else
-                            {
-                                <button type="submit"
-                                        asp-page-handler="Guardar"
-                                        class="btn btn-primary">
-                                    Guardar
-                                </button>
-                            }
-
-                        </form>
-
-                    </div>
-                </div>
-
-                <h4>
-                    Lista de instituciones educativas
-                </h4>
-
-                <div class="table-responsive">
-
-                    <table class="table table-bordered table-striped tabla-instituciones">
-
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            @foreach (var item in Model.ListaInstituciones)
-                            {
+                    <div class="table-responsive">
+                        <table class="tabla-instituciones">
+                            <thead>
                                 <tr>
-                                    <td>@item.IdInstitucion</td>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
 
-                                    <td>@item.NombreInstitucion</td>
+                            <tbody>
+                                @foreach (var item in Model.ListaInstituciones)
+                                {
+                                    <tr>
+                                        <td>@item.IdInstitucion</td>
+                                        <td>@item.NombreInstitucion</td>
+                                        <td>
+                                            <div class="acciones-institucion">
+                                                <a href="/InstitucionesEducativas?idInstitucion=@item.IdInstitucion"
+                                                   class="btn-accion btn-editar">
+                                                    Editar
+                                                </a>
 
-                                    <td>
-                                        <div class="acciones-institucion">
-
-                                            <a asp-page="/InstitucionesEducativas"
-                                               asp-route-idInstitucion="@item.IdInstitucion"
-                                               class="btn btn-sm btn-warning">
-                                                Editar
-                                            </a>
-
-                                            <form method="post"
-                                                  asp-page-handler="Eliminar"
-                                                  onsubmit="return confirm('¿Realmente desea eliminar el elemento seleccionado?');">
-
-                                                <input type="hidden"
-                                                       name="idInstitucion"
-                                                       value="@item.IdInstitucion" />
-
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-danger">
+                                                <button type="button"
+                                                        class="btn-accion btn-eliminar"
+                                                        onclick="abrirModalEliminar('@item.IdInstitucion')">
                                                     Eliminar
                                                 </button>
-
-                                            </form>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-
-                    </table>
-
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>
-
         </div>
-
     </div>
+
+    <div id="modalInstitucion" class="modal" style="display: @(Model.MostrarFormulario ? "flex" : "none")">
+        <div class="modal-content">
+            <h3>@(Model.ModoEdicion ? "Editar Institución Educativa" : "Nueva Institución Educativa")</h3>
+
+            <form method="post">
+                <input type="hidden" asp-for="ModoEdicion" />
+                <input type="hidden" asp-for="Institucion.IdInstitucion" />
+
+                <label>Código de la institución</label>
+                <input asp-for="Institucion.IdInstitucion" readonly />
+
+                <label>Nombre</label>
+                <input asp-for="Institucion.NombreInstitucion" maxlength="150" required />
+
+                <div class="modal-buttons">
+                    @if (Model.ModoEdicion)
+                    {
+                        <button type="submit" asp-page-handler="Actualizar" class="btn-guardar">
+                            Actualizar
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" asp-page-handler="Guardar" class="btn-guardar">
+                            Guardar
+                        </button>
+                    }
+
+                    <a href="/InstitucionesEducativas" class="btn-cancelar">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalMensaje" class="modal" style="display: @(Model.MostrarMensajeModal ? "flex" : "none")">
+        <div class="modal-content @(string.IsNullOrEmpty(Model.Error) ? "mensaje-exito" : "mensaje-error")">
+            <h3>@(string.IsNullOrEmpty(Model.Error) ? "Operación exitosa" : "Error")</h3>
+            <p>@(string.IsNullOrEmpty(Model.Error) ? Model.Mensaje : Model.Error)</p>
+
+            <div class="modal-buttons">
+                <a href="/InstitucionesEducativas" class="btn-guardar">
+                    Aceptar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEliminar" class="modal">
+        <div class="modal-content mensaje-confirmacion">
+            <h3>Confirmar eliminación</h3>
+            <p>¿Realmente desea eliminar el elemento seleccionado?</p>
+
+            <form method="post" asp-page-handler="Eliminar">
+                <input type="hidden" id="idInstitucionEliminar" name="idInstitucion" />
+
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-guardar">Sí</button>
+                    <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar()">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+            function abrirModalEliminar(idInstitucion) {
+                document.getElementById("idInstitucionEliminar").value = idInstitucion;
+                document.getElementById("modalEliminar").style.display = "flex";
+            }
+
+            function cerrarModalEliminar() {
+                document.getElementById("modalEliminar").style.display = "none";
+            }
+    </script>
 
 </body>
 </html>

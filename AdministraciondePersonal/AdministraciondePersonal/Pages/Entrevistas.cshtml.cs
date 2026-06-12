@@ -19,21 +19,25 @@ namespace AdministraciondePersonal.Pages
         }
 
         public List<Entrevista> ListaEntrevistas { get; set; } = new List<Entrevista>();
+        public List<Oferente> Oferentes { get; set; } = new List<Oferente>();
+        public List<Usuario> Entrevistadores { get; set; } = new List<Usuario>();
+
+        [BindProperty]
+        public Entrevista Entrevista { get; set; } = new Entrevista();
+
+        public bool ModoEdicion { get; set; }
+        public bool MostrarFormulario { get; set; }
+        public bool MostrarMensajeModal { get; set; }
 
         public string Mensaje { get; set; }
-
         public string Error { get; set; }
 
         public int PaginaActual { get; set; }
-
         public int TotalPaginas { get; set; }
-
         public int TamanioPagina { get; set; } = 10;
 
         public string NombreUsuario { get; set; }
-
         public string InicialAvatar { get; set; }
-
         public string ColorAvatar { get; set; }
 
         private bool PrepararSesion()
@@ -67,7 +71,27 @@ namespace AdministraciondePersonal.Pages
             return true;
         }
 
-        public IActionResult OnGet(int pagina = 1)
+        private string ObtenerNombreOferente(string identificacion)
+        {
+            var oferente =
+                Oferentes.FirstOrDefault(o => o.Identificacion == identificacion);
+
+            return oferente != null
+                ? oferente.NombreCompleto
+                : identificacion;
+        }
+
+        private string ObtenerNombreEntrevistador(int idUsuario)
+        {
+            var entrevistador =
+                Entrevistadores.FirstOrDefault(e => e.IdUsuario == idUsuario);
+
+            return entrevistador != null
+                ? entrevistador.NombreCompleto
+                : "Sin entrevistador";
+        }
+
+        public IActionResult OnGet(int pagina = 1, bool nuevo = false, int? idEntrevista = null)
         {
             if (!PrepararSesion())
             {
@@ -77,10 +101,56 @@ namespace AdministraciondePersonal.Pages
             try
             {
                 CargarDatos(pagina);
+                CargarListas();
 
                 _bitacoraService.RegistrarAccion(
                     NombreUsuario,
                     "El usuario consulta entrevistas agendadas.");
+
+                if (nuevo)
+                {
+                    Entrevista = new Entrevista
+                    {
+                        Estado = "Pendiente"
+                    };
+
+                    ModoEdicion = false;
+                    MostrarFormulario = true;
+                }
+                else if (idEntrevista.HasValue && idEntrevista.Value > 0)
+                {
+                    var entrevistaEncontrada =
+                        _entrevistaService.ObtenerPorId(idEntrevista.Value);
+
+                    if (entrevistaEncontrada != null)
+                    {
+                        Entrevista = entrevistaEncontrada;
+                        ModoEdicion = true;
+                        MostrarFormulario = true;
+
+                        _bitacoraService.RegistrarAccion(
+                            NombreUsuario,
+                            $"El usuario consulta los datos de la entrevista del oferente '{Entrevista.NombreOferente}' programada para {Entrevista.FechaEntrevista:yyyy-MM-dd HH:mm}.");
+                    }
+                    else
+                    {
+                        Error = "La entrevista seleccionada no existe.";
+                        MostrarMensajeModal = true;
+                        Entrevista = new Entrevista();
+                        ModoEdicion = false;
+                        MostrarFormulario = false;
+                    }
+                }
+                else
+                {
+                    Entrevista = new Entrevista
+                    {
+                        Estado = "Pendiente"
+                    };
+
+                    ModoEdicion = false;
+                    MostrarFormulario = false;
+                }
 
                 return Page();
             }
@@ -91,7 +161,164 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al consultar entrevistas: " + ex.Message);
 
                 Error = "Ocurrió un error al consultar las entrevistas.";
+                MostrarMensajeModal = true;
                 CargarDatos(pagina);
+                CargarListas();
+                return Page();
+            }
+        }
+
+        public IActionResult OnPostGuardar(int paginaActual = 1)
+        {
+            if (!PrepararSesion())
+            {
+                return RedirectToPage("/Login", new { expirada = true });
+            }
+
+            try
+            {
+                CargarDatos(paginaActual);
+                CargarListas();
+
+                Entrevista.Estado = "Pendiente";
+
+                string resultado =
+                    _entrevistaService.Registrar(Entrevista);
+
+                if (resultado == "La entrevista ha sido agendada correctamente.")
+                {
+                    Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
+
+                    string nombreOferente =
+                        ObtenerNombreOferente(Entrevista.IdentificacionOferente);
+
+                    string nombreEntrevistador =
+                        ObtenerNombreEntrevistador(Entrevista.IdUsuarioEntrevistador);
+
+                    _bitacoraService.RegistrarAccion(
+                        NombreUsuario,
+                        $"Agenda de nueva entrevista para el oferente '{nombreOferente}' con identificación {Entrevista.IdentificacionOferente}, entrevistador '{nombreEntrevistador}', fecha {Entrevista.FechaEntrevista:yyyy-MM-dd HH:mm}, estado 'Pendiente'.");
+
+                    Entrevista = new Entrevista
+                    {
+                        Estado = "Pendiente"
+                    };
+
+                    ModoEdicion = false;
+                }
+                else
+                {
+                    Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
+                    ModoEdicion = false;
+                }
+
+                CargarDatos(paginaActual);
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                _bitacoraService.RegistrarAccion(
+                    NombreUsuario,
+                    "Error técnico al agendar entrevista: " + ex.Message);
+
+                Error = "Ocurrió un error al agendar la entrevista.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
+                CargarDatos(paginaActual);
+                CargarListas();
+                return Page();
+            }
+        }
+
+        public IActionResult OnPostActualizar(int paginaActual = 1)
+        {
+            if (!PrepararSesion())
+            {
+                return RedirectToPage("/Login", new { expirada = true });
+            }
+
+            try
+            {
+                CargarDatos(paginaActual);
+                CargarListas();
+
+                var entrevistaAnterior =
+                    _entrevistaService.ObtenerPorId(Entrevista.IdEntrevista);
+
+                if (entrevistaAnterior != null)
+                {
+                    Entrevista.IdentificacionOferente =
+                        entrevistaAnterior.IdentificacionOferente;
+
+                    Entrevista.NombreOferente =
+                        entrevistaAnterior.NombreOferente;
+                }
+
+                string resultado =
+                    _entrevistaService.Actualizar(Entrevista);
+
+                if (resultado == "La entrevista ha sido actualizada correctamente.")
+                {
+                    Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
+                    ModoEdicion = false;
+
+                    string nombreOferente =
+                        entrevistaAnterior != null && !string.IsNullOrWhiteSpace(entrevistaAnterior.NombreOferente)
+                            ? entrevistaAnterior.NombreOferente
+                            : ObtenerNombreOferente(Entrevista.IdentificacionOferente);
+
+                    string entrevistadorAnterior =
+                        entrevistaAnterior != null && !string.IsNullOrWhiteSpace(entrevistaAnterior.NombreEntrevistador)
+                            ? entrevistaAnterior.NombreEntrevistador
+                            : "Sin entrevistador";
+
+                    string entrevistadorActual =
+                        ObtenerNombreEntrevistador(Entrevista.IdUsuarioEntrevistador);
+
+                    if (entrevistaAnterior != null)
+                    {
+                        _bitacoraService.RegistrarAccion(
+                            NombreUsuario,
+                            $"Actualización de entrevista del oferente '{nombreOferente}' con identificación {Entrevista.IdentificacionOferente}. " +
+                            $"Antes: entrevistador '{entrevistadorAnterior}', fecha {entrevistaAnterior.FechaEntrevista:yyyy-MM-dd HH:mm}. " +
+                            $"Ahora: entrevistador '{entrevistadorActual}', fecha {Entrevista.FechaEntrevista:yyyy-MM-dd HH:mm}.");
+                    }
+                    else
+                    {
+                        _bitacoraService.RegistrarAccion(
+                            NombreUsuario,
+                            $"Actualización de entrevista con ID {Entrevista.IdEntrevista}.");
+                    }
+                }
+                else
+                {
+                    Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
+                    ModoEdicion = true;
+                }
+
+                CargarDatos(paginaActual);
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                _bitacoraService.RegistrarAccion(
+                    NombreUsuario,
+                    "Error técnico al actualizar entrevista: " + ex.Message);
+
+                Error = "Ocurrió un error al actualizar la entrevista.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
+                ModoEdicion = true;
+                CargarDatos(paginaActual);
+                CargarListas();
                 return Page();
             }
         }
@@ -114,6 +341,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La entrevista ha sido eliminada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (entrevistaEliminada != null)
                     {
@@ -131,9 +359,19 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
+                Entrevista = new Entrevista
+                {
+                    Estado = "Pendiente"
+                };
+
+                ModoEdicion = false;
+                MostrarFormulario = false;
+
                 CargarDatos(paginaActual);
+                CargarListas();
                 return Page();
             }
             catch (Exception ex)
@@ -143,7 +381,9 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al eliminar entrevista: " + ex.Message);
 
                 Error = "Ocurrió un error al eliminar la entrevista.";
+                MostrarMensajeModal = true;
                 CargarDatos(paginaActual);
+                CargarListas();
                 return Page();
             }
         }
@@ -169,6 +409,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La entrevista ha sido marcada como realizada.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (entrevistaAnterior != null && entrevistaActual != null)
                     {
@@ -186,9 +427,19 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
+                Entrevista = new Entrevista
+                {
+                    Estado = "Pendiente"
+                };
+
+                ModoEdicion = false;
+                MostrarFormulario = false;
+
                 CargarDatos(paginaActual);
+                CargarListas();
                 return Page();
             }
             catch (Exception ex)
@@ -198,7 +449,9 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al marcar entrevista como realizada: " + ex.Message);
 
                 Error = "Ocurrió un error al marcar la entrevista como realizada.";
+                MostrarMensajeModal = true;
                 CargarDatos(paginaActual);
+                CargarListas();
                 return Page();
             }
         }
@@ -218,6 +471,12 @@ namespace AdministraciondePersonal.Pages
                 TotalPaginas = 1;
 
             ListaEntrevistas = _entrevistaService.ObtenerPaginado(PaginaActual, TamanioPagina);
+        }
+
+        private void CargarListas()
+        {
+            Oferentes = _entrevistaService.ObtenerOferentes();
+            Entrevistadores = _entrevistaService.ObtenerEntrevistadores();
         }
     }
 }

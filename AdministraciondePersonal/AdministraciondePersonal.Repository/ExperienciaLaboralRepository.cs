@@ -1,5 +1,5 @@
 ﻿using AdministraciondePersonal.Entities;
-using MySql.Data.MySqlClient;
+using Dapper;
 using System.Data;
 
 namespace AdministraciondePersonal.Repository
@@ -15,96 +15,52 @@ namespace AdministraciondePersonal.Repository
 
         public List<ExperienciaLaboral> ObtenerPorOferente(string identificacionOferente)
         {
-            List<ExperienciaLaboral> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            string sql = @"
                 SELECT
-                    id_experiencia,
-                    identificacion_oferente,
-                    nombre_empresa,
-                    puesto_desempenado,
-                    fecha_inicio,
-                    fecha_fin
+                    id_experiencia AS IdExperiencia,
+                    identificacion_oferente AS IdentificacionOferente,
+                    nombre_empresa AS NombreEmpresa,
+                    puesto_desempenado AS PuestoDesempenado,
+                    fecha_inicio AS FechaInicio,
+                    fecha_fin AS FechaFin
                 FROM experiencia_laboral
-                WHERE identificacion_oferente = @identificacion_oferente
-                ORDER BY id_experiencia DESC";
+                WHERE identificacion_oferente = @IdentificacionOferente
+                ORDER BY id_experiencia DESC;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@identificacion_oferente", identificacionOferente);
-
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new ExperienciaLaboral
-                            {
-                                IdExperiencia = Convert.ToInt32(reader["id_experiencia"]),
-                                IdentificacionOferente = reader["identificacion_oferente"].ToString(),
-                                NombreEmpresa = reader["nombre_empresa"].ToString(),
-                                PuestoDesempenado = reader["puesto_desempenado"].ToString(),
-                                FechaInicio = Convert.ToDateTime(reader["fecha_inicio"]),
-                                FechaFin = Convert.ToDateTime(reader["fecha_fin"])
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return conn.Query<ExperienciaLaboral>(sql, new
+            {
+                IdentificacionOferente = identificacionOferente
+            }).ToList();
         }
 
         public ExperienciaLaboral ObtenerPorId(int idExperiencia)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 SELECT
-                    id_experiencia,
-                    identificacion_oferente,
-                    nombre_empresa,
-                    puesto_desempenado,
-                    fecha_inicio,
-                    fecha_fin
+                    id_experiencia AS IdExperiencia,
+                    identificacion_oferente AS IdentificacionOferente,
+                    nombre_empresa AS NombreEmpresa,
+                    puesto_desempenado AS PuestoDesempenado,
+                    fecha_inicio AS FechaInicio,
+                    fecha_fin AS FechaFin
                 FROM experiencia_laboral
-                WHERE id_experiencia = @id_experiencia";
+                WHERE id_experiencia = @IdExperiencia;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_experiencia", idExperiencia);
-
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return new ExperienciaLaboral
-                            {
-                                IdExperiencia = Convert.ToInt32(reader["id_experiencia"]),
-                                IdentificacionOferente = reader["identificacion_oferente"].ToString(),
-                                NombreEmpresa = reader["nombre_empresa"].ToString(),
-                                PuestoDesempenado = reader["puesto_desempenado"].ToString(),
-                                FechaInicio = Convert.ToDateTime(reader["fecha_inicio"]),
-                                FechaFin = Convert.ToDateTime(reader["fecha_fin"])
-                            };
-                        }
-                    }
-                }
-            }
-
-            return null;
+            return conn.QueryFirstOrDefault<ExperienciaLaboral>(sql, new
+            {
+                IdExperiencia = idExperiencia
+            });
         }
 
         public void Insertar(ExperienciaLaboral experiencia)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 INSERT INTO experiencia_laboral
                 (
                     identificacion_oferente,
@@ -115,92 +71,62 @@ namespace AdministraciondePersonal.Repository
                 )
                 VALUES
                 (
-                    @identificacion_oferente,
-                    @nombre_empresa,
-                    @puesto_desempenado,
-                    @fecha_inicio,
-                    @fecha_fin
-                )";
+                    @IdentificacionOferente,
+                    @NombreEmpresa,
+                    @PuestoDesempenado,
+                    @FechaInicio,
+                    @FechaFin
+                );";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@identificacion_oferente", experiencia.IdentificacionOferente);
-                    cmd.Parameters.AddWithValue("@nombre_empresa", experiencia.NombreEmpresa);
-                    cmd.Parameters.AddWithValue("@puesto_desempenado", experiencia.PuestoDesempenado);
-                    cmd.Parameters.AddWithValue("@fecha_inicio", experiencia.FechaInicio);
-                    cmd.Parameters.AddWithValue("@fecha_fin", experiencia.FechaFin);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, experiencia);
         }
 
         public void Actualizar(ExperienciaLaboral experiencia)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 UPDATE experiencia_laboral
                 SET
-                    identificacion_oferente = @identificacion_oferente,
-                    nombre_empresa = @nombre_empresa,
-                    puesto_desempenado = @puesto_desempenado,
-                    fecha_inicio = @fecha_inicio,
-                    fecha_fin = @fecha_fin
-                WHERE id_experiencia = @id_experiencia";
+                    identificacion_oferente = @IdentificacionOferente,
+                    nombre_empresa = @NombreEmpresa,
+                    puesto_desempenado = @PuestoDesempenado,
+                    fecha_inicio = @FechaInicio,
+                    fecha_fin = @FechaFin
+                WHERE id_experiencia = @IdExperiencia;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_experiencia", experiencia.IdExperiencia);
-                    cmd.Parameters.AddWithValue("@identificacion_oferente", experiencia.IdentificacionOferente);
-                    cmd.Parameters.AddWithValue("@nombre_empresa", experiencia.NombreEmpresa);
-                    cmd.Parameters.AddWithValue("@puesto_desempenado", experiencia.PuestoDesempenado);
-                    cmd.Parameters.AddWithValue("@fecha_inicio", experiencia.FechaInicio);
-                    cmd.Parameters.AddWithValue("@fecha_fin", experiencia.FechaFin);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, experiencia);
         }
 
         public bool TieneDatosRelacionados(int idExperiencia)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 SELECT COUNT(*)
                 FROM experiencia_laboral_asignacion
-                WHERE id_experiencia = @id_experiencia";
+                WHERE id_experiencia = @IdExperiencia;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_experiencia", idExperiencia);
+            int total = conn.ExecuteScalar<int>(sql, new
+            {
+                IdExperiencia = idExperiencia
+            });
 
-                    conn.Open();
-
-                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-                }
-            }
+            return total > 0;
         }
 
         public void Eliminar(int idExperiencia)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 DELETE FROM experiencia_laboral
-                WHERE id_experiencia = @id_experiencia";
+                WHERE id_experiencia = @IdExperiencia;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_experiencia", idExperiencia);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, new
+            {
+                IdExperiencia = idExperiencia
+            });
         }
     }
 }

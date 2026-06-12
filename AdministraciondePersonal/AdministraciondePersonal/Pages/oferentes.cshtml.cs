@@ -22,6 +22,9 @@ namespace AdministraciondePersonal.Pages
         [BindProperty]
         public bool ModoEdicion { get; set; }
 
+        public bool MostrarFormulario { get; set; }
+        public bool MostrarMensajeModal { get; set; }
+
         public List<Oferente> ListaOferentes { get; set; } = new List<Oferente>();
         public List<Concurso> Concursos { get; set; } = new List<Concurso>();
 
@@ -68,7 +71,7 @@ namespace AdministraciondePersonal.Pages
             return concurso != null ? concurso.NombreConcurso : "Sin concurso";
         }
 
-        public IActionResult OnGet(string identificacion)
+        public IActionResult OnGet(string identificacion, bool nuevo = false)
         {
             if (!PrepararSesion())
             {
@@ -83,7 +86,13 @@ namespace AdministraciondePersonal.Pages
                     NombreUsuario,
                     "El usuario consulta oferentes.");
 
-                if (!string.IsNullOrWhiteSpace(identificacion))
+                if (nuevo)
+                {
+                    Oferente = new Oferente();
+                    ModoEdicion = false;
+                    MostrarFormulario = true;
+                }
+                else if (!string.IsNullOrWhiteSpace(identificacion))
                 {
                     var oferenteEncontrado = _oferenteService.ObtenerPorIdentificacion(identificacion);
 
@@ -91,10 +100,12 @@ namespace AdministraciondePersonal.Pages
                     {
                         Oferente = oferenteEncontrado;
                         ModoEdicion = true;
+                        MostrarFormulario = true;
                     }
                     else
                     {
                         Error = "El oferente seleccionado no existe.";
+                        MostrarMensajeModal = true;
                         ModoEdicion = false;
                         Oferente = new Oferente();
                     }
@@ -103,6 +114,7 @@ namespace AdministraciondePersonal.Pages
                 {
                     Oferente = new Oferente();
                     ModoEdicion = false;
+                    MostrarFormulario = false;
                 }
 
                 return Page();
@@ -114,6 +126,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al consultar oferentes: " + ex.Message);
 
                 Error = "Ocurrió un error al consultar los oferentes.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -135,6 +148,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "El oferente ha sido registrado correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     string nombreConcurso = ObtenerNombreConcurso(Oferente.CodigoConcurso);
 
@@ -148,6 +163,9 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
+                    ModoEdicion = false;
                 }
 
                 CargarDatos();
@@ -160,6 +178,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al registrar oferente: " + ex.Message);
 
                 Error = "Ocurrió un error al registrar el oferente.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -192,6 +212,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "El oferente ha sido actualizado correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     if (oferenteAnterior != null)
                     {
@@ -221,6 +243,8 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
                     ModoEdicion = true;
                 }
 
@@ -234,6 +258,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al actualizar oferente: " + ex.Message);
 
                 Error = "Ocurrió un error al actualizar el oferente.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -257,6 +283,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "El oferente ha sido eliminado correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (oferenteEliminado != null)
                     {
@@ -274,10 +301,12 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
                 Oferente = new Oferente();
                 ModoEdicion = false;
+                MostrarFormulario = false;
 
                 CargarDatos();
                 return Page();
@@ -289,6 +318,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al eliminar oferente: " + ex.Message);
 
                 Error = "Ocurrió un error al eliminar el oferente.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }

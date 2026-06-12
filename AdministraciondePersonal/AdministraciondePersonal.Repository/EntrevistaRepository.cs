@@ -1,5 +1,5 @@
 ﻿using AdministraciondePersonal.Entities;
-using MySql.Data.MySqlClient;
+using Dapper;
 using System.Data;
 
 namespace AdministraciondePersonal.Repository
@@ -15,123 +15,74 @@ namespace AdministraciondePersonal.Repository
 
         public List<Entrevista> ObtenerPaginado(int pagina, int tamanioPagina)
         {
-            List<Entrevista> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
+
             int offset = (pagina - 1) * tamanioPagina;
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            string sql = @"
                 SELECT 
-                    e.id_entrevista,
-                    e.identificacion_oferente,
-                    o.nombre_completo AS nombre_oferente,
-                    e.id_usuario_entrevistador,
-                    u.nombre_completo AS nombre_entrevistador,
-                    e.fecha_entrevista,
-                    e.estado
+                    e.id_entrevista AS IdEntrevista,
+                    e.identificacion_oferente AS IdentificacionOferente,
+                    o.nombre_completo AS NombreOferente,
+                    e.id_usuario_entrevistador AS IdUsuarioEntrevistador,
+                    u.nombre_completo AS NombreEntrevistador,
+                    e.fecha_entrevista AS FechaEntrevista,
+                    e.estado AS Estado
                 FROM entrevistas e
                 INNER JOIN oferentes o 
                     ON e.identificacion_oferente = o.identificacion
                 INNER JOIN usuarios u 
                     ON e.id_usuario_entrevistador = u.id_usuario
                 ORDER BY e.fecha_entrevista ASC
-                LIMIT @tamanioPagina OFFSET @offset";
+                LIMIT @TamanioPagina OFFSET @Offset;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@tamanioPagina", tamanioPagina);
-                    cmd.Parameters.AddWithValue("@offset", offset);
-
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new Entrevista
-                            {
-                                IdEntrevista = Convert.ToInt32(reader["id_entrevista"]),
-                                IdentificacionOferente = reader["identificacion_oferente"].ToString(),
-                                NombreOferente = reader["nombre_oferente"].ToString(),
-                                IdUsuarioEntrevistador = Convert.ToInt32(reader["id_usuario_entrevistador"]),
-                                NombreEntrevistador = reader["nombre_entrevistador"].ToString(),
-                                FechaEntrevista = Convert.ToDateTime(reader["fecha_entrevista"]),
-                                Estado = reader["estado"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return conn.Query<Entrevista>(sql, new
+            {
+                TamanioPagina = tamanioPagina,
+                Offset = offset
+            }).ToList();
         }
 
         public int ContarEntrevistas()
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = "SELECT COUNT(*) FROM entrevistas";
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    conn.Open();
-                    return Convert.ToInt32(cmd.ExecuteScalar());
-                }
-            }
+            string sql = "SELECT COUNT(*) FROM entrevistas;";
+
+            return conn.ExecuteScalar<int>(sql);
         }
 
         public Entrevista ObtenerPorId(int idEntrevista)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 SELECT 
-                    e.id_entrevista,
-                    e.identificacion_oferente,
-                    o.nombre_completo AS nombre_oferente,
-                    e.id_usuario_entrevistador,
-                    u.nombre_completo AS nombre_entrevistador,
-                    e.fecha_entrevista,
-                    e.estado
+                    e.id_entrevista AS IdEntrevista,
+                    e.identificacion_oferente AS IdentificacionOferente,
+                    o.nombre_completo AS NombreOferente,
+                    e.id_usuario_entrevistador AS IdUsuarioEntrevistador,
+                    u.nombre_completo AS NombreEntrevistador,
+                    e.fecha_entrevista AS FechaEntrevista,
+                    e.estado AS Estado
                 FROM entrevistas e
                 INNER JOIN oferentes o 
                     ON e.identificacion_oferente = o.identificacion
                 INNER JOIN usuarios u 
                     ON e.id_usuario_entrevistador = u.id_usuario
-                WHERE e.id_entrevista = @id_entrevista";
+                WHERE e.id_entrevista = @IdEntrevista;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_entrevista", idEntrevista);
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return new Entrevista
-                            {
-                                IdEntrevista = Convert.ToInt32(reader["id_entrevista"]),
-                                IdentificacionOferente = reader["identificacion_oferente"].ToString(),
-                                NombreOferente = reader["nombre_oferente"].ToString(),
-                                IdUsuarioEntrevistador = Convert.ToInt32(reader["id_usuario_entrevistador"]),
-                                NombreEntrevistador = reader["nombre_entrevistador"].ToString(),
-                                FechaEntrevista = Convert.ToDateTime(reader["fecha_entrevista"]),
-                                Estado = reader["estado"].ToString()
-                            };
-                        }
-                    }
-                }
-            }
-
-            return null;
+            return conn.QueryFirstOrDefault<Entrevista>(sql, new
+            {
+                IdEntrevista = idEntrevista
+            });
         }
 
         public void Insertar(Entrevista entrevista)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 INSERT INTO entrevistas
                 (
                     identificacion_oferente,
@@ -141,146 +92,86 @@ namespace AdministraciondePersonal.Repository
                 )
                 VALUES
                 (
-                    @identificacion_oferente,
-                    @id_usuario_entrevistador,
-                    @fecha_entrevista,
+                    @IdentificacionOferente,
+                    @IdUsuarioEntrevistador,
+                    @FechaEntrevista,
                     'Pendiente'
-                )";
+                );";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@identificacion_oferente", entrevista.IdentificacionOferente);
-                    cmd.Parameters.AddWithValue("@id_usuario_entrevistador", entrevista.IdUsuarioEntrevistador);
-                    cmd.Parameters.AddWithValue("@fecha_entrevista", entrevista.FechaEntrevista);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, entrevista);
         }
 
         public void Actualizar(Entrevista entrevista)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 UPDATE entrevistas
                 SET
-                    id_usuario_entrevistador = @id_usuario_entrevistador,
-                    fecha_entrevista = @fecha_entrevista
-                WHERE id_entrevista = @id_entrevista";
+                    id_usuario_entrevistador = @IdUsuarioEntrevistador,
+                    fecha_entrevista = @FechaEntrevista
+                WHERE id_entrevista = @IdEntrevista;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_entrevista", entrevista.IdEntrevista);
-                    cmd.Parameters.AddWithValue("@id_usuario_entrevistador", entrevista.IdUsuarioEntrevistador);
-                    cmd.Parameters.AddWithValue("@fecha_entrevista", entrevista.FechaEntrevista);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, entrevista);
         }
 
         public void Eliminar(int idEntrevista)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
+                DELETE FROM entrevistas
+                WHERE id_entrevista = @IdEntrevista;";
+
+            conn.Execute(sql, new
             {
-                string sql = "DELETE FROM entrevistas WHERE id_entrevista = @id_entrevista";
-
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_entrevista", idEntrevista);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+                IdEntrevista = idEntrevista
+            });
         }
 
         public void MarcarComoRealizada(int idEntrevista)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 UPDATE entrevistas
                 SET estado = 'Realizada'
-                WHERE id_entrevista = @id_entrevista";
+                WHERE id_entrevista = @IdEntrevista;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@id_entrevista", idEntrevista);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            conn.Execute(sql, new
+            {
+                IdEntrevista = idEntrevista
+            });
         }
 
         public List<Oferente> ObtenerOferentes()
         {
-            List<Oferente> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
-                SELECT identificacion, nombre_completo
+            string sql = @"
+                SELECT 
+                    identificacion AS Identificacion,
+                    nombre_completo AS NombreCompleto
                 FROM oferentes
-                ORDER BY nombre_completo";
+                ORDER BY nombre_completo;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new Oferente
-                            {
-                                Identificacion = reader["identificacion"].ToString(),
-                                NombreCompleto = reader["nombre_completo"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return conn.Query<Oferente>(sql).ToList();
         }
 
         public List<Usuario> ObtenerEntrevistadores()
         {
-            List<Usuario> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
-                SELECT id_usuario, nombre_usuario, nombre_completo
+            string sql = @"
+                SELECT 
+                    id_usuario AS IdUsuario,
+                    nombre_usuario AS NombreUsuario,
+                    nombre_completo AS NombreCompleto
                 FROM usuarios
                 WHERE estado = 'activo'
-                ORDER BY nombre_completo";
+                ORDER BY nombre_completo;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new Usuario
-                            {
-                                IdUsuario = Convert.ToInt32(reader["id_usuario"]),
-                                NombreUsuario = reader["nombre_usuario"].ToString(),
-                                NombreCompleto = reader["nombre_completo"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return conn.Query<Usuario>(sql).ToList();
         }
     }
 }

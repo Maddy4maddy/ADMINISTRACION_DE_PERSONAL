@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddScoped<DbConnectionFactory>();
+builder.Services.AddSingleton<DbConnectionFactory>();
 
 builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
@@ -31,7 +31,6 @@ builder.Services.AddScoped<BitacoraService>();
 builder.Services.AddScoped<InstitucionEducativaRepository>();
 builder.Services.AddScoped<InstitucionEducativaService>();
 
-
 builder.Services.AddScoped<RolService>();
 builder.Services.AddScoped<RolRepository>();
 
@@ -43,7 +42,6 @@ builder.Services.AddScoped<PantallaService>();
 
 builder.Services.AddScoped<CompaniaRepository>();
 builder.Services.AddScoped<CompaniaService>();
-
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -67,6 +65,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseSession();

@@ -30,18 +30,17 @@ namespace AdministraciondePersonal.Pages
         [BindProperty]
         public string IdentificacionOferenteSeleccionado { get; set; }
 
-        public List<ExperienciaLaboral> ListaExperiencias { get; set; } = new List<ExperienciaLaboral>();
+        public bool MostrarFormulario { get; set; }
+        public bool MostrarMensajeModal { get; set; }
 
+        public List<ExperienciaLaboral> ListaExperiencias { get; set; } = new List<ExperienciaLaboral>();
         public List<Oferente> Oferentes { get; set; } = new List<Oferente>();
 
         public string Mensaje { get; set; }
-
         public string Error { get; set; }
 
         public string NombreUsuario { get; set; }
-
         public string InicialAvatar { get; set; }
-
         public string ColorAvatar { get; set; }
 
         private bool PrepararSesion()
@@ -85,7 +84,7 @@ namespace AdministraciondePersonal.Pages
                 : identificacion;
         }
 
-        public IActionResult OnGet(int? idExperiencia, string identificacionOferente)
+        public IActionResult OnGet(int? idExperiencia, string identificacionOferente, bool nuevo = false)
         {
             if (!PrepararSesion())
             {
@@ -105,7 +104,17 @@ namespace AdministraciondePersonal.Pages
                     NombreUsuario,
                     $"El usuario consulta experiencia laboral del oferente {IdentificacionOferenteSeleccionado}.");
 
-                if (idExperiencia.HasValue && idExperiencia.Value > 0)
+                if (nuevo)
+                {
+                    Experiencia = new ExperienciaLaboral
+                    {
+                        IdentificacionOferente = IdentificacionOferenteSeleccionado
+                    };
+
+                    ModoEdicion = false;
+                    MostrarFormulario = true;
+                }
+                else if (idExperiencia.HasValue && idExperiencia.Value > 0)
                 {
                     var experienciaEncontrada =
                         _experienciaService.ObtenerPorId(idExperiencia.Value);
@@ -115,10 +124,12 @@ namespace AdministraciondePersonal.Pages
                         Experiencia = experienciaEncontrada;
                         IdentificacionOferenteSeleccionado = experienciaEncontrada.IdentificacionOferente;
                         ModoEdicion = true;
+                        MostrarFormulario = true;
                     }
                     else
                     {
                         Error = "La experiencia laboral seleccionada no existe.";
+                        MostrarMensajeModal = true;
                         Experiencia = new ExperienciaLaboral();
                         ModoEdicion = false;
                     }
@@ -131,6 +142,7 @@ namespace AdministraciondePersonal.Pages
                     };
 
                     ModoEdicion = false;
+                    MostrarFormulario = false;
                 }
 
                 CargarDatos();
@@ -144,6 +156,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al consultar experiencia laboral: " + ex.Message);
 
                 Error = "Ocurrió un error al consultar la experiencia laboral.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -171,6 +184,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La experiencia laboral ha sido registrada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     string nombreOferente =
                         ObtenerNombreOferente(Experiencia.IdentificacionOferente);
@@ -189,6 +204,9 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
+                    ModoEdicion = false;
                 }
 
                 CargarDatos();
@@ -201,6 +219,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al registrar experiencia laboral: " + ex.Message);
 
                 Error = "Ocurrió un error al registrar la experiencia laboral.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -231,6 +251,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La experiencia laboral ha sido actualizada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     string nombreOferente =
                         ObtenerNombreOferente(Experiencia.IdentificacionOferente);
@@ -260,6 +282,8 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
                     ModoEdicion = true;
                 }
 
@@ -273,6 +297,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al actualizar experiencia laboral: " + ex.Message);
 
                 Error = "Ocurrió un error al actualizar la experiencia laboral.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -298,6 +324,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La experiencia laboral ha sido eliminada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (experienciaEliminada != null)
                     {
@@ -318,6 +345,7 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
                 Experiencia = new ExperienciaLaboral
@@ -326,6 +354,7 @@ namespace AdministraciondePersonal.Pages
                 };
 
                 ModoEdicion = false;
+                MostrarFormulario = false;
 
                 CargarDatos();
                 return Page();
@@ -337,6 +366,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al eliminar experiencia laboral: " + ex.Message);
 
                 Error = "Ocurrió un error al eliminar la experiencia laboral.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -344,8 +374,7 @@ namespace AdministraciondePersonal.Pages
 
         private void CargarDatos()
         {
-            Oferentes =
-                _preparacionService.ObtenerOferentes();
+            Oferentes = _preparacionService.ObtenerOferentes();
 
             ListaExperiencias =
                 _experienciaService.ObtenerPorOferente(IdentificacionOferenteSeleccionado);

@@ -1,5 +1,4 @@
 ﻿using AdministraciondePersonal.Entities;
-using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace AdministraciondePersonal.Repository
@@ -15,94 +14,63 @@ namespace AdministraciondePersonal.Repository
 
         public List<Concurso> ObtenerTodos()
         {
-            List<Concurso> lista = new();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
-                SELECT codigo_concurso, nombre_concurso, fecha_inicio, fecha_fin, estado
+            string sql = @"
+                SELECT
+                    codigo_concurso AS CodigoConcurso,
+                    nombre_concurso AS NombreConcurso,
+                    fecha_inicio AS FechaInicio,
+                    fecha_fin AS FechaFin,
+                    estado AS Estado
                 FROM concursos
-                ORDER BY codigo_concurso DESC";
+                ORDER BY codigo_concurso DESC;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new Concurso
-                            {
-                                CodigoConcurso = Convert.ToInt32(reader["codigo_concurso"]),
-                                NombreConcurso = reader["nombre_concurso"].ToString(),
-                                FechaInicio = Convert.ToDateTime(reader["fecha_inicio"]),
-                                FechaFin = Convert.ToDateTime(reader["fecha_fin"]),
-                                Estado = reader["estado"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-
-            return lista;
+            return Dapper.SqlMapper.Query<Concurso>(conn, sql).ToList();
         }
 
         public Concurso ObtenerPorCodigo(int codigoConcurso)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
-                SELECT codigo_concurso, nombre_concurso, fecha_inicio, fecha_fin, estado
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
+                SELECT
+                    codigo_concurso AS CodigoConcurso,
+                    nombre_concurso AS NombreConcurso,
+                    fecha_inicio AS FechaInicio,
+                    fecha_fin AS FechaFin,
+                    estado AS Estado
                 FROM concursos
-                WHERE codigo_concurso = @codigo_concurso";
+                WHERE codigo_concurso = @CodigoConcurso;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@codigo_concurso", codigoConcurso);
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return new Concurso
-                            {
-                                CodigoConcurso = Convert.ToInt32(reader["codigo_concurso"]),
-                                NombreConcurso = reader["nombre_concurso"].ToString(),
-                                FechaInicio = Convert.ToDateTime(reader["fecha_inicio"]),
-                                FechaFin = Convert.ToDateTime(reader["fecha_fin"]),
-                                Estado = reader["estado"].ToString()
-                            };
-                        }
-                    }
-                }
-            }
-
-            return null;
+            return Dapper.SqlMapper.QueryFirstOrDefault<Concurso>(conn, sql, new
+            {
+                CodigoConcurso = codigoConcurso
+            });
         }
 
         public bool ExisteCodigo(int codigoConcurso)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
+                SELECT COUNT(*)
+                FROM concursos
+                WHERE codigo_concurso = @CodigoConcurso;";
+
+            int total = Dapper.SqlMapper.ExecuteScalar<int>(conn, sql, new
             {
-                string sql = "SELECT COUNT(*) FROM concursos WHERE codigo_concurso = @codigo_concurso";
+                CodigoConcurso = codigoConcurso
+            });
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@codigo_concurso", codigoConcurso);
-                    conn.Open();
-
-                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-                }
-            }
+            return total > 0;
         }
 
         public void Insertar(Concurso concurso)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 INSERT INTO concursos
                 (
                     codigo_concurso,
@@ -113,107 +81,77 @@ namespace AdministraciondePersonal.Repository
                 )
                 VALUES
                 (
-                    @codigo_concurso,
-                    @nombre_concurso,
-                    @fecha_inicio,
-                    @fecha_fin,
-                    @estado
-                )";
+                    @CodigoConcurso,
+                    @NombreConcurso,
+                    @FechaInicio,
+                    @FechaFin,
+                    @Estado
+                );";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@codigo_concurso", concurso.CodigoConcurso);
-                    cmd.Parameters.AddWithValue("@nombre_concurso", concurso.NombreConcurso);
-                    cmd.Parameters.AddWithValue("@fecha_inicio", concurso.FechaInicio);
-                    cmd.Parameters.AddWithValue("@fecha_fin", concurso.FechaFin);
-                    cmd.Parameters.AddWithValue("@estado", concurso.Estado);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            Dapper.SqlMapper.Execute(conn, sql, concurso);
         }
 
         public void Actualizar(Concurso concurso)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 UPDATE concursos
                 SET
-                    nombre_concurso = @nombre_concurso,
-                    fecha_inicio = @fecha_inicio,
-                    fecha_fin = @fecha_fin,
-                    estado = @estado
-                WHERE codigo_concurso = @codigo_concurso";
+                    nombre_concurso = @NombreConcurso,
+                    fecha_inicio = @FechaInicio,
+                    fecha_fin = @FechaFin,
+                    estado = @Estado
+                WHERE codigo_concurso = @CodigoConcurso;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@codigo_concurso", concurso.CodigoConcurso);
-                    cmd.Parameters.AddWithValue("@nombre_concurso", concurso.NombreConcurso);
-                    cmd.Parameters.AddWithValue("@fecha_inicio", concurso.FechaInicio);
-                    cmd.Parameters.AddWithValue("@fecha_fin", concurso.FechaFin);
-                    cmd.Parameters.AddWithValue("@estado", concurso.Estado);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            Dapper.SqlMapper.Execute(conn, sql, concurso);
         }
 
         public bool TieneDatosRelacionados(int codigoConcurso)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 SELECT COUNT(*)
                 FROM oferente_concurso
-                WHERE codigo_concurso = @codigo_concurso";
+                WHERE codigo_concurso = @CodigoConcurso;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@codigo_concurso", codigoConcurso);
-                    conn.Open();
+            int total = Dapper.SqlMapper.ExecuteScalar<int>(conn, sql, new
+            {
+                CodigoConcurso = codigoConcurso
+            });
 
-                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-                }
-            }
+            return total > 0;
         }
 
         public void Eliminar(int codigoConcurso)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
+                DELETE FROM concursos
+                WHERE codigo_concurso = @CodigoConcurso;";
+
+            Dapper.SqlMapper.Execute(conn, sql, new
             {
-                string sql = "DELETE FROM concursos WHERE codigo_concurso = @codigo_concurso";
-
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@codigo_concurso", codigoConcurso);
-                    conn.Open();
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
+                CodigoConcurso = codigoConcurso
+            });
         }
 
         public void CambiarEstado(int codigoConcurso, string estado)
         {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = @"
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 UPDATE concursos
-                SET estado = @estado
-                WHERE codigo_concurso = @codigo_concurso";
+                SET estado = @Estado
+                WHERE codigo_concurso = @CodigoConcurso;";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@codigo_concurso", codigoConcurso);
-                    cmd.Parameters.AddWithValue("@estado", estado);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            Dapper.SqlMapper.Execute(conn, sql, new
+            {
+                CodigoConcurso = codigoConcurso,
+                Estado = estado
+            });
         }
     }
 }

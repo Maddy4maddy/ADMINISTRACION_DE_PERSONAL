@@ -27,20 +27,18 @@ namespace AdministraciondePersonal.Pages
         [BindProperty]
         public string IdentificacionOferenteSeleccionado { get; set; }
 
+        public bool MostrarFormulario { get; set; }
+        public bool MostrarMensajeModal { get; set; }
+
         public List<PreparacionAcademica> ListaPreparaciones { get; set; } = new List<PreparacionAcademica>();
-
         public List<InstitucionEducativa> Instituciones { get; set; } = new List<InstitucionEducativa>();
-
         public List<Oferente> Oferentes { get; set; } = new List<Oferente>();
 
         public string Mensaje { get; set; }
-
         public string Error { get; set; }
 
         public string NombreUsuario { get; set; }
-
         public string InicialAvatar { get; set; }
-
         public string ColorAvatar { get; set; }
 
         private bool PrepararSesion()
@@ -94,7 +92,7 @@ namespace AdministraciondePersonal.Pages
                 : identificacion;
         }
 
-        public IActionResult OnGet(int? idPreparacion, string identificacionOferente)
+        public IActionResult OnGet(int? idPreparacion, string identificacionOferente, bool nuevo = false)
         {
             if (!PrepararSesion())
             {
@@ -114,7 +112,17 @@ namespace AdministraciondePersonal.Pages
                     NombreUsuario,
                     $"El usuario consulta preparación académica del oferente {IdentificacionOferenteSeleccionado}.");
 
-                if (idPreparacion.HasValue && idPreparacion.Value > 0)
+                if (nuevo)
+                {
+                    Preparacion = new PreparacionAcademica
+                    {
+                        IdentificacionOferente = IdentificacionOferenteSeleccionado
+                    };
+
+                    ModoEdicion = false;
+                    MostrarFormulario = true;
+                }
+                else if (idPreparacion.HasValue && idPreparacion.Value > 0)
                 {
                     var preparacionEncontrada =
                         _preparacionService.ObtenerPorId(idPreparacion.Value);
@@ -124,10 +132,12 @@ namespace AdministraciondePersonal.Pages
                         Preparacion = preparacionEncontrada;
                         IdentificacionOferenteSeleccionado = preparacionEncontrada.IdentificacionOferente;
                         ModoEdicion = true;
+                        MostrarFormulario = true;
                     }
                     else
                     {
                         Error = "La preparación académica seleccionada no existe.";
+                        MostrarMensajeModal = true;
                         Preparacion = new PreparacionAcademica();
                         ModoEdicion = false;
                     }
@@ -140,6 +150,7 @@ namespace AdministraciondePersonal.Pages
                     };
 
                     ModoEdicion = false;
+                    MostrarFormulario = false;
                 }
 
                 CargarDatos();
@@ -153,6 +164,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al consultar preparación académica: " + ex.Message);
 
                 Error = "Ocurrió un error al consultar la preparación académica.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
@@ -180,6 +192,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La preparación académica ha sido registrada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     string nombreInstitucion =
                         ObtenerNombreInstitucion(Preparacion.IdInstitucion);
@@ -201,6 +215,9 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
+                    ModoEdicion = false;
                 }
 
                 CargarDatos();
@@ -213,6 +230,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al registrar preparación académica: " + ex.Message);
 
                 Error = "Ocurrió un error al registrar la preparación académica.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -251,6 +270,8 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La preparación académica ha sido actualizada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = false;
 
                     string nombreOferente =
                         ObtenerNombreOferente(Preparacion.IdentificacionOferente);
@@ -280,6 +301,8 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
+                    MostrarFormulario = true;
                     ModoEdicion = true;
                 }
 
@@ -293,6 +316,8 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al actualizar preparación académica: " + ex.Message);
 
                 Error = "Ocurrió un error al actualizar la preparación académica.";
+                MostrarMensajeModal = true;
+                MostrarFormulario = true;
                 CargarDatos();
                 return Page();
             }
@@ -318,6 +343,7 @@ namespace AdministraciondePersonal.Pages
                 if (resultado == "La preparación académica ha sido eliminada correctamente.")
                 {
                     Mensaje = resultado;
+                    MostrarMensajeModal = true;
 
                     if (preparacionEliminada != null)
                     {
@@ -343,6 +369,7 @@ namespace AdministraciondePersonal.Pages
                 else
                 {
                     Error = resultado;
+                    MostrarMensajeModal = true;
                 }
 
                 Preparacion = new PreparacionAcademica
@@ -351,6 +378,7 @@ namespace AdministraciondePersonal.Pages
                 };
 
                 ModoEdicion = false;
+                MostrarFormulario = false;
 
                 CargarDatos();
                 return Page();
@@ -362,6 +390,7 @@ namespace AdministraciondePersonal.Pages
                     "Error técnico al eliminar preparación académica: " + ex.Message);
 
                 Error = "Ocurrió un error al eliminar la preparación académica.";
+                MostrarMensajeModal = true;
                 CargarDatos();
                 return Page();
             }
