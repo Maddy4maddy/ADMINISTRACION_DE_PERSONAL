@@ -1,5 +1,5 @@
-﻿using AdministraciondePersonal.Repository;
-using AdministraciondePersonal.Entities;
+﻿using AdministraciondePersonal.Entities;
+using AdministraciondePersonal.Repository;
 
 namespace AdministraciondePersonal.Services
 {
@@ -27,42 +27,52 @@ namespace AdministraciondePersonal.Services
             return _repo.ObtenerPantallasPorRol(idRol);
         }
 
-        public void CrearRolConPantallas(string nombreRol, List<Pantalla> pantallas)
+        public void CrearRolConPantallas(
+            string nombreRol,
+            List<Pantalla> pantallas)
         {
-            if (string.IsNullOrWhiteSpace(nombreRol))
-                throw new Exception("El nombre del rol es requerido.");
+            ValidarNombreRol(nombreRol);
 
-            if (nombreRol.Length > 40)
-                throw new Exception("No se puede registrar un rol con más de 40 caracteres.");
-
-            int idRol = _repo.CrearRol(nombreRol);
-
-            foreach (var p in pantallas)
+            if (_repo.ExisteRol(nombreRol))
             {
-                if (p.Seleccionada)
+                throw new Exception(
+                    "Ya existe un rol con ese nombre.");
+            }
+
+            int idRol =
+                _repo.CrearRol(nombreRol.Trim());
+
+            foreach (var pantalla in pantallas)
+            {
+                if (pantalla.Seleccionada)
                 {
-                    _repo.AsignarPantalla(idRol, p.IdPantalla);
+                    _repo.AsignarPantalla(
+                        idRol,
+                        pantalla.IdPantalla);
                 }
             }
         }
 
-        public void EditarRol(int idRol, string nombreRol, List<Pantalla> pantallas)
+        public void EditarRol(
+            int idRol,
+            string nombreRol,
+            List<Pantalla> pantallas)
         {
-            if (string.IsNullOrWhiteSpace(nombreRol))
-                throw new Exception("El nombre del rol es requerido.");
+            ValidarNombreRol(nombreRol);
 
-            if (nombreRol.Length > 40)
-                throw new Exception("No se puede registrar un rol con más de 40 caracteres.");
-
-            _repo.EditarRol(idRol, nombreRol);
+            _repo.EditarRol(
+                idRol,
+                nombreRol.Trim());
 
             _repo.EliminarPantallasPorRol(idRol);
 
-            foreach (var p in pantallas)
+            foreach (var pantalla in pantallas)
             {
-                if (p.Seleccionada)
+                if (pantalla.Seleccionada)
                 {
-                    _repo.AsignarPantalla(idRol, p.IdPantalla);
+                    _repo.AsignarPantalla(
+                        idRol,
+                        pantalla.IdPantalla);
                 }
             }
         }
@@ -78,6 +88,21 @@ namespace AdministraciondePersonal.Services
             _repo.EliminarRol(idRol);
 
             return "OK";
+        }
+
+        private void ValidarNombreRol(string nombreRol)
+        {
+            if (string.IsNullOrWhiteSpace(nombreRol))
+            {
+                throw new Exception(
+                    "El nombre del rol es obligatorio.");
+            }
+
+            if (nombreRol.Trim().Length > 40)
+            {
+                throw new Exception(
+                    "El nombre del rol no puede superar los 40 caracteres.");
+            }
         }
     }
 }

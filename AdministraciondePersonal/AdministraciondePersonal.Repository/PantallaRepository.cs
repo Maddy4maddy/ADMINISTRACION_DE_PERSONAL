@@ -1,160 +1,170 @@
-﻿using MySql.Data.MySqlClient;
-using Microsoft.Extensions.Configuration;
-using AdministraciondePersonal.Entities;
+﻿using AdministraciondePersonal.Entities;
+using Dapper;
+using System.Data;
 
 namespace AdministraciondePersonal.Repository
 {
     public class PantallaRepository
     {
-        private readonly string _connectionString;
+        private readonly DbConnectionFactory _dbFactory;
 
-        public PantallaRepository(IConfiguration config)
+        public PantallaRepository(DbConnectionFactory dbFactory)
         {
-            _connectionString = config.GetConnectionString("DefaultConnection");
+            _dbFactory = dbFactory;
         }
 
         public List<Pantalla> ObtenerPantallas()
         {
-            var lista = new List<Pantalla>();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            string sql = @"
+                SELECT
+                    id_pantalla AS IdPantalla,
+                    nombre_pantalla AS NombrePantalla,
+                    ruta AS Ruta
+                FROM pantallas
+                ORDER BY nombre_pantalla";
 
-            var cmd = new MySqlCommand(
-                "SELECT * FROM pantallas ORDER BY nombre_pantalla",
-                conn);
-
-            var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                lista.Add(new Pantalla
-                {
-                    IdPantalla = reader.GetInt32("id_pantalla"),
-                    NombrePantalla = reader.GetString("nombre_pantalla"),
-                    Ruta = reader.GetString("ruta")
-                });
-            }
-
-            return lista;
+            return conn.Query<Pantalla>(sql).ToList();
         }
 
         public Pantalla ObtenerPorId(int id)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(
-                "SELECT * FROM pantallas WHERE id_pantalla = @id",
-                conn);
+            string sql = @"
+                SELECT
+                    id_pantalla AS IdPantalla,
+                    nombre_pantalla AS NombrePantalla,
+                    ruta AS Ruta
+                FROM pantallas
+                WHERE id_pantalla = @Id";
 
-            cmd.Parameters.AddWithValue("@id", id);
-
-            var reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                return new Pantalla
-                {
-                    IdPantalla = reader.GetInt32("id_pantalla"),
-                    NombrePantalla = reader.GetString("nombre_pantalla"),
-                    Ruta = reader.GetString("ruta")
-                };
-            }
-
-            return null;
+            return conn.QueryFirstOrDefault<Pantalla>(
+                sql,
+                new { Id = id });
         }
 
         public Pantalla ObtenerPorRuta(string ruta)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(
-                "SELECT * FROM pantallas WHERE ruta = @ruta",
-                conn);
+            string sql = @"
+                SELECT
+                    id_pantalla AS IdPantalla,
+                    nombre_pantalla AS NombrePantalla,
+                    ruta AS Ruta
+                FROM pantallas
+                WHERE ruta = @Ruta";
 
-            cmd.Parameters.AddWithValue("@ruta", ruta);
-
-            var reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                return new Pantalla
-                {
-                    IdPantalla = reader.GetInt32("id_pantalla"),
-                    NombrePantalla = reader.GetString("nombre_pantalla"),
-                    Ruta = reader.GetString("ruta")
-                };
-            }
-
-            return null;
+            return conn.QueryFirstOrDefault<Pantalla>(
+                sql,
+                new { Ruta = ruta });
         }
 
-        public void CrearPantalla(string nombrePantalla, string ruta)
+        public bool ExisteNombrePantalla(string nombrePantalla)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(@"
+            string sql = @"
+                SELECT COUNT(*)
+                FROM pantallas
+                WHERE UPPER(nombre_pantalla) =
+                      UPPER(@NombrePantalla)";
+
+            return conn.ExecuteScalar<int>(
+                sql,
+                new { NombrePantalla = nombrePantalla }) > 0;
+        }
+
+        public bool ExisteRuta(string ruta)
+        {
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
+                SELECT COUNT(*)
+                FROM pantallas
+                WHERE UPPER(ruta) =
+                      UPPER(@Ruta)";
+
+            return conn.ExecuteScalar<int>(
+                sql,
+                new { Ruta = ruta }) > 0;
+        }
+
+        public void CrearPantalla(
+            string nombrePantalla,
+            string ruta)
+        {
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 INSERT INTO pantallas
-                (nombre_pantalla, ruta)
+                (
+                    nombre_pantalla,
+                    ruta
+                )
                 VALUES
-                (@nombre, @ruta)", conn);
+                (
+                    @NombrePantalla,
+                    @Ruta
+                )";
 
-            cmd.Parameters.AddWithValue("@nombre", nombrePantalla);
-            cmd.Parameters.AddWithValue("@ruta", ruta);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new
+                {
+                    NombrePantalla = nombrePantalla,
+                    Ruta = ruta
+                });
         }
 
-        public void EditarPantalla(int id, string nombrePantalla, string ruta)
+        public void EditarPantalla(
+            int id,
+            string nombrePantalla,
+            string ruta)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(@"
+            string sql = @"
                 UPDATE pantallas
-                SET nombre_pantalla = @nombre,
-                    ruta = @ruta
-                WHERE id_pantalla = @id", conn);
+                SET
+                    nombre_pantalla = @NombrePantalla,
+                    ruta = @Ruta
+                WHERE id_pantalla = @Id";
 
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@nombre", nombrePantalla);
-            cmd.Parameters.AddWithValue("@ruta", ruta);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new
+                {
+                    Id = id,
+                    NombrePantalla = nombrePantalla,
+                    Ruta = ruta
+                });
         }
 
-        public bool TieneRolesAsignados(int id)
+        public bool TieneRolesAsignados(int idPantalla)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(@"
+            string sql = @"
                 SELECT COUNT(*)
                 FROM rolpantalla
-                WHERE id_pantalla = @id", conn);
+                WHERE id_pantalla = @IdPantalla";
 
-            cmd.Parameters.AddWithValue("@id", id);
-
-            int cantidad = Convert.ToInt32(cmd.ExecuteScalar());
-
-            return cantidad > 0;
+            return conn.ExecuteScalar<int>(
+                sql,
+                new { IdPantalla = idPantalla }) > 0;
         }
 
-        public void EliminarPantalla(int id)
+        public void EliminarPantalla(int idPantalla)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(
-                "DELETE FROM pantallas WHERE id_pantalla = @id",
-                conn);
+            string sql = @"
+                DELETE FROM pantallas
+                WHERE id_pantalla = @IdPantalla";
 
-            cmd.Parameters.AddWithValue("@id", id);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new { IdPantalla = idPantalla });
         }
     }
 }

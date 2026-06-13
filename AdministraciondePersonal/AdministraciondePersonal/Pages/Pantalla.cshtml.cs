@@ -9,8 +9,13 @@ namespace AdministraciondePersonal.Pages
     {
         private readonly PantallaService _service;
         private readonly BitacoraService _bitacoraService;
+        public string NombreUsuario { get; set; } = "";
+        public string InicialAvatar { get; set; } = "";
+        public string ColorAvatar { get; set; } = "#80B0AA";
 
-        public PantallasModel(PantallaService service, BitacoraService bitacoraService)
+        public PantallasModel(
+            PantallaService service,
+            BitacoraService bitacoraService)
         {
             _service = service;
             _bitacoraService = bitacoraService;
@@ -27,54 +32,77 @@ namespace AdministraciondePersonal.Pages
         [BindProperty]
         public string Ruta { get; set; }
 
+        // Propiedades para los modales
+        public bool MostrarMensajeModal { get; set; }
+
+        public bool EsError { get; set; }
+
+        public string Mensaje { get; set; } = string.Empty;
+
         public void OnGet()
         {
             ListaPantallas = _service.ObtenerPantallas();
+
+            NombreUsuario = User.Identity?.Name ?? "Usuario";
+
+            InicialAvatar = NombreUsuario.Substring(0, 1).ToUpper();
+
+            ColorAvatar = "#80B0AA";
         }
 
-        public IActionResult OnPost()
+        public void OnPost()
         {
-            _service.GuardarPantalla(IdPantalla, NombrePantalla, Ruta);
+            var resultado = _service.GuardarPantalla(
+                IdPantalla,
+                NombrePantalla,
+                Ruta);
 
-            if (IdPantalla == 0)
-            {
-                _bitacoraService.RegistrarAccion(
-                    User.Identity?.Name ?? "Sistema",
-                    $"Creó la pantalla: {NombrePantalla}"
-                );
-            }
-            else
-            {
-                _bitacoraService.RegistrarAccion(
-                    User.Identity?.Name ?? "Sistema",
-                    $"Modificó la pantalla ID {IdPantalla} - {NombrePantalla}"
-                );
-            }
+            ListaPantallas = _service.ObtenerPantallas();
 
-            TempData["Mensaje"] = "Pantalla guardada correctamente.";
-            return RedirectToPage();
+            MostrarMensajeModal = true;
+
+            EsError = !resultado.success;
+
+            Mensaje = resultado.mensaje;
+
+            if (resultado.success)
+            {
+                if (IdPantalla == 0)
+                {
+                    _bitacoraService.RegistrarAccion(
+                        User.Identity?.Name ?? "Sistema",
+                        $"Creó la pantalla: {NombrePantalla}"
+                    );
+                }
+                else
+                {
+                    _bitacoraService.RegistrarAccion(
+                        User.Identity?.Name ?? "Sistema",
+                        $"Modificó la pantalla ID {IdPantalla} - {NombrePantalla}"
+                    );
+                }
+            }
         }
 
-        public IActionResult OnPostDelete(int id)
+        public void OnPostDelete(int id)
         {
-            try
-            {
-                _service.EliminarPantalla(id);
+            var resultado = _service.EliminarPantalla(id);
 
+            ListaPantallas = _service.ObtenerPantallas();
+
+            MostrarMensajeModal = true;
+
+            EsError = !resultado.success;
+
+            Mensaje = resultado.mensaje;
+
+            if (resultado.success)
+            {
                 _bitacoraService.RegistrarAccion(
                     User.Identity?.Name ?? "Sistema",
                     $"Eliminó la pantalla ID {id}"
                 );
-
-                TempData["Mensaje"] = "Pantalla eliminada correctamente.";
             }
-            catch
-            {
-                TempData["Mensaje"] =
-                    "No se puede eliminar un registro con datos relacionados.";
-            }
-
-            return RedirectToPage();
         }
 
         public JsonResult OnGetPantalla(int id)

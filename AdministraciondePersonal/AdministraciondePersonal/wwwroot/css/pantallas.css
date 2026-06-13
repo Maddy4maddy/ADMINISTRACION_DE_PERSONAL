@@ -1,0 +1,185 @@
+﻿.oferentes-container {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.08);
+}
+
+.header-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+    .header-acciones h2 {
+        color: #80B0AA;
+        font-size: 28px;
+    }
+
+.btn-nuevo {
+    background-color: #273a77;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn-nuevo:hover {
+        background-color: #80B0AA;
+    }
+
+.tabla-pantallas {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+    .tabla-pantallas thead {
+        background-color: #80B0AA;
+        color: white;
+    }
+
+    .tabla-pantallas th,
+    .tabla-pantallas td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .tabla-pantallas tbody tr:hover {
+        background-color: #F9EAC1;
+    }
+
+.btn-accion {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 3px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn-editar {
+    color: #273a77;
+}
+
+    .btn-editar:hover {
+        background-color: #80B0AA;
+        color: white;
+    }
+
+.btn-eliminar {
+    color: #d9534f;
+}
+
+    .btn-eliminar:hover {
+        background-color: #d9534f;
+        color: white;
+    }
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    width: 90%;
+    max-width: 650px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,.2);
+}
+
+    .modal-content h3 {
+        color: #273a77;
+        margin-bottom: 20px;
+    }
+
+    .modal-content label {
+        display: block;
+        margin-bottom: 5px;
+        color: #273a77;
+        font-weight: bold;
+    }
+
+    .modal-content input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid #C8EDED;
+        margin-bottom: 15px;
+    }
+
+        .modal-content input:focus {
+            border-color: #FDB3CA;
+            outline: none;
+        }
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-guardar {
+    background-color: #273a77;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.mensaje-exito h3 {
+    color: #2ECC71;
+}
+
+.mensaje-error h3 {
+    color: #E74C3C;
+}
+
+.mensaje-confirmacion h3 {
+    color: #273a77;
+}
+
+.btn-accion,
+.btn-editar,
+.btn-eliminar,
+.btn-guardar,
+.btn-cancelar,
+.btn-nuevo {
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+button.btn-accion {
+    background: transparent !important;
+}
