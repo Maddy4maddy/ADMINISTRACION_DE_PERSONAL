@@ -21,94 +21,247 @@ namespace AdministraciondePersonal.Pages
         [BindProperty]
         public Compania Compania { get; set; } = new();
 
+        [BindProperty]
+        public bool ModoEdicion { get; set; }
+
         public List<Compania> ListaCompanias { get; set; } = new();
 
-        public void OnGet()
-        {
-            ModelState.Clear();
+        public bool MostrarFormulario { get; set; }
 
-            ListaCompanias =
-                _service.ObtenerCompanias();
+        public bool MostrarMensajeModal { get; set; }
+
+        public string Mensaje { get; set; }
+
+        public string Error { get; set; }
+
+        public string NombreUsuario { get; set; }
+
+        public string InicialAvatar { get; set; }
+
+        public string ColorAvatar { get; set; }
+
+        private bool PrepararSesion()
+        {
+            var usuario = HttpContext.Session.GetString("Usuario");
+
+            if (string.IsNullOrEmpty(usuario))
+            {
+                return false;
+            }
+
+            NombreUsuario = usuario;
+
+            InicialAvatar =
+                NombreUsuario.Substring(0, 1).ToUpper();
+
+            int hash = 0;
+
+            foreach (char c in NombreUsuario)
+            {
+                hash = c + ((hash << 5) - hash);
+            }
+
+            var colores = new[]
+            {
+                "#273a77",
+                "#80B0AA",
+                "#FDB3CA",
+                "#315855",
+                "#4A90E2",
+                "#E74C3C",
+                "#2ECC71",
+                "#F39C12",
+                "#9B59B6",
+                "#1ABC9C",
+                "#E67E22",
+                "#3498DB"
+            };
+
+            ColorAvatar =
+                colores[Math.Abs(hash) % colores.Length];
+
+            return true;
+        }
+
+        public IActionResult OnGet()
+        {
+            if (!PrepararSesion())
+            {
+                return RedirectToPage("/Login",
+                    new { expirada = true });
+            }
+
+            try
+            {
+                ListaCompanias =
+                    _service.ObtenerCompanias();
+
+                MostrarFormulario = false;
+
+                _bitacoraService.RegistrarAccion(
+                    NombreUsuario,
+                    "Consultó compañías.");
+
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                Error =
+                    "Ocurrió un error al consultar las compañías.";
+
+                MostrarMensajeModal = true;
+
+                _bitacoraService.RegistrarAccion(
+                    NombreUsuario,
+                    "Error consultando compañías: " + ex.Message);
+
+                return Page();
+            }
         }
 
         public IActionResult OnPostGuardar()
         {
-            if (string.IsNullOrWhiteSpace(
-                Compania.NombreCompania))
+            if (!PrepararSesion())
             {
-                TempData["Mensaje"] =
-                    "Todos los datos son requeridos.";
-
-                return RedirectToPage();
+                return RedirectToPage("/Login",
+                    new { expirada = true });
             }
 
-            if (Compania.NombreCompania.Length > 150)
+            try
             {
-                TempData["Mensaje"] =
-                    "El nombre no puede superar 150 caracteres.";
+                string resultado;
 
-                return RedirectToPage();
+                if (Compania.IdCompania == 0)
+                {
+                    resultado =
+                        _service.CrearCompania(
+                            Compania.NombreCompania);
+
+                    if (resultado == "OK")
+                    {
+                        Mensaje =
+                            "La compañía ha sido registrada correctamente.";
+
+                        _bitacoraService.RegistrarAccion(
+                            NombreUsuario,
+                            $"Registro de compañía '{Compania.NombreCompania}'.");
+                    }
+                    else
+                    {
+                        Error = resultado;
+                    }
+                }
+                else
+                {
+                    resultado =
+                        _service.EditarCompania(
+                            Compania.IdCompania,
+                            Compania.NombreCompania);
+
+                    if (resultado == "OK")
+                    {
+                        Mensaje =
+                            "La compañía ha sido actualizada correctamente.";
+
+                        _bitacoraService.RegistrarAccion(
+                            NombreUsuario,
+                            $"Actualización de compañía '{Compania.NombreCompania}'.");
+                    }
+                    else
+                    {
+                        Error = resultado;
+                    }
+                }
+
+                MostrarMensajeModal = true;
+
+                ListaCompanias =
+                    _service.ObtenerCompanias();
+
+                Compania = new Compania();
+
+                MostrarFormulario = false;
+
+                return Page();
             }
-
-            if (Compania.IdCompania == 0)
+            catch (Exception ex)
             {
-                _service.CrearCompania(
-                    Compania.NombreCompania);
+                Error =
+                    "Ocurrió un error al guardar la compañía.";
+
+                MostrarMensajeModal = true;
+
+                ListaCompanias =
+                    _service.ObtenerCompanias();
 
                 _bitacoraService.RegistrarAccion(
-                    User.Identity?.Name ?? "Sistema",
-                    $"Creó la compañía: {Compania.NombreCompania}"
-                );
-            }
-            else
-            {
-                _service.EditarCompania(
-                    Compania.IdCompania,
-                    Compania.NombreCompania);
+                    NombreUsuario,
+                    "Error guardando compañía: " + ex.Message);
 
-                _bitacoraService.RegistrarAccion(
-                    User.Identity?.Name ?? "Sistema",
-                    $"Editó la compañía ID {Compania.IdCompania} - {Compania.NombreCompania}"
-                );
+                return Page();
             }
-
-            return RedirectToPage();
         }
 
         public IActionResult OnPostEliminar(int id)
         {
-            var resultado =
-                _service.EliminarCompania(id);
-
-            TempData["Mensaje"] = resultado;
-
-            if (resultado == "OK")
+            if (!PrepararSesion())
             {
-                _bitacoraService.RegistrarAccion(
-                    User.Identity?.Name ?? "Sistema",
-                    $"Eliminó la compañía ID {id}"
-                );
+                return RedirectToPage("/Login",
+                    new { expirada = true });
             }
 
-            return RedirectToPage();
+            try
+            {
+                string resultado =
+                    _service.EliminarCompania(id);
+
+                if (resultado == "OK")
+                {
+                    Mensaje =
+                        "La compañía ha sido eliminada correctamente.";
+
+                    _bitacoraService.RegistrarAccion(
+                        NombreUsuario,
+                        $"Eliminó compañía ID {id}.");
+                }
+                else
+                {
+                    Error = resultado;
+                }
+
+                MostrarMensajeModal = true;
+
+                ListaCompanias =
+                    _service.ObtenerCompanias();
+
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                Error =
+                    "Ocurrió un error al eliminar la compañía.";
+
+                MostrarMensajeModal = true;
+
+                ListaCompanias =
+                    _service.ObtenerCompanias();
+
+                _bitacoraService.RegistrarAccion(
+                    NombreUsuario,
+                    "Error eliminando compañía: " + ex.Message);
+
+                return Page();
+            }
         }
 
         public JsonResult OnGetCompania(int id)
         {
             var compania =
                 _service.ObtenerCompanias()
-                .FirstOrDefault(x => x.IdCompania == id);
+                .FirstOrDefault(x =>
+                    x.IdCompania == id);
 
-            if (compania == null)
-            {
-                return new JsonResult(null);
-            }
-
-            return new JsonResult(new
-            {
-                idCompania = compania.IdCompania,
-                nombreCompania = compania.NombreCompania
-            });
+            return new JsonResult(compania);
         }
     }
 }

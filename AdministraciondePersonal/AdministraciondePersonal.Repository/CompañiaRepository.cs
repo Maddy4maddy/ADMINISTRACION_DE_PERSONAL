@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dapper;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
 using AdministraciondePersonal.Entities;
@@ -12,80 +11,115 @@ namespace AdministraciondePersonal.Repository
 
         public CompaniaRepository(IConfiguration config)
         {
-            _connectionString = config.GetConnectionString("DefaultConnection");
+            _connectionString =
+                config.GetConnectionString("DefaultConnection");
         }
 
         public List<Compania> ObtenerCompanias()
         {
-            var lista = new List<Compania>();
-
             using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
 
-            var cmd = new MySqlCommand(
-                "SELECT id_compania, nombre_compania FROM companias",
-                conn);
+            string sql = @"
+                SELECT
+                    id_compania AS IdCompania,
+                    nombre_compania AS NombreCompania
+                FROM companias
+                ORDER BY nombre_compania";
 
-            var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                lista.Add(new Compania
-                {
-                    IdCompania = reader.GetInt32("id_compania"),
-                    NombreCompania = reader.GetString("nombre_compania")
-                });
-            }
-
-            return lista;
+            return conn.Query<Compania>(sql).ToList();
         }
 
         public void CrearCompania(string nombre)
         {
             using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
 
-            var cmd = new MySqlCommand(@"
+            string sql = @"
                 INSERT INTO companias(nombre_compania)
-                VALUES(@nombre)", conn);
+                VALUES(@NombreCompania)";
 
-            cmd.Parameters.AddWithValue("@nombre", nombre);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new
+                {
+                    NombreCompania = nombre
+                });
         }
 
         public void EditarCompania(int id, string nombre)
         {
             using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
 
-            var cmd = new MySqlCommand(@"
+            string sql = @"
                 UPDATE companias
-                SET nombre_compania = @nombre
-                WHERE id_compania = @id", conn);
+                SET nombre_compania = @NombreCompania
+                WHERE id_compania = @IdCompania";
 
-            cmd.Parameters.AddWithValue("@nombre", nombre);
-            cmd.Parameters.AddWithValue("@id", id);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new
+                {
+                    IdCompania = id,
+                    NombreCompania = nombre
+                });
         }
 
         public void EliminarCompania(int id)
         {
             using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
 
-            var cmd = new MySqlCommand(
-                "DELETE FROM companias WHERE id_compania = @id",
-                conn);
+            string sql = @"
+                DELETE FROM companias
+                WHERE id_compania = @IdCompania";
 
-            cmd.Parameters.AddWithValue("@id", id);
+            conn.Execute(sql,
+                new
+                {
+                    IdCompania = id
+                });
+        }
 
-            cmd.ExecuteNonQuery();
+        public bool ExisteCompania(string nombre)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+
+            string sql = @"
+                SELECT COUNT(*)
+                FROM companias
+                WHERE UPPER(nombre_compania) =
+                      UPPER(@NombreCompania)";
+
+            return conn.ExecuteScalar<int>(
+                sql,
+                new
+                {
+                    NombreCompania = nombre
+                }) > 0;
+        }
+
+        public bool ExisteCompaniaEditar(
+            int idCompania,
+            string nombre)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+
+            string sql = @"
+                SELECT COUNT(*)
+                FROM companias
+                WHERE UPPER(nombre_compania) =
+                      UPPER(@NombreCompania)
+                AND id_compania <> @IdCompania";
+
+            return conn.ExecuteScalar<int>(
+                sql,
+                new
+                {
+                    IdCompania = idCompania,
+                    NombreCompania = nombre
+                }) > 0;
         }
 
         public bool CompaniaTieneDatosRelacionados(int id)
         {
+            using var conn = new MySqlConnection(_connectionString);
+
             return false;
         }
     }

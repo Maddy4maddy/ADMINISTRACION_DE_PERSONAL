@@ -9,9 +9,9 @@ namespace AdministraciondePersonal.Pages
     {
         private readonly PantallaService _service;
         private readonly BitacoraService _bitacoraService;
-        public string NombreUsuario { get; set; } = "";
-        public string InicialAvatar { get; set; } = "";
-        public string ColorAvatar { get; set; } = "#80B0AA";
+        public string NombreUsuario { get; set; }
+        public string InicialAvatar { get; set; }
+        public string ColorAvatar { get; set; }
 
         public PantallasModel(
             PantallaService service,
@@ -39,19 +39,23 @@ namespace AdministraciondePersonal.Pages
 
         public string Mensaje { get; set; } = string.Empty;
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (!PrepararSesion())
+            {
+                return RedirectToPage("/Login", new { expirada = true });
+            }
+
             ListaPantallas = _service.ObtenerPantallas();
 
-            NombreUsuario = User.Identity?.Name ?? "Usuario";
-
-            InicialAvatar = NombreUsuario.Substring(0, 1).ToUpper();
-
-            ColorAvatar = "#80B0AA";
+            return Page();
         }
 
         public void OnPost()
         {
+
+            PrepararSesion();
+
             var resultado = _service.GuardarPantalla(
                 IdPantalla,
                 NombrePantalla,
@@ -86,6 +90,7 @@ namespace AdministraciondePersonal.Pages
 
         public void OnPostDelete(int id)
         {
+            PrepararSesion();
             var resultado = _service.EliminarPantalla(id);
 
             ListaPantallas = _service.ObtenerPantallas();
@@ -110,6 +115,36 @@ namespace AdministraciondePersonal.Pages
             var pantalla = _service.ObtenerPorId(id);
 
             return new JsonResult(pantalla);
+        }
+
+        private bool PrepararSesion()
+        {
+            var usuario = HttpContext.Session.GetString("Usuario");
+
+            if (string.IsNullOrEmpty(usuario))
+            {
+                return false;
+            }
+
+            NombreUsuario = usuario;
+            InicialAvatar = NombreUsuario.Substring(0, 1).ToUpper();
+
+            int hash = 0;
+            foreach (char c in NombreUsuario)
+            {
+                hash = c + ((hash << 5) - hash);
+            }
+
+            var colores = new[]
+            {
+        "#273a77", "#80B0AA", "#FDB3CA", "#315855",
+        "#4A90E2", "#E74C3C", "#2ECC71", "#F39C12",
+        "#9B59B6", "#1ABC9C", "#E67E22", "#3498DB"
+    };
+
+            ColorAvatar = colores[Math.Abs(hash) % colores.Length];
+
+            return true;
         }
     }
 }

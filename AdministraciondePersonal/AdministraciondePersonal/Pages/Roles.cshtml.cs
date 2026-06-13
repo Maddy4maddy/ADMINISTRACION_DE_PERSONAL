@@ -10,6 +10,10 @@ namespace AdministraciondePersonal.Pages
         private readonly RolService _service;
         private readonly BitacoraService _bitacoraService;
 
+        public string NombreUsuario { get; set; }
+        public string InicialAvatar { get; set; }
+        public string ColorAvatar { get; set; }
+
         public RolesModel(RolService service, BitacoraService bitacoraService)
         {
             _service = service;
@@ -28,10 +32,11 @@ namespace AdministraciondePersonal.Pages
         public List<rol> ListaRoles { get; set; } = new();
 
         public List<Pantalla> Pantallas { get; set; } = new();
-
         public void OnGet()
         {
             ModelState.Clear();
+
+            PrepararSesion();
 
             ListaRoles = _service.ObtenerRoles();
             Pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
@@ -56,6 +61,8 @@ namespace AdministraciondePersonal.Pages
                         User.Identity?.Name ?? "Sistema",
                         $"Creó el rol: {NombreRol}"
                     );
+
+                    TempData["Mensaje"] = "Rol creado correctamente.";
                 }
                 else
                 {
@@ -65,13 +72,15 @@ namespace AdministraciondePersonal.Pages
                         User.Identity?.Name ?? "Sistema",
                         $"Editó el rol ID {IdRolEditar} - {NombreRol}"
                     );
+
+                    TempData["Mensaje"] = "Rol actualizado correctamente.";
                 }
 
                 return RedirectToPage();
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = ex.Message;
+                PrepararSesion();
 
                 ListaRoles = _service.ObtenerRoles();
                 Pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
@@ -79,15 +88,20 @@ namespace AdministraciondePersonal.Pages
                 return Page();
             }
         }
-
         public IActionResult OnPostDelete(int idRol)
         {
-            TempData["Mensaje"] = _service.EliminarRol(idRol);
+            var resultado = _service.EliminarRol(idRol);
 
-            _bitacoraService.RegistrarAccion(
-                User.Identity?.Name ?? "Sistema",
-                $"Eliminó el rol ID {idRol}"
-            );
+            if (resultado == "OK")
+            {
+                TempData["Mensaje"] = "Rol eliminado correctamente.";
+                TempData["EsError"] = "false";
+            }
+            else
+            {
+                TempData["Mensaje"] = resultado;
+                TempData["EsError"] = "true";
+            }
 
             return RedirectToPage();
         }
@@ -113,6 +127,35 @@ namespace AdministraciondePersonal.Pages
                     idPantalla
                 })
             });
+        }
+        private bool PrepararSesion()
+        {
+            var usuario = HttpContext.Session.GetString("Usuario");
+
+            if (string.IsNullOrEmpty(usuario))
+            {
+                return false;
+            }
+
+            NombreUsuario = usuario;
+            InicialAvatar = NombreUsuario.Substring(0, 1).ToUpper();
+
+            int hash = 0;
+            foreach (char c in NombreUsuario)
+            {
+                hash = c + ((hash << 5) - hash);
+            }
+
+            var colores = new[]
+            {
+        "#273a77", "#80B0AA", "#FDB3CA", "#315855",
+        "#4A90E2", "#E74C3C", "#2ECC71", "#F39C12",
+        "#9B59B6", "#1ABC9C", "#E67E22", "#3498DB"
+    };
+
+            ColorAvatar = colores[Math.Abs(hash) % colores.Length];
+
+            return true;
         }
     }
     
