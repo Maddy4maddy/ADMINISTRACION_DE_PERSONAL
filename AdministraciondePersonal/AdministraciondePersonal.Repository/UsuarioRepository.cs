@@ -28,12 +28,43 @@ namespace AdministraciondePersonal.Repository
             }
         }
 
+        public List<Rol> ObtenerRolesPorUsuario(int idUsuario)
+        {
+            var roles = new List<Rol>();
+            using (IDbConnection conn = _dbFactory.GetConnection())
+            {
+                string sql = @"SELECT r.id_rol, r.nombre_rol 
+                               FROM roles r
+                               INNER JOIN usuariorol ur ON r.id_rol = ur.id_rol
+                               WHERE ur.id_usuario = @idUsuario
+                               ORDER BY r.nombre_rol";
+
+                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    conn.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            roles.Add(new Rol
+                            {
+                                IdRol = reader.GetInt32("id_rol"),
+                                NombreRol = reader.GetString("nombre_rol")
+                            });
+                        }
+                    }
+                }
+            }
+            return roles;
+        }
+
         public Usuario ObtenerPorNombre(string nombreUsuario)
         {
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
                 string sql = @"SELECT id_usuario, nombre_usuario, nombre_completo, correo, contrasena, 
-                                      intentos_fallidos, bloqueado, estado, id_rol
+                                      intentos_fallidos, bloqueado, estado
                                FROM usuarios 
                                WHERE nombre_usuario = @usuario";
 
@@ -46,7 +77,7 @@ namespace AdministraciondePersonal.Repository
                     {
                         if (reader.Read())
                         {
-                            return new Usuario
+                            var usuario = new Usuario
                             {
                                 IdUsuario = reader.GetInt32("id_usuario"),
                                 NombreUsuario = reader.GetString("nombre_usuario"),
@@ -55,9 +86,13 @@ namespace AdministraciondePersonal.Repository
                                 Contrasena = reader.GetString("contrasena"),
                                 IntentosFallidos = reader.GetInt32("intentos_fallidos"),
                                 Bloqueado = reader.GetBoolean("bloqueado"),
-                                Estado = reader.GetString("estado"),
-                                IdRol = reader.IsDBNull(reader.GetOrdinal("id_rol")) ? 0 : reader.GetInt32("id_rol")
+                                Estado = reader.GetString("estado")
                             };
+
+                            reader.Close();
+                            usuario.Roles = ObtenerRolesPorUsuario(usuario.IdUsuario);
+
+                            return usuario;
                         }
                     }
                 }
@@ -70,7 +105,7 @@ namespace AdministraciondePersonal.Repository
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
                 string sql = @"SELECT id_usuario, nombre_usuario, nombre_completo, correo, 
-                                      intentos_fallidos, bloqueado, estado, id_rol
+                                      intentos_fallidos, bloqueado, estado
                                FROM usuarios 
                                WHERE nombre_usuario = @usuario 
                                AND contrasena = @contrasena 
@@ -86,7 +121,7 @@ namespace AdministraciondePersonal.Repository
                     {
                         if (reader.Read())
                         {
-                            return new Usuario
+                            var usuario = new Usuario
                             {
                                 IdUsuario = reader.GetInt32("id_usuario"),
                                 NombreUsuario = reader.GetString("nombre_usuario"),
@@ -94,9 +129,13 @@ namespace AdministraciondePersonal.Repository
                                 Correo = reader.GetString("correo"),
                                 IntentosFallidos = reader.GetInt32("intentos_fallidos"),
                                 Bloqueado = reader.GetBoolean("bloqueado"),
-                                Estado = reader.GetString("estado"),
-                                IdRol = reader.IsDBNull(reader.GetOrdinal("id_rol")) ? 0 : reader.GetInt32("id_rol")
+                                Estado = reader.GetString("estado")
                             };
+
+                            reader.Close();
+                            usuario.Roles = ObtenerRolesPorUsuario(usuario.IdUsuario);
+
+                            return usuario;
                         }
                     }
                 }
@@ -139,9 +178,9 @@ namespace AdministraciondePersonal.Repository
             }
         }
 
-        public List<rol> ObtenerTodosRoles()
+        public List<Rol> ObtenerTodosRoles()
         {
-            var roles = new List<rol>();
+            var roles = new List<Rol>();
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
                 string sql = "SELECT id_rol, nombre_rol FROM roles ORDER BY nombre_rol";
@@ -152,7 +191,7 @@ namespace AdministraciondePersonal.Repository
                     {
                         while (reader.Read())
                         {
-                            roles.Add(new rol
+                            roles.Add(new Rol
                             {
                                 IdRol = reader.GetInt32("id_rol"),
                                 NombreRol = reader.GetString("nombre_rol")
@@ -170,9 +209,8 @@ namespace AdministraciondePersonal.Repository
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
                 string sql = @"
-                    SELECT u.id_usuario, u.nombre_usuario, u.nombre_completo, u.correo, u.estado, u.id_rol, r.nombre_rol
+                    SELECT u.id_usuario, u.nombre_usuario, u.nombre_completo, u.correo, u.estado
                     FROM usuarios u
-                    LEFT JOIN roles r ON u.id_rol = r.id_rol
                     ORDER BY u.id_usuario";
 
                 using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
@@ -189,11 +227,15 @@ namespace AdministraciondePersonal.Repository
                                 NombreCompleto = reader.GetString("nombre_completo"),
                                 Correo = reader.GetString("correo"),
                                 Estado = reader.GetString("estado"),
-                                IdRol = reader.IsDBNull(reader.GetOrdinal("id_rol")) ? 0 : reader.GetInt32("id_rol"),
-                                NombreRol = reader.IsDBNull(reader.GetOrdinal("nombre_rol")) ? "Sin rol" : reader.GetString("nombre_rol")
+                                Roles = new List<Rol>()
                             });
                         }
                     }
+                }
+
+                foreach (var usuario in usuarios)
+                {
+                    usuario.Roles = ObtenerRolesPorUsuario(usuario.IdUsuario);
                 }
             }
             return usuarios;
@@ -204,9 +246,8 @@ namespace AdministraciondePersonal.Repository
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
                 string sql = @"
-                    SELECT u.id_usuario, u.nombre_usuario, u.nombre_completo, u.correo, u.estado, u.id_rol, r.nombre_rol
+                    SELECT u.id_usuario, u.nombre_usuario, u.nombre_completo, u.correo, u.estado
                     FROM usuarios u
-                    LEFT JOIN roles r ON u.id_rol = r.id_rol
                     WHERE u.id_usuario = @idUsuario";
 
                 using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
@@ -217,16 +258,19 @@ namespace AdministraciondePersonal.Repository
                     {
                         if (reader.Read())
                         {
-                            return new Usuario
+                            var usuario = new Usuario
                             {
                                 IdUsuario = reader.GetInt32("id_usuario"),
                                 NombreUsuario = reader.GetString("nombre_usuario"),
                                 NombreCompleto = reader.GetString("nombre_completo"),
                                 Correo = reader.GetString("correo"),
-                                Estado = reader.GetString("estado"),
-                                IdRol = reader.GetInt32("id_rol"),
-                                NombreRol = reader.GetString("nombre_rol")
+                                Estado = reader.GetString("estado")
                             };
+
+                            reader.Close();
+                            usuario.Roles = ObtenerRolesPorUsuario(usuario.IdUsuario);
+
+                            return usuario;
                         }
                     }
                 }
@@ -266,103 +310,139 @@ namespace AdministraciondePersonal.Repository
             }
         }
 
-        // Verificar combinación usuario + rol
-        public bool ExisteNombreUsuarioConRol(string nombreUsuario, int idRol, int? idExcluir = null)
-        {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = @nombreUsuario AND id_rol = @idRol";
-                if (idExcluir.HasValue) sql += " AND id_usuario != @idExcluir";
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
-                    cmd.Parameters.AddWithValue("@idRol", idRol);
-                    if (idExcluir.HasValue) cmd.Parameters.AddWithValue("@idExcluir", idExcluir.Value);
-                    conn.Open();
-                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-                }
-            }
-        }
-
-        // combinación correo + rol
-        public bool ExisteCorreoConRol(string correo, int idRol, int? idExcluir = null)
-        {
-            using (IDbConnection conn = _dbFactory.GetConnection())
-            {
-                string sql = "SELECT COUNT(*) FROM usuarios WHERE correo = @correo AND id_rol = @idRol";
-                if (idExcluir.HasValue) sql += " AND id_usuario != @idExcluir";
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddWithValue("@correo", correo);
-                    cmd.Parameters.AddWithValue("@idRol", idRol);
-                    if (idExcluir.HasValue) cmd.Parameters.AddWithValue("@idExcluir", idExcluir.Value);
-                    conn.Open();
-                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-                }
-            }
-        }
-
-        public int CrearUsuario(Usuario usuario, string contrasena)
+        public int CrearUsuario(Usuario usuario, string contrasena, List<int> rolesIds)
         {
             string contrasenaEncriptada = EncriptarSHA2(contrasena);
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
-                string sql = @"INSERT INTO usuarios (nombre_usuario, nombre_completo, correo, contrasena, estado, id_rol) 
-                               VALUES (@nombreUsuario, @nombreCompleto, @correo, @contrasena, @estado, @idRol);
-                               SELECT LAST_INSERT_ID();";
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
+                var mysqlConn = (MySqlConnection)conn;
+                mysqlConn.Open();
+
+                using (var transaction = mysqlConn.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
-                    cmd.Parameters.AddWithValue("@nombreCompleto", usuario.NombreCompleto ?? "");
-                    cmd.Parameters.AddWithValue("@correo", usuario.Correo);
-                    cmd.Parameters.AddWithValue("@contrasena", contrasenaEncriptada);
-                    cmd.Parameters.AddWithValue("@estado", usuario.Estado);
-                    cmd.Parameters.AddWithValue("@idRol", usuario.IdRol);
-                    conn.Open();
-                    return Convert.ToInt32(cmd.ExecuteScalar());
+                    try
+                    {
+                        string sqlUsuario = @"INSERT INTO usuarios (nombre_usuario, nombre_completo, correo, contrasena, estado, intentos_fallidos, bloqueado) 
+                                              VALUES (@nombreUsuario, @nombreCompleto, @correo, @contrasena, @estado, 0, FALSE);
+                                              SELECT LAST_INSERT_ID();";
+
+                        int idUsuario;
+                        using (var cmd = new MySqlCommand(sqlUsuario, mysqlConn))
+                        {
+                            cmd.Transaction = transaction;
+                            cmd.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
+                            cmd.Parameters.AddWithValue("@nombreCompleto", usuario.NombreCompleto ?? "");
+                            cmd.Parameters.AddWithValue("@correo", usuario.Correo);
+                            cmd.Parameters.AddWithValue("@contrasena", contrasenaEncriptada);
+                            cmd.Parameters.AddWithValue("@estado", usuario.Estado ?? "activo");
+                            idUsuario = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+
+                        foreach (int idRol in rolesIds)
+                        {
+                            string sqlRol = "INSERT INTO usuariorol (id_usuario, id_rol) VALUES (@idUsuario, @idRol)";
+                            using (var cmd = new MySqlCommand(sqlRol, mysqlConn))
+                            {
+                                cmd.Transaction = transaction;
+                                cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                                cmd.Parameters.AddWithValue("@idRol", idRol);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+                        return idUsuario;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
 
-        public void ActualizarUsuario(Usuario usuario, string nuevaContrasena = null)
+        public void ActualizarUsuario(Usuario usuario)
         {
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
-                conn.Open();
-                if (!string.IsNullOrEmpty(nuevaContrasena))
+                string sql = @"UPDATE usuarios 
+                               SET nombre_usuario = @nombreUsuario, nombre_completo = @nombreCompleto, 
+                                   correo = @correo, estado = @estado
+                               WHERE id_usuario = @idUsuario";
+                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
                 {
-                    string contrasenaEncriptada = EncriptarSHA2(nuevaContrasena);
-                    string sql = @"UPDATE usuarios 
-                                   SET nombre_usuario = @nombreUsuario, nombre_completo = @nombreCompleto, 
-                                       correo = @correo, contrasena = @contrasena, estado = @estado, id_rol = @idRol
-                                   WHERE id_usuario = @idUsuario";
-                    using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                    {
-                        cmd.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
-                        cmd.Parameters.AddWithValue("@nombreCompleto", usuario.NombreCompleto);
-                        cmd.Parameters.AddWithValue("@correo", usuario.Correo);
-                        cmd.Parameters.AddWithValue("@contrasena", contrasenaEncriptada);
-                        cmd.Parameters.AddWithValue("@estado", usuario.Estado);
-                        cmd.Parameters.AddWithValue("@idRol", usuario.IdRol);
-                        cmd.Parameters.AddWithValue("@idUsuario", usuario.IdUsuario);
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
+                    cmd.Parameters.AddWithValue("@nombreCompleto", usuario.NombreCompleto);
+                    cmd.Parameters.AddWithValue("@correo", usuario.Correo);
+                    cmd.Parameters.AddWithValue("@estado", usuario.Estado);
+                    cmd.Parameters.AddWithValue("@idUsuario", usuario.IdUsuario);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
-                else
+            }
+        }
+
+        public void ActualizarUsuarioConContrasena(Usuario usuario, string nuevaContrasena)
+        {
+            string contrasenaEncriptada = EncriptarSHA2(nuevaContrasena);
+            using (IDbConnection conn = _dbFactory.GetConnection())
+            {
+                string sql = @"UPDATE usuarios 
+                               SET nombre_usuario = @nombreUsuario, nombre_completo = @nombreCompleto, 
+                                   correo = @correo, contrasena = @contrasena, estado = @estado
+                               WHERE id_usuario = @idUsuario";
+                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
                 {
-                    string sql = @"UPDATE usuarios 
-                                   SET nombre_usuario = @nombreUsuario, nombre_completo = @nombreCompleto, 
-                                       correo = @correo, estado = @estado, id_rol = @idRol
-                                   WHERE id_usuario = @idUsuario";
-                    using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
+                    cmd.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
+                    cmd.Parameters.AddWithValue("@nombreCompleto", usuario.NombreCompleto);
+                    cmd.Parameters.AddWithValue("@correo", usuario.Correo);
+                    cmd.Parameters.AddWithValue("@contrasena", contrasenaEncriptada);
+                    cmd.Parameters.AddWithValue("@estado", usuario.Estado);
+                    cmd.Parameters.AddWithValue("@idUsuario", usuario.IdUsuario);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void ActualizarRolesUsuario(int idUsuario, List<int> nuevosRolesIds)
+        {
+            using (IDbConnection conn = _dbFactory.GetConnection())
+            {
+                var mysqlConn = (MySqlConnection)conn;
+                mysqlConn.Open();
+
+                using (var transaction = mysqlConn.BeginTransaction())
+                {
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
-                        cmd.Parameters.AddWithValue("@nombreCompleto", usuario.NombreCompleto);
-                        cmd.Parameters.AddWithValue("@correo", usuario.Correo);
-                        cmd.Parameters.AddWithValue("@estado", usuario.Estado);
-                        cmd.Parameters.AddWithValue("@idRol", usuario.IdRol);
-                        cmd.Parameters.AddWithValue("@idUsuario", usuario.IdUsuario);
-                        cmd.ExecuteNonQuery();
+                        string sqlDelete = "DELETE FROM usuariorol WHERE id_usuario = @idUsuario";
+                        using (var cmd = new MySqlCommand(sqlDelete, mysqlConn))
+                        {
+                            cmd.Transaction = transaction;
+                            cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        foreach (int idRol in nuevosRolesIds)
+                        {
+                            string sqlInsert = "INSERT INTO usuariorol (id_usuario, id_rol) VALUES (@idUsuario, @idRol)";
+                            using (var cmd = new MySqlCommand(sqlInsert, mysqlConn))
+                            {
+                                cmd.Transaction = transaction;
+                                cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                                cmd.Parameters.AddWithValue("@idRol", idRol);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
                     }
                 }
             }

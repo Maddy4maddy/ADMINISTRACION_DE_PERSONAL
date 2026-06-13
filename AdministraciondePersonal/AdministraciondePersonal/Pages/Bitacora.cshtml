@@ -13,38 +13,149 @@
 
     <link rel="stylesheet" href="~/css/plantillaglobal.css">
     <link rel="stylesheet" href="~/css/bienvenida.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
     <style>
-        .filtros-bitacora {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+            .bitacora-container {
+                background: white;
+                border-radius: 30px;
+                padding: 30px;
+                box-shadow: 0px 8px 25px rgba(0,0,0,0.08);
+            }
 
-        .tabla-bitacora {
-            font-size: 14px;
-        }
+            .header-acciones {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 25px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
 
-        .ordenar-btn {
-            text-decoration: none;
-            color: white;
-            margin-left: 5px;
-        }
+                .header-acciones h2 {
+                    color: #80B0AA;
+                    font-size: 28px;
+                }
 
-        .ordenar-btn:hover {
-            color: #FDB3CA;
-        }
+            .filtros-bitacora {
+                background: #f8f9fa;
+                border-radius: 20px;
+                padding: 20px;
+                margin-bottom: 25px;
+                border: 1px solid #eeeeee;
+            }
+
+                .filtros-bitacora label {
+                    color: #273a77;
+                    font-weight: bold;
+                    margin-bottom: 8px;
+                }
+
+                .filtros-bitacora .form-control,
+                .filtros-bitacora .form-select {
+                    border-radius: 10px;
+                    border: 2px solid #C8EDED;
+                    padding: 10px;
+                }
+
+                    .filtros-bitacora .form-control:focus,
+                    .filtros-bitacora .form-select:focus {
+                        border-color: #FDB3CA;
+                        outline: none;
+                    }
+
+            .btn-filtrar {
+                background-color: #273a77;
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                border-radius: 15px;
+                font-size: 14px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+                .btn-filtrar:hover {
+                    background-color: #80B0AA;
+                }
+
+            .btn-limpiar {
+                background-color: #6c757d;
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                border-radius: 15px;
+                font-size: 14px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
+            }
+
+                .btn-limpiar:hover {
+                    background-color: #5a6268;
+                    color: white;
+                }
+
+            .tabla-bitacora {
+                width: 100%;
+                border-collapse: collapse;
+                overflow: hidden;
+                border-radius: 20px;
+                font-size: 14px;
+            }
+
+                .tabla-bitacora thead {
+                    background-color: #80B0AA;
+                    color: white;
+                }
+
+                .tabla-bitacora th,
+                .tabla-bitacora td {
+                    padding: 15px;
+                    text-align: center;
+                    border-bottom: 1px solid #eeeeee;
+                    vertical-align: middle;
+                }
+
+                .tabla-bitacora tbody tr:hover {
+                    background-color: #F9EAC1;
+                }
+
+            .ordenar-btn {
+                text-decoration: none;
+                color: white;
+                margin-left: 5px;
+            }
+
+                .ordenar-btn:hover {
+                    color: #FDB3CA;
+                }
+
+            /* Paginación  */
+            .pagination {
+                margin-top: 20px;
+            }
+
+                .pagination .page-link {
+                    color: #273a77;
+                }
+
+                .pagination .active .page-link {
+                    background-color: #273a77;
+                    border-color: #273a77;
+                    color: white;
+                }
     </style>
 </head>
 
 <body>
 
     <div class="sidebar">
-
         <div class="sidebar-header">
             <div class="sistema-icono">
                 <img src="~/css/images/icono.png" alt="Icono del sistema">
@@ -53,17 +164,7 @@
         </div>
 
         <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="/Bienvenida" class="nav-link">
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/Roles" class="nav-link">
-                    <span>Administración Roles</span>
-                </a>
-            </li>
-
+            <li class="nav-item"><a href="/Bienvenida" class="nav-link">Bienvenida</a></li>
             <li class="nav-item">
                 <a href="/Usuarios" class="nav-link">
                     <span>Administración Usuarios</span>
@@ -100,35 +201,8 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Contratar Empleado</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Puestos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Requisitos de Puestos</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Áreas</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Acciones de Personal</span>
-                </a>
-            </li>
+   
 
             <li class="nav-item">
                 <a asp-page="/Bitacora" class="nav-link">
@@ -148,11 +222,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Cargar Datos de Ubicación</span>
-                </a>
-            </li>
+           
 
             <li class="nav-item">
                 <a href="/Pantalla" class="nav-link">
@@ -165,159 +235,138 @@
                     <span>Administración Instituciones Educativas</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span>Administración Módulos</span>
-                </a>
-            </li>
         </ul>
-
     </div>
 
     <div class="main-content">
-
         <div class="topbar">
             <div class="user-info">
-                <span class="user-name" id="nombreUsuario">@Model.NombreUsuario</span>
-                <div class="user-avatar" id="userAvatar" style="background-color: @Model.ColorAvatar">
+                <span class="user-name">@Model.NombreUsuario</span>
+                <div class="user-avatar" style="background-color: @Model.ColorAvatar">
                     @Model.InicialAvatar
                 </div>
             </div>
         </div>
 
         <div class="page-container">
-
             <div class="container-fluid mt-4">
-
                 <h2 class="mb-4">Visualizar Bitácoras</h2>
 
-                @if (!string.IsNullOrEmpty(Model.Mensaje))
-                {
-                    <div class="alert alert-success">@Model.Mensaje</div>
-                }
-
-                @if (!string.IsNullOrEmpty(Model.Error))
-                {
-                    <div class="alert alert-danger">@Model.Error</div>
-                }
-
-                <!-- Filtros -->
-                <form method="get" class="filtros-bitacora row g-3">
-                    <div class="col-md-3">
-                        <label class="form-label">Filtrar por Usuario</label>
-                        <select name="filtroUsuario" class="form-select" asp-for="FiltroUsuario" asp-items="Model.UsuariosList">
-                            <option value="">Todos los usuarios</option>
-                        </select>
+                <div class="bitacora-container">
+                    <div class="header-acciones">
+                        <h2>Bitácora de Acciones</h2>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Buscar en Descripción</label>
-                        <input type="text" name="filtroDescripcion" class="form-control" asp-for="FiltroDescripcion" placeholder="Texto a buscar...">
+
+                    <!-- Filtros -->
+                    <div class="filtros-bitacora">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Filtrar por Usuario</label>
+                                <select name="filtroUsuario" class="form-select" asp-for="FiltroUsuario" asp-items="Model.UsuariosList">
+                                    <option value="">Todos los usuarios</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label">Buscar en Descripción</label>
+                                <input type="text" name="filtroDescripcion" class="form-control" asp-for="FiltroDescripcion" placeholder="Texto a buscar...">
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end gap-2">
+                                <button type="submit" class="btn-filtrar">Filtrar</button>
+                                <a href="/Bitacora" class="btn-limpiar">Limpiar filtros</a>
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-md-2 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
-                    </div>
-                    <div class="col-md-3 d-flex align-items-end">
-                        <a href="/Bitacora" class="btn btn-secondary w-100">Limpiar filtros</a>
-                    </div>
-                </form>
 
-                <div class="table-responsive">
-
-                    <table class="table table-bordered table-striped tabla-bitacora">
-
-                        <thead>
-                            <tr>
-                                <th>
-                                    Fecha
-                                    <a asp-page="./Bitacora" 
-                                       asp-route-ordenarPor="FechaBitacora" 
-                                       asp-route-direccion="@(Model.OrdenarPor == "FechaBitacora" && Model.Direccion == "DESC" ? "ASC" : "DESC")"
-                                       asp-route-filtroUsuario="@Model.FiltroUsuario"
-                                       asp-route-filtroDescripcion="@Model.FiltroDescripcion"
-                                       class="ordenar-btn">
-                                        @(Model.OrdenarPor == "FechaBitacora" ? (Model.Direccion == "DESC" ? "▲" : "▼") : "▲▼")
-                                    </a>
-                                </th>
-                                <th>
-                                    Usuario
-                                    <a asp-page="./Bitacora" 
-                                       asp-route-ordenarPor="Usuario" 
-                                       asp-route-direccion="@(Model.OrdenarPor == "Usuario" && Model.Direccion == "DESC" ? "ASC" : "DESC")"
-                                       asp-route-filtroUsuario="@Model.FiltroUsuario"
-                                       asp-route-filtroDescripcion="@Model.FiltroDescripcion"
-                                       class="ordenar-btn">
-                                        @(Model.OrdenarPor == "Usuario" ? (Model.Direccion == "DESC" ? "▲" : "▼") : "▲▼")
-                                    </a>
-                                </th>
-                                <th>Descripción de la Acción</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach (var item in Model.Bitacoras)
-                            {
+                    <div class="table-responsive">
+                        <table class="tabla-bitacora">
+                            <thead>
                                 <tr>
-                                    <td>@item.FechaBitacora.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                                    <td>@item.Usuario</td>
-                                    <td>@item.DescripcionAccion</td>
+                                    <th>
+                                        Fecha
+                                        <a asp-page="./Bitacora"
+                                           asp-route-ordenarPor="FechaBitacora"
+                                           asp-route-direccion="@(Model.Direccion == "DESC" ? "ASC" : "DESC")"
+                                           asp-route-pagina="1"
+                                           asp-route-filtroUsuario="@Model.FiltroUsuario"
+                                           asp-route-filtroDescripcion="@Model.FiltroDescripcion"
+                                           class="ordenar-btn">
+                                            @(Model.OrdenarPor == "FechaBitacora" ? (Model.Direccion == "DESC" ? "▲" : "▼") : "▲▼")
+                                        </a>
+                                    </th>
+                                    <th>
+                                        Usuario
+                                        <a asp-page="./Bitacora"
+                                           asp-route-ordenarPor="Usuario"
+                                           asp-route-direccion="@(Model.Direccion == "DESC" ? "ASC" : "DESC")"
+                                           asp-route-pagina="1"
+                                           asp-route-filtroUsuario="@Model.FiltroUsuario"
+                                           asp-route-filtroDescripcion="@Model.FiltroDescripcion"
+                                           class="ordenar-btn">
+                                            @(Model.OrdenarPor == "Usuario" ? (Model.Direccion == "DESC" ? "▲" : "▼") : "▲▼")
+                                        </a>
+                                    </th>
+                                    <th>Descripción de la Acción</th>
                                 </tr>
-                            }
-                        </tbody>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Bitacoras)
+                                {
+                                    <tr>
+                                        <td>@item.FechaBitacora.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                        <td>@item.Usuario</td>
+                                        <td>@item.DescripcionAccion</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
 
-                    </table>
-
-                </div>
-
-                <!-- Paginación -->
-                <nav>
-                    <ul class="pagination">
-
-                        <li class="page-item @(Model.PageIndex <= 1 ? "disabled" : "")">
-                            <a class="page-link"
-                               asp-page="./Bitacora"
-                               asp-route-pageIndex="@(Model.PageIndex - 1)"
-                               asp-route-ordenarPor="@Model.OrdenarPor"
-                               asp-route-direccion="@Model.Direccion"
-                               asp-route-filtroUsuario="@Model.FiltroUsuario"
-                               asp-route-filtroDescripcion="@Model.FiltroDescripcion">
-                                Anterior
-                            </a>
-                        </li>
-
-                        @for (int i = 1; i <= Model.TotalPages; i++)
-                        {
-                            <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                    <!-- Paginación -->
+                    <nav class="mt-4">
+                        <ul class="pagination">
+                            <li class="page-item @(Model.PaginaActual <= 1 ? "disabled" : "")">
                                 <a class="page-link"
-                                   asp-page="./Bitacora"
-                                   asp-route-pageIndex="@i"
+                                   asp-page="/Bitacora"
+                                   asp-route-pagina="@(Model.PaginaActual - 1)"
                                    asp-route-ordenarPor="@Model.OrdenarPor"
                                    asp-route-direccion="@Model.Direccion"
                                    asp-route-filtroUsuario="@Model.FiltroUsuario"
                                    asp-route-filtroDescripcion="@Model.FiltroDescripcion">
-                                    @i
+                                    Anterior
                                 </a>
                             </li>
-                        }
 
-                        <li class="page-item @(Model.PageIndex >= Model.TotalPages ? "disabled" : "")">
-                            <a class="page-link"
-                               asp-page="./Bitacora"
-                               asp-route-pageIndex="@(Model.PageIndex + 1)"
-                               asp-route-ordenarPor="@Model.OrdenarPor"
-                               asp-route-direccion="@Model.Direccion"
-                               asp-route-filtroUsuario="@Model.FiltroUsuario"
-                               asp-route-filtroDescripcion="@Model.FiltroDescripcion">
-                                Siguiente
-                            </a>
-                        </li>
+                            @for (int i = 1; i <= Model.TotalPaginas; i++)
+                            {
+                                <li class="page-item @(Model.PaginaActual == i ? "active" : "")">
+                                    <a class="page-link"
+                                       asp-page="/Bitacora"
+                                       asp-route-pagina="@i"
+                                       asp-route-ordenarPor="@Model.OrdenarPor"
+                                       asp-route-direccion="@Model.Direccion"
+                                       asp-route-filtroUsuario="@Model.FiltroUsuario"
+                                       asp-route-filtroDescripcion="@Model.FiltroDescripcion">
+                                        @i
+                                    </a>
+                                </li>
+                            }
 
-                    </ul>
-                </nav>
-
+                            <li class="page-item @(Model.PaginaActual >= Model.TotalPaginas ? "disabled" : "")">
+                                <a class="page-link"
+                                   asp-page="/Bitacora"
+                                   asp-route-pagina="@(Model.PaginaActual + 1)"
+                                   asp-route-ordenarPor="@Model.OrdenarPor"
+                                   asp-route-direccion="@Model.Direccion"
+                                   asp-route-filtroUsuario="@Model.FiltroUsuario"
+                                   asp-route-filtroDescripcion="@Model.FiltroDescripcion">
+                                    Siguiente
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-
         </div>
-
     </div>
 
 </body>

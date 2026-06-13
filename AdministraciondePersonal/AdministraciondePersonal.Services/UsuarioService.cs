@@ -53,7 +53,7 @@ namespace AdministraciondePersonal.Services
             return usuario != null && (usuario.Bloqueado || usuario.Estado == "bloqueado");
         }
 
-        public List<rol> ObtenerTodosRoles()
+        public List<Rol> ObtenerTodosRoles()
         {
             return _usuarioRepository.ObtenerTodosRoles();
         }
@@ -104,7 +104,18 @@ namespace AdministraciondePersonal.Services
             return true;
         }
 
-        public (bool success, string mensaje) CrearUsuario(Usuario usuario, string contrasena, string usuarioActual)
+        public bool ValidarRoles(List<int> rolesIds, out string mensajeError)
+        {
+            if (rolesIds == null || rolesIds.Count == 0)
+            {
+                mensajeError = "Debe seleccionar al menos un rol";
+                return false;
+            }
+            mensajeError = "";
+            return true;
+        }
+
+        public (bool success, string mensaje) CrearUsuario(Usuario usuario, string contrasena, List<int> rolesIds, string usuarioActual)
         {
             if (string.IsNullOrWhiteSpace(usuario.NombreUsuario))
                 return (false, "El nombre de usuario es requerido");
@@ -112,22 +123,33 @@ namespace AdministraciondePersonal.Services
                 return (false, "El nombre completo es requerido");
             if (string.IsNullOrWhiteSpace(usuario.Correo))
                 return (false, "El correo es requerido");
-            if (usuario.IdRol <= 0)
-                return (false, "Debe seleccionar un rol");
-            if (!ValidarContrasena(contrasena, out string error))
-                return (false, error);
 
-           
-            if (_usuarioRepository.ExisteNombreUsuarioConRol(usuario.NombreUsuario, usuario.IdRol))
-                return (false, "El nombre de usuario ya existe con este rol");
+            if (!ValidarRoles(rolesIds, out string errorRoles))
+                return (false, errorRoles);
 
-            if (_usuarioRepository.ExisteCorreoConRol(usuario.Correo, usuario.IdRol))
-                return (false, "El correo ya está registrado con este rol");
+            if (!ValidarContrasena(contrasena, out string errorContrasena))
+                return (false, errorContrasena);
+
+            if (_usuarioRepository.ExisteNombreUsuario(usuario.NombreUsuario))
+                return (false, "El nombre de usuario ya existe");
+
+            if (_usuarioRepository.ExisteCorreo(usuario.Correo))
+                return (false, "El correo ya está registrado");
 
             try
             {
-                int id = _usuarioRepository.CrearUsuario(usuario, contrasena);
-                var usuarioParaBitacora = new { usuario.NombreUsuario, usuario.NombreCompleto, usuario.Correo, usuario.Estado, usuario.IdRol };
+                usuario.Estado = "activo";
+                int id = _usuarioRepository.CrearUsuario(usuario, contrasena, rolesIds);
+
+                var rolesNombres = ObtenerTodosRoles().Where(r => rolesIds.Contains(r.IdRol)).Select(r => r.NombreRol);
+                var usuarioParaBitacora = new
+                {
+                    usuario.NombreUsuario,
+                    usuario.NombreCompleto,
+                    usuario.Correo,
+                    usuario.Estado,
+                    Roles = string.Join(", ", rolesNombres)
+                };
                 _bitacoraService.RegistrarAccion(usuarioActual, $"Creación de usuario: {JsonSerializer.Serialize(usuarioParaBitacora)}");
                 return (true, "Usuario creado exitosamente");
             }
@@ -137,7 +159,7 @@ namespace AdministraciondePersonal.Services
             }
         }
 
-        public (bool success, string mensaje) ActualizarUsuario(Usuario usuario, string nuevaContrasena, string usuarioActual)
+        public (bool success, string mensaje) ActualizarUsuario(Usuario usuario, string nuevaContrasena, List<int> rolesIds, string usuarioActual)
         {
             if (string.IsNullOrWhiteSpace(usuario.NombreUsuario))
                 return (false, "El nombre de usuario es requerido");
@@ -145,26 +167,40 @@ namespace AdministraciondePersonal.Services
                 return (false, "El nombre completo es requerido");
             if (string.IsNullOrWhiteSpace(usuario.Correo))
                 return (false, "El correo es requerido");
-            if (usuario.IdRol <= 0)
-                return (false, "Debe seleccionar un rol");
+
+            if (!ValidarRoles(rolesIds, out string errorRoles))
+                return (false, errorRoles);
+
             if (!string.IsNullOrEmpty(nuevaContrasena))
             {
-                if (!ValidarContrasena(nuevaContrasena, out string error))
-                    return (false, error);
+                if (!ValidarContrasena(nuevaContrasena, out string errorContrasena))
+                    return (false, errorContrasena);
             }
 
-            
-            if (_usuarioRepository.ExisteNombreUsuarioConRol(usuario.NombreUsuario, usuario.IdRol, usuario.IdUsuario))
-                return (false, "El nombre de usuario ya existe con este rol");
+            if (_usuarioRepository.ExisteNombreUsuario(usuario.NombreUsuario, usuario.IdUsuario))
+                return (false, "El nombre de usuario ya existe");
 
-            
-            if (_usuarioRepository.ExisteCorreoConRol(usuario.Correo, usuario.IdRol, usuario.IdUsuario))
-                return (false, "El correo ya está registrado con este rol");
+            if (_usuarioRepository.ExisteCorreo(usuario.Correo, usuario.IdUsuario))
+                return (false, "El correo ya está registrado");
 
             try
             {
-                _usuarioRepository.ActualizarUsuario(usuario, nuevaContrasena);
-                var usuarioParaBitacora = new { usuario.NombreUsuario, usuario.NombreCompleto, usuario.Correo, usuario.Estado, usuario.IdRol };
+                if (!string.IsNullOrEmpty(nuevaContrasena))
+                    _usuarioRepository.ActualizarUsuarioConContrasena(usuario, nuevaContrasena);
+                else
+                    _usuarioRepository.ActualizarUsuario(usuario);
+
+                _usuarioRepository.ActualizarRolesUsuario(usuario.IdUsuario, rolesIds);
+
+                var rolesNombres = ObtenerTodosRoles().Where(r => rolesIds.Contains(r.IdRol)).Select(r => r.NombreRol);
+                var usuarioParaBitacora = new
+                {
+                    usuario.NombreUsuario,
+                    usuario.NombreCompleto,
+                    usuario.Correo,
+                    usuario.Estado,
+                    Roles = string.Join(", ", rolesNombres)
+                };
                 _bitacoraService.RegistrarAccion(usuarioActual, $"Actualización de usuario: {JsonSerializer.Serialize(usuarioParaBitacora)}");
                 return (true, "Usuario actualizado exitosamente");
             }
@@ -181,10 +217,13 @@ namespace AdministraciondePersonal.Services
                 var usuario = _usuarioRepository.ObtenerUsuarioPorId(idUsuario);
                 if (usuario == null)
                     return (false, "Usuario no encontrado");
+
                 if (_usuarioRepository.TieneRegistrosRelacionados(idUsuario))
-                    return (false, "No se puede eliminar un registro con datos relacionados.");
+                    return (false, "No se puede eliminar un usuario con datos relacionados en oferentes.");
+
                 _usuarioRepository.EliminarUsuario(idUsuario);
-                var usuarioParaBitacora = new { usuario.NombreUsuario, usuario.NombreCompleto, usuario.Correo };
+
+                var usuarioParaBitacora = new { usuario.NombreUsuario, usuario.NombreCompleto, usuario.Correo, usuario.RolesTexto };
                 _bitacoraService.RegistrarAccion(usuarioActual, $"Eliminación de usuario: {JsonSerializer.Serialize(usuarioParaBitacora)}");
                 return (true, "Usuario eliminado exitosamente");
             }
@@ -201,8 +240,10 @@ namespace AdministraciondePersonal.Services
                 var usuario = _usuarioRepository.ObtenerUsuarioPorId(idUsuario);
                 if (usuario == null)
                     return (false, "Usuario no encontrado");
+
                 string estadoAnterior = usuario.Estado;
                 _usuarioRepository.CambiarEstadoUsuario(idUsuario, nuevoEstado);
+
                 _bitacoraService.RegistrarAccion(usuarioActual, $"Cambio de estado de usuario {usuario.NombreUsuario}: {estadoAnterior} → {nuevoEstado}");
                 return (true, $"Usuario {nuevoEstado} exitosamente");
             }
@@ -210,6 +251,20 @@ namespace AdministraciondePersonal.Services
             {
                 return (false, $"Error al cambiar estado: {ex.Message}");
             }
+        }
+
+        public bool UsuarioTieneRol(int idUsuario, string nombreRol)
+        {
+            var usuario = _usuarioRepository.ObtenerUsuarioPorId(idUsuario);
+            return usuario?.Roles.Any(r => r.NombreRol.Equals(nombreRol, StringComparison.OrdinalIgnoreCase)) ?? false;
+        }
+
+        public bool UsuarioTieneAlgunRol(int idUsuario, List<string> nombresRoles)
+        {
+            var usuario = _usuarioRepository.ObtenerUsuarioPorId(idUsuario);
+            if (usuario == null) return false;
+
+            return usuario.Roles.Any(r => nombresRoles.Contains(r.NombreRol));
         }
     }
 }

@@ -10,6 +10,27 @@ body {
     min-height: 100vh;
 }
 
+/* ===== TRANSICIONES SUAVES ENTRE PÁGINAS ===== */
+
+/* Animación de entrada para el contenido principal */
+.page-container {
+    animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Transición para el sidebar */
 .sidebar {
     position: fixed;
     left: 0;
@@ -18,28 +39,321 @@ body {
     height: 100%;
     background-color: #273a77;
     color: white;
-    transition: all 0.3s;
+    transition: all 0.3s ease-in-out;
     z-index: 1000;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-    .sidebar::-webkit-scrollbar {
-        width: 6px;
+.main-content {
+    margin-left: 260px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Transiciones para elementos interactivos */
+.nav-link,
+.btn,
+.btn-nuevo,
+.btn-editar,
+.btn-eliminar,
+.btn-guardar,
+.btn-cancelar,
+.btn-accion,
+.btn-filtrar,
+.btn-limpiar,
+.card,
+.modal-content,
+.param-card,
+.info-box,
+.welcome-card,
+.crud-container {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+    /* Efecto hover en botones */
+    .btn-nuevo:hover {
+        background-color: #4cff00;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    .sidebar::-webkit-scrollbar-track {
-        background: #1a2a5c;
+    .btn-editar:hover {
+        background-color: #e0a800;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    .sidebar::-webkit-scrollbar-thumb {
-        background: #80B0AA;
-        border-radius: 3px;
+    .btn-eliminar:hover {
+        background-color: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-        .sidebar::-webkit-scrollbar-thumb:hover {
-            background: #FDB3CA;
-        }
+    .btn-guardar:hover {
+        background-color: #1e2e5e;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-cancelar:hover {
+        background-color: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+/* Efecto hover en enlaces del sidebar */
+.nav-item {
+    padding: 12px 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .nav-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(128, 176, 170, 0.2);
+        transition: left 0.3s ease;
+    }
+
+    .nav-item:hover::before {
+        left: 0;
+    }
+
+    .nav-item:hover {
+        background-color: #80B0AA;
+        padding-left: 30px;
+    }
+
+    .nav-item.active {
+        background-color: #80B0AA;
+        border-left: 4px solid #FDB3CA;
+    }
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Efecto hover en filas de tabla */
+.table-roles tbody tr,
+.tabla-usuarios tbody tr,
+.tabla-bitacora tbody tr {
+    transition: all 0.2s ease;
+}
+
+    .table-roles tbody tr:hover,
+    .tabla-usuarios tbody tr:hover,
+    .tabla-bitacora tbody tr:hover {
+        background-color: #f5f5f5;
+        transform: scale(1.01);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+/* Transición para modales */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 400px;
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content input {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #C8EDED;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .modal-content input:focus {
+        border-color: #FDB3CA;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(253, 179, 202, 0.2);
+    }
+
+/* Transición para cards y contenedores */
+.crud-container,
+.param-card,
+.info-box,
+.welcome-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+    .crud-container:hover,
+    .param-card:hover,
+    .info-box:hover,
+    .welcome-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 12px 30px rgba(0,0,0,0.12);
+    }
+
+/* Transición para el topbar */
+.topbar {
+    background: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    transition: box-shadow 0.3s ease;
+}
+
+    .topbar:hover {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+/* Efecto hover en el avatar de usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+    .user-info:hover {
+        transform: scale(1.05);
+    }
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.user-info:hover .user-avatar {
+    transform: rotate(5deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Transición para scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #1a2a5c;
+    transition: background 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #80B0AA;
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+    .sidebar::-webkit-scrollbar-thumb:hover {
+        background: #FDB3CA;
+    }
+
+/* Animación de carga suave para imágenes */
+img {
+    transition: opacity 0.3s ease;
+}
+
+    img[src] {
+        opacity: 1;
+        animation: fadeInImage 0.5s ease;
+    }
+
+@keyframes fadeInImage {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Efecto de onda al hacer click en botones */
+.btn-nuevo:active,
+.btn-editar:active,
+.btn-eliminar:active,
+.btn-guardar:active,
+.btn-cancelar:active {
+    transform: scale(0.98);
+}
+
+/* Transición para los botones de ordenamiento */
+.ordenar-btn {
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+    .ordenar-btn:hover {
+        transform: translateY(-2px);
+    }
+
+/* Media query para responsive con transición suave */
+@media (max-width: 768px) {
+    .sidebar {
+        left: -260px;
+        transition: left 0.3s ease-in-out;
+    }
+
+    .main-content {
+        margin-left: 0;
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+}
+
+/* ===== ESTILOS EXISTENTES (MANTENIDOS SIN CAMBIOS) ===== */
 
 .sidebar-header {
     padding: 25px 20px;
@@ -77,90 +391,6 @@ body {
     padding: 20px 0 30px 0;
 }
 
-.nav-item {
-    padding: 12px 25px;
-    transition: 0.3s;
-}
-
-    .nav-item:hover {
-        background-color: #80B0AA;
-    }
-
-    .nav-item.active {
-        background-color: #80B0AA;
-        border-left: 4px solid #FDB3CA;
-    }
-
-.nav-link {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 15px;
-}
-
-.main-content {
-    margin-left: 260px;
-    min-height: 100vh;
-}
-
-.topbar {
-    background: white;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 999;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-}
-
-.user-name {
-    font-weight: bold;
-    color: #273a77;
-    font-size: 15px;
-}
-
-.user-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    text-transform: uppercase;
-}
-
-.page-container {
-    padding: 30px;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        left: -260px;
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-
-    .sidebar.active {
-        left: 0;
-    }
-}
-
 /*Plantilla para los CRUD*/
 
 .crud-container {
@@ -187,10 +417,6 @@ body {
     margin-bottom: 20px;
     transition: 0.3s;
 }
-
-    .btn-nuevo:hover {
-        background-color: #4cff00;
-    }
 
 .table-roles {
     width: 100%;
@@ -229,57 +455,9 @@ body {
     cursor: pointer;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    width: 400px;
-}
-
-    .modal-content input {
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 15px;
-        padding: 12px;
-        border-radius: 10px;
-        border: 2px solid #C8EDED;
-    }
-
 .modal-buttons {
     display: flex;
     gap: 10px;
-}
-
-.btn-guardar {
-    background-color: #273a77;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    flex: 1;
-    cursor: pointer;
-}
-
-.btn-cancelar {
-    background-color: #777;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    flex: 1;
-    cursor: pointer;
 }
 
 .pantallas-container {
@@ -291,7 +469,7 @@ body {
     background: #fff;
 }
 
-.pantallas-container div {
+    .pantallas-container div {
         margin-bottom: 8px;
         display: flex;
         gap: 8px;
