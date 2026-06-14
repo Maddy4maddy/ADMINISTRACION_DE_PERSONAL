@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AdministraciondePersonal.Services;
 using AdministraciondePersonal.Entities;
+using System.Text.Json;
 
 namespace AdministraciondePersonal.Pages
 {
     public class RolesModel : PageModel
     {
+
+        private readonly PantallaService _services;
         private readonly RolService _service;
         private readonly BitacoraService _bitacoraService;
 
@@ -14,9 +17,15 @@ namespace AdministraciondePersonal.Pages
         public string InicialAvatar { get; set; }
         public string ColorAvatar { get; set; }
 
-        public RolesModel(RolService service, BitacoraService bitacoraService)
+        public List<Pantalla> MenuPantallas { get; set; } = new();
+
+        public RolesModel(
+            RolService service,
+            PantallaService pantallaService,
+            BitacoraService bitacoraService)
         {
             _service = service;
+            _services = pantallaService;
             _bitacoraService = bitacoraService;
         }
 
@@ -154,6 +163,18 @@ namespace AdministraciondePersonal.Pages
     };
 
             ColorAvatar = colores[Math.Abs(hash) % colores.Length];
+
+            var rolesJson =
+                HttpContext.Session.GetString("RolesUsuario");
+
+            if (!string.IsNullOrEmpty(rolesJson))
+            {
+                var rolesIds =
+                    JsonSerializer.Deserialize<List<int>>(rolesJson);
+
+                MenuPantallas =
+                    _services.ObtenerPantallasPorRoles(rolesIds);
+            }
 
             return true;
         }

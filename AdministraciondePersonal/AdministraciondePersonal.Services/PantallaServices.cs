@@ -11,7 +11,10 @@ namespace AdministraciondePersonal.Services
         {
             _repo = repo;
         }
-
+        public List<Pantalla> ObtenerPantallasPorRoles(List<int> rolesIds)
+        {
+            return _repo.ObtenerPantallasPorRoles(rolesIds);
+        }
         public List<Pantalla> ObtenerPantallas()
         {
             return _repo.ObtenerPantallas();

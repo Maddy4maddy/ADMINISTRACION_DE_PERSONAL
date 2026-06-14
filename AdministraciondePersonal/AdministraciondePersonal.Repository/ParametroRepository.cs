@@ -1,133 +1,123 @@
-﻿using MySql.Data.MySqlClient;
-using Microsoft.Extensions.Configuration;
-using AdministraciondePersonal.Entities;
+﻿using AdministraciondePersonal.Entities;
+using Dapper;
+using System.Data;
 
 namespace AdministraciondePersonal.Repository
 {
     public class ParametroRepository
     {
-        private readonly string _connectionString;
+        private readonly DbConnectionFactory _dbFactory;
 
-        public ParametroRepository(IConfiguration config)
+        public ParametroRepository(DbConnectionFactory dbFactory)
         {
-            _connectionString = config.GetConnectionString("DefaultConnection");
+            _dbFactory = dbFactory;
         }
 
         public List<Parametros> ObtenerParametros()
         {
-            var lista = new List<Parametros>();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            string sql = @"
+                SELECT
+                    id_parametro AS IdParametro,
+                    codigo AS Codigo,
+                    valor AS Valor
+                FROM parametros
+                ORDER BY codigo";
 
-            var cmd = new MySqlCommand(
-                "SELECT * FROM parametros ORDER BY codigo",
-                conn);
-
-            var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                lista.Add(new Parametros
-                {
-                    IdParametro = reader.GetInt32("id_parametro"),
-                    Codigo = reader.GetString("codigo"),
-                    Valor = reader.GetString("valor")
-                });
-            }
-
-            return lista;
-        }
-
-        public string ObtenerValor(string codigo)
-        {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
-
-            var cmd = new MySqlCommand(
-                "SELECT valor FROM parametros WHERE codigo = @codigo",
-                conn);
-
-            cmd.Parameters.AddWithValue("@codigo", codigo);
-
-            var resultado = cmd.ExecuteScalar();
-
-            return resultado?.ToString() ?? "";
+            return conn.Query<Parametros>(sql).ToList();
         }
 
         public Parametros ObtenerPorId(int id)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(
-                "SELECT * FROM parametros WHERE id_parametro = @id",
-                conn);
+            string sql = @"
+                SELECT
+                    id_parametro AS IdParametro,
+                    codigo AS Codigo,
+                    valor AS Valor
+                FROM parametros
+                WHERE id_parametro = @Id";
 
-            cmd.Parameters.AddWithValue("@id", id);
-
-            var reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                return new Parametros
-                {
-                    IdParametro = reader.GetInt32("id_parametro"),
-                    Codigo = reader.GetString("codigo"),
-                    Valor = reader.GetString("valor")
-                };
-            }
-
-            return null;
+            return conn.QueryFirstOrDefault<Parametros>(
+                sql,
+                new { Id = id });
         }
 
-        public void CrearParametro(string codigo, string valor)
+        public bool ExisteCodigo(string codigo)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(@"
+            string sql = @"
+                SELECT COUNT(*)
+                FROM parametros
+                WHERE UPPER(codigo) = UPPER(@Codigo)";
+
+            return conn.ExecuteScalar<int>(
+                sql,
+                new { Codigo = codigo }) > 0;
+        }
+
+        public void CrearParametro(
+            string codigo,
+            string valor)
+        {
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
                 INSERT INTO parametros
-                (codigo, valor)
+                (
+                    codigo,
+                    valor
+                )
                 VALUES
-                (@codigo, @valor)", conn);
+                (
+                    @Codigo,
+                    @Valor
+                )";
 
-            cmd.Parameters.AddWithValue("@codigo", codigo);
-            cmd.Parameters.AddWithValue("@valor", valor);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new
+                {
+                    Codigo = codigo,
+                    Valor = valor
+                });
         }
 
-        public void EditarParametro(int id, string codigo, string valor)
+        public void EditarParametro(
+            int id,
+            string codigo,
+            string valor)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(@"
+            string sql = @"
                 UPDATE parametros
-                SET codigo = @codigo,
-                    valor = @valor
-                WHERE id_parametro = @id", conn);
+                SET
+                    codigo = @Codigo,
+                    valor = @Valor
+                WHERE id_parametro = @Id";
 
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@codigo", codigo);
-            cmd.Parameters.AddWithValue("@valor", valor);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new
+                {
+                    Id = id,
+                    Codigo = codigo,
+                    Valor = valor
+                });
         }
 
         public void EliminarParametro(int id)
         {
-            using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            using IDbConnection conn = _dbFactory.GetConnection();
 
-            var cmd = new MySqlCommand(
-                "DELETE FROM parametros WHERE id_parametro = @id",
-                conn);
+            string sql = @"
+                DELETE FROM parametros
+                WHERE id_parametro = @Id";
 
-            cmd.Parameters.AddWithValue("@id", id);
-
-            cmd.ExecuteNonQuery();
+            conn.Execute(sql,
+                new { Id = id });
         }
     }
 }

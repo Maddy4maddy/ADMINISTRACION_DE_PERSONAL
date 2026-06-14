@@ -68,6 +68,15 @@ namespace AdministraciondePersonal.Pages
             HttpContext.Session.SetString("Usuario", usuario.NombreUsuario);
             HttpContext.Session.SetString("NombreCompleto", usuario.NombreCompleto);
 
+            var rolesIds = usuario.Roles
+                .Select(r => r.IdRol)
+                .ToList();
+
+            HttpContext.Session.SetString(
+                "RolesUsuario",
+                System.Text.Json.JsonSerializer.Serialize(rolesIds)
+            );
+
             return RedirectToPage("/Bienvenida");
         }
     }

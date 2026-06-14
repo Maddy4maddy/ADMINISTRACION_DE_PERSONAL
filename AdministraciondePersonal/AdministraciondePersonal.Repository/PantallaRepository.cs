@@ -166,5 +166,25 @@ namespace AdministraciondePersonal.Repository
             conn.Execute(sql,
                 new { IdPantalla = idPantalla });
         }
+        public List<Pantalla> ObtenerPantallasPorRoles(List<int> rolesIds)
+        {
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
+        SELECT DISTINCT
+            p.id_pantalla AS IdPantalla,
+            p.nombre_pantalla AS NombrePantalla,
+            p.ruta AS Ruta
+        FROM pantallas p
+        INNER JOIN rolpantalla rp
+            ON p.id_pantalla = rp.id_pantalla
+        WHERE rp.id_rol IN @RolesIds
+        ORDER BY p.id_pantalla";
+
+            return conn.Query<Pantalla>(
+                sql,
+                new { RolesIds = rolesIds }
+            ).ToList();
+        }
     }
 }

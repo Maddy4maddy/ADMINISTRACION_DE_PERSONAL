@@ -3,21 +3,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using AdministraciondePersonal.Services;
 using AdministraciondePersonal.Entities;
 
+using System.Text.Json;
+
 namespace AdministraciondePersonal.Pages
 {
     public class CompaniasModel : PageModel
     {
         private readonly CompaniaService _service;
+        private readonly PantallaService _services;
         private readonly BitacoraService _bitacoraService;
 
         public CompaniasModel(
             CompaniaService service,
+            PantallaService pantallaService,
             BitacoraService bitacoraService)
         {
             _service = service;
+            _services = pantallaService;
             _bitacoraService = bitacoraService;
         }
-
+        public List<Pantalla> MenuPantallas { get; set; } = new();
         [BindProperty]
         public Compania Compania { get; set; } = new();
 
@@ -79,6 +84,18 @@ namespace AdministraciondePersonal.Pages
 
             ColorAvatar =
                 colores[Math.Abs(hash) % colores.Length];
+
+            var rolesJson =
+    HttpContext.Session.GetString("RolesUsuario");
+
+            if (!string.IsNullOrEmpty(rolesJson))
+            {
+                var rolesIds =
+                    JsonSerializer.Deserialize<List<int>>(rolesJson);
+
+                MenuPantallas =
+                    _services.ObtenerPantallasPorRoles(rolesIds);
+            }
 
             return true;
         }
