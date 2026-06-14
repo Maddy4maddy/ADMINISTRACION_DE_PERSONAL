@@ -8,7 +8,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<DbConnectionFactory>();
 
 builder.Services.AddScoped<UsuarioRepository>();
-builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped(provider =>
+    UsuarioService.GetInstance(
+        provider.GetRequiredService<UsuarioRepository>(),
+        provider.GetRequiredService<BitacoraService>()
+    ));
 
 builder.Services.AddScoped<OferenteRepository>();
 builder.Services.AddScoped<OferenteService>();
@@ -26,7 +30,10 @@ builder.Services.AddScoped<EntrevistaRepository>();
 builder.Services.AddScoped<EntrevistaService>();
 
 builder.Services.AddScoped<BitacoraRepository>();
-builder.Services.AddScoped<BitacoraService>();
+builder.Services.AddScoped(provider =>
+    BitacoraService.GetInstance(
+        provider.GetRequiredService<BitacoraRepository>()
+    ));
 
 builder.Services.AddScoped<InstitucionEducativaRepository>();
 builder.Services.AddScoped<InstitucionEducativaService>();
@@ -45,12 +52,17 @@ builder.Services.AddScoped<CompaniaService>();
 
 builder.Services.AddDistributedMemoryCache();
 
+// TODO:
+// El tiempo de sesión deberá obtenerse posteriormente desde la tabla PARAMETROS
+// utilizando un parámetro como TIEMPO_EXPIRACION_SESION.
+const int TiempoSesionMinutos = 5;
+
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(5);
+    options.IdleTimeout = TimeSpan.FromMinutes(TiempoSesionMinutos);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
-    options.Cookie.MaxAge = TimeSpan.FromMinutes(5);
+    options.Cookie.MaxAge = TimeSpan.FromMinutes(TiempoSesionMinutos);
 });
 
 builder.Services.AddHttpContextAccessor();

@@ -5,11 +5,29 @@ namespace AdministraciondePersonal.Services
 {
     public class BitacoraService
     {
+        // Implementación Singleton
+        private static BitacoraService _instancia;
+        private static readonly object _lock = new object();
         private readonly BitacoraRepository _bitacoraRepository;
 
-        public BitacoraService(BitacoraRepository bitacoraRepository)
+        private BitacoraService(BitacoraRepository bitacoraRepository)
         {
             _bitacoraRepository = bitacoraRepository;
+        }
+
+        public static BitacoraService GetInstance(BitacoraRepository bitacoraRepository)
+        {
+            if (_instancia == null)
+            {
+                lock (_lock)
+                {
+                    if (_instancia == null)
+                    {
+                        _instancia = new BitacoraService(bitacoraRepository);
+                    }
+                }
+            }
+            return _instancia;
         }
 
         // MICROSERVICIO BITACORA

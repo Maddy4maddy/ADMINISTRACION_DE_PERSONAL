@@ -164,77 +164,22 @@
         </div>
 
         <ul class="nav-menu">
-            <li class="nav-item"><a href="/Bienvenida" class="nav-link">Bienvenida</a></li>
-            <li class="nav-item">
-                <a href="/Usuarios" class="nav-link">
-                    <span>Administración Usuarios</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a asp-page="/Oferentes" class="nav-link">
-                    <span>Registro Oferentes</span>
-                </a>
-            </li>
+            @foreach (var pantalla in Model.MenuPantallas)
+            {
+                <li class="nav-item">
 
-            <li class="nav-item">
-                <a asp-page="/Concursos" class="nav-link">
-                    <span>Registro Concursos</span>
-                </a>
-            </li>
+                    <a href="@pantalla.Ruta" class="nav-link">
 
-            <li class="nav-item">
-                <a asp-page="/PreparacionAcademica" class="nav-link">
-                    <span>Registro Preparación Académica</span>
-                </a>
-            </li>
+                        <span>
+                            @pantalla.NombrePantalla
+                        </span>
 
-            <li class="nav-item">
-                <a asp-page="/ExperienciaLaboral" class="nav-link">
-                    <span>Experiencia Laboral</span>
-                </a>
-            </li>
+                    </a>
 
-            <li class="nav-item">
-                <a asp-page="/Entrevistas" class="nav-link">
-                    <span>Agendar Entrevista</span>
-                </a>
-            </li>
+                </li>
+            }
 
-
-   
-
-            <li class="nav-item">
-                <a asp-page="/Bitacora" class="nav-link">
-                    <span>Visualizar Bitácoras</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="/Parametros" class="nav-link">
-                    <span>Administración Parámetros</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="/Compañia" class="nav-link">
-                    <span>Administración Compañías</span>
-                </a>
-            </li>
-
-           
-
-            <li class="nav-item">
-                <a href="/Pantalla" class="nav-link">
-                    <span>Administracion de Pantallas</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-page="/InstitucionesEducativas" class="nav-link">
-                    <span>Administración Instituciones Educativas</span>
-                </a>
-            </li>
         </ul>
     </div>
 

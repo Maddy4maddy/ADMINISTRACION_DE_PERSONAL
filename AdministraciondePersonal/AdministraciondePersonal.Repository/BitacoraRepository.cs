@@ -1,4 +1,5 @@
 ﻿using AdministraciondePersonal.Entities;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Text;
@@ -20,14 +21,12 @@ namespace AdministraciondePersonal.Repository
                 string sql = @"INSERT INTO bitacora (usuario, descripcion_accion, fecha_bitacora) 
                                VALUES (@usuario, @descripcion, @fecha)";
 
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
+                conn.Execute(sql, new
                 {
-                    cmd.Parameters.AddWithValue("@usuario", usuario);
-                    cmd.Parameters.AddWithValue("@descripcion", descripcionAccion);
-                    cmd.Parameters.AddWithValue("@fecha", DateTime.Now);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
+                    usuario = usuario,
+                    descripcion = descripcionAccion,
+                    fecha = DateTime.Now
+                });
             }
         }
         public (List<Bitacora> items, int totalCount) ObtenerBitacoras(
@@ -44,30 +43,25 @@ namespace AdministraciondePersonal.Repository
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
                 var whereClauses = new List<string>();
-                var parameters = new List<MySqlParameter>();
+                var parameters = new DynamicParameters();
 
                 if (!string.IsNullOrEmpty(filtroUsuario))
                 {
                     whereClauses.Add("usuario LIKE @usuario");
-                    parameters.Add(new MySqlParameter("@usuario", $"%{filtroUsuario}%"));
+                    parameters.Add("@usuario", $"%{filtroUsuario}%");
                 }
 
                 if (!string.IsNullOrEmpty(filtroDescripcion))
                 {
                     whereClauses.Add("descripcion_accion LIKE @descripcion");
-                    parameters.Add(new MySqlParameter("@descripcion", $"%{filtroDescripcion}%"));
+                    parameters.Add("@descripcion", $"%{filtroDescripcion}%");
                 }
 
                 string whereSql = whereClauses.Count > 0 ? "WHERE " + string.Join(" AND ", whereClauses) : "";
 
-                
                 string countSql = $"SELECT COUNT(*) FROM bitacora {whereSql}";
-                using (var cmd = new MySqlCommand(countSql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddRange(parameters.ToArray());
-                    conn.Open();
-                    totalCount = Convert.ToInt32(cmd.ExecuteScalar());
-                }
+                totalCount = conn.ExecuteScalar<int>(countSql, parameters);
+
                 string orderBy = ordenarPor switch
                 {
                     "Usuario" => "usuario",
@@ -80,56 +74,30 @@ namespace AdministraciondePersonal.Repository
                 int offset = (pageIndex - 1) * pageSize;
 
                 string dataSql = $@"
-                    SELECT id_bitacora, fecha_bitacora, usuario, descripcion_accion
+                    SELECT 
+                        id_bitacora AS IdBitacora, 
+                        fecha_bitacora AS FechaBitacora, 
+                        usuario AS Usuario, 
+                        descripcion_accion AS DescripcionAccion
                     FROM bitacora {whereSql}
                     ORDER BY {orderBy} {orderDirection}
                     LIMIT @offset, @pageSize";
 
-                using (var cmd = new MySqlCommand(dataSql, (MySqlConnection)conn))
-                {
-                    cmd.Parameters.AddRange(parameters.ToArray());
-                    cmd.Parameters.AddWithValue("@offset", offset);
-                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
+                parameters.Add("@offset", offset);
+                parameters.Add("@pageSize", pageSize);
 
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            items.Add(new Bitacora
-                            {
-                                IdBitacora = reader.GetInt32("id_bitacora"),
-                                FechaBitacora = reader.GetDateTime("fecha_bitacora"),
-                                Usuario = reader.GetString("usuario"),
-                                DescripcionAccion = reader.GetString("descripcion_accion")
-                            });
-                        }
-                    }
-                }
+                items = conn.Query<Bitacora>(dataSql, parameters).ToList();
             }
 
             return (items, totalCount);
         }
         public List<string> ObtenerUsuariosUnicos()
         {
-            var usuarios = new List<string>();
-
             using (IDbConnection conn = _dbFactory.GetConnection())
             {
                 string sql = "SELECT DISTINCT usuario FROM bitacora ORDER BY usuario";
-                using (var cmd = new MySqlCommand(sql, (MySqlConnection)conn))
-                {
-                    conn.Open();
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            usuarios.Add(reader.GetString("usuario"));
-                        }
-                    }
-                }
+                return conn.Query<string>(sql).ToList();
             }
-
-            return usuarios;
         }
     }
 }

@@ -6,16 +6,19 @@ using AdministraciondePersonal.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 namespace AdministraciondePersonal.Pages
 {
     public class BitacoraModel : PageModel
     {
         private readonly BitacoraService _bitacoraService;
+        private readonly PantallaService _services;
 
-        public BitacoraModel(BitacoraService bitacoraService)
+        public BitacoraModel(BitacoraService bitacoraService, PantallaService pantallaService)
         {
             _bitacoraService = bitacoraService;
+            _services = pantallaService;
         }
 
         // Propiedades del usuario
@@ -25,6 +28,7 @@ namespace AdministraciondePersonal.Pages
 
         // Propiedades para la bitácora
         public List<Bitacora> Bitacoras { get; set; } = new List<Bitacora>();
+        public List<Pantalla> MenuPantallas { get; set; } = new();
         public SelectList UsuariosList { get; set; }
 
         // Propiedades de filtros
@@ -34,7 +38,7 @@ namespace AdministraciondePersonal.Pages
         [BindProperty(SupportsGet = true)]
         public string FiltroDescripcion { get; set; }
 
-        // Propiedades de paginación (igual que Entrevistas)
+        // Propiedades de paginación 
         public int PaginaActual { get; set; }
         public int TotalPaginas { get; set; }
         public int TamanioPagina { get; set; } = 10;
@@ -72,6 +76,15 @@ namespace AdministraciondePersonal.Pages
             };
 
             ColorAvatar = colores[Math.Abs(hash) % colores.Length];
+
+            var rolesJson = HttpContext.Session.GetString("RolesUsuario");
+
+            if (!string.IsNullOrEmpty(rolesJson))
+            {
+                var rolesIds = JsonSerializer.Deserialize<List<int>>(rolesJson);
+
+                MenuPantallas = _services.ObtenerPantallasPorRoles(rolesIds);
+            }
 
             return true;
         }

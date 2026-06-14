@@ -2,19 +2,23 @@ using AdministraciondePersonal.Entities;
 using AdministraciondePersonal.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
 namespace AdministraciondePersonal.Pages
 {
     public class UsuariosModel : PageModel
     {
         private readonly UsuarioService _usuarioService;
+        private readonly PantallaService _services;
 
-        public UsuariosModel(UsuarioService usuarioService)
+        public UsuariosModel(UsuarioService usuarioService, PantallaService pantallaService)
         {
             _usuarioService = usuarioService;
+            _services = pantallaService;
         }
 
         public List<Usuario> Usuarios { get; set; }
+        public List<Pantalla> MenuPantallas { get; set; } = new();
         public List<Rol> RolesDisponibles { get; set; }
         public string NombreUsuario { get; set; }
         public string InicialAvatar { get; set; }
@@ -23,7 +27,6 @@ namespace AdministraciondePersonal.Pages
         public string Error { get; set; }
         public bool MostrarModal { get; set; }
 
-        // Propiedades de paginación (igual que Entrevistas)
         public int PaginaActual { get; set; }
         public int TotalPaginas { get; set; }
         public int TamanioPagina { get; set; } = 10;
@@ -51,8 +54,18 @@ namespace AdministraciondePersonal.Pages
             int hash = 0;
             foreach (char c in NombreUsuario ?? "U")
                 hash = c + ((hash << 5) - hash);
+
             var colores = new[] { "#273a77", "#80B0AA", "#FDB3CA", "#315855", "#4A90E2", "#E74C3C" };
             ColorAvatar = colores[Math.Abs(hash) % colores.Length];
+
+            var rolesJson = HttpContext.Session.GetString("RolesUsuario");
+
+            if (!string.IsNullOrEmpty(rolesJson))
+            {
+                var rolesIds = JsonSerializer.Deserialize<List<int>>(rolesJson);
+
+                MenuPantallas = _services.ObtenerPantallasPorRoles(rolesIds);
+            }
 
             PaginaActual = pagina;
             CargarDatos();
@@ -67,11 +80,15 @@ namespace AdministraciondePersonal.Pages
             {
                 MostrarModal = true;
                 UsuarioEditando = _usuarioService.ObtenerUsuarioPorId(id.Value);
+
                 if (UsuarioEditando == null)
                 {
                     return RedirectToPage("/Usuarios", new { pagina = PaginaActual });
                 }
-                RolesSeleccionados = UsuarioEditando.Roles?.Select(r => r.IdRol).ToList() ?? new List<int>();
+
+                RolesSeleccionados = UsuarioEditando.Roles?
+                    .Select(r => r.IdRol)
+                    .ToList() ?? new List<int>();
             }
 
             return Page();

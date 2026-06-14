@@ -8,13 +8,31 @@ namespace AdministraciondePersonal.Services
 {
     public class UsuarioService
     {
+        // Implementación Singleton
+        private static UsuarioService _instancia;
+        private static readonly object _lock = new object();
         private readonly UsuarioRepository _usuarioRepository;
         private readonly BitacoraService _bitacoraService;
 
-        public UsuarioService(UsuarioRepository usuarioRepository, BitacoraService bitacoraService)
+        private UsuarioService(UsuarioRepository usuarioRepository, BitacoraService bitacoraService)
         {
             _usuarioRepository = usuarioRepository;
             _bitacoraService = bitacoraService;
+        }
+
+        public static UsuarioService GetInstance(UsuarioRepository usuarioRepository, BitacoraService bitacoraService)
+        {
+            if (_instancia == null)
+            {
+                lock (_lock)
+                {
+                    if (_instancia == null)
+                    {
+                        _instancia = new UsuarioService(usuarioRepository, bitacoraService);
+                    }
+                }
+            }
+            return _instancia;
         }
 
         private string EncriptarSHA2(string contrasena)
@@ -215,16 +233,24 @@ namespace AdministraciondePersonal.Services
             try
             {
                 var usuario = _usuarioRepository.ObtenerUsuarioPorId(idUsuario);
+
                 if (usuario == null)
                     return (false, "Usuario no encontrado");
 
-                if (_usuarioRepository.TieneRegistrosRelacionados(idUsuario))
-                    return (false, "No se puede eliminar un usuario con datos relacionados en oferentes.");
-
                 _usuarioRepository.EliminarUsuario(idUsuario);
 
-                var usuarioParaBitacora = new { usuario.NombreUsuario, usuario.NombreCompleto, usuario.Correo, usuario.RolesTexto };
-                _bitacoraService.RegistrarAccion(usuarioActual, $"Eliminación de usuario: {JsonSerializer.Serialize(usuarioParaBitacora)}");
+                var usuarioParaBitacora = new
+                {
+                    usuario.NombreUsuario,
+                    usuario.NombreCompleto,
+                    usuario.Correo,
+                    usuario.RolesTexto
+                };
+
+                _bitacoraService.RegistrarAccion(
+                    usuarioActual,
+                    $"Eliminación de usuario: {JsonSerializer.Serialize(usuarioParaBitacora)}");
+
                 return (true, "Usuario eliminado exitosamente");
             }
             catch (Exception ex)
