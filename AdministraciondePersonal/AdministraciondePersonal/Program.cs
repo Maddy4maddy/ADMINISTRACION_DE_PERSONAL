@@ -52,19 +52,42 @@ builder.Services.AddScoped<CompaniaService>();
 
 builder.Services.AddDistributedMemoryCache();
 
-// TODO:
-// El tiempo de sesión deberá obtenerse posteriormente desde la tabla PARAMETROS
-// utilizando un parámetro como TIEMPO_EXPIRACION_SESION.
-const int TiempoSesionMinutos = 5;
+int tiempoSesionMinutos = 5;
+
+try
+{
+    var dbFactory =
+        new DbConnectionFactory(builder.Configuration);
+
+    var parametroRepository =
+        new ParametroRepository(dbFactory);
+
+    var valor =
+        parametroRepository.ObtenerValor(
+            "TIEMPO_EXPIRACION_SESION");
+
+    if (!string.IsNullOrWhiteSpace(valor))
+    {
+        tiempoSesionMinutos = int.Parse(valor);
+    }
+}
+catch
+{
+    tiempoSesionMinutos = 5;
+}
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(TiempoSesionMinutos);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-    options.Cookie.MaxAge = TimeSpan.FromMinutes(TiempoSesionMinutos);
-});
+    options.IdleTimeout =
+        TimeSpan.FromMinutes(tiempoSesionMinutos);
 
+    options.Cookie.HttpOnly = true;
+
+    options.Cookie.IsEssential = true;
+
+    options.Cookie.MaxAge =
+        TimeSpan.FromMinutes(tiempoSesionMinutos);
+});
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();

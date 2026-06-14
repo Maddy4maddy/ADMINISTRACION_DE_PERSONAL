@@ -92,5 +92,10 @@ namespace AdministraciondePersonal.Services
                 "Parámetro eliminado correctamente."
             );
         }
+
+        public string ObtenerValor(string codigo)
+        {
+            return _repo.ObtenerValor(codigo);
+        }
     }
 }

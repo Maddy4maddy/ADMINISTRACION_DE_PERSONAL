@@ -48,11 +48,15 @@ namespace AdministraciondePersonal.Pages
         public List<rol> ListaRoles { get; set; } = new();
 
         public List<Pantalla> Pantallas { get; set; } = new();
-        public void OnGet()
+        public IActionResult OnGet()
         {
             ModelState.Clear();
 
-            PrepararSesion();
+            if (!PrepararSesion())
+            {
+                return RedirectToPage("/Login",
+                    new { expirada = true });
+            }
 
             var roles = _service.ObtenerRoles();
 
@@ -65,10 +69,18 @@ namespace AdministraciondePersonal.Pages
                 .ToList();
 
             Pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
+
+            return Page();
         }
 
         public IActionResult OnPost()
         {
+            if (!PrepararSesion())
+            {
+                return RedirectToPage("/Login",
+                    new { expirada = true });
+            }
+
             try
             {
                 var pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
@@ -103,7 +115,7 @@ namespace AdministraciondePersonal.Pages
 
                 return RedirectToPage();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 PrepararSesion();
 
@@ -115,6 +127,12 @@ namespace AdministraciondePersonal.Pages
         }
         public IActionResult OnPostDelete(int idRol)
         {
+            if (!PrepararSesion())
+            {
+                return RedirectToPage("/Login",
+                    new { expirada = true });
+            }
+
             var resultado = _service.EliminarRol(idRol);
 
             if (resultado == "OK")
@@ -133,6 +151,14 @@ namespace AdministraciondePersonal.Pages
 
         public JsonResult OnGetRol(int id)
         {
+            if (!PrepararSesion())
+            {
+                return new JsonResult(new
+                {
+                    error = "SesionExpirada"
+                });
+            }
+
             var rol = _service.ObtenerRoles()
                 .FirstOrDefault(x => x.IdRol == id);
 

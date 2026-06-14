@@ -59,6 +59,20 @@ namespace AdministraciondePersonal.Repository
                 new { Codigo = codigo }) > 0;
         }
 
+        public string ObtenerValor(string codigo)
+        {
+            using IDbConnection conn = _dbFactory.GetConnection();
+
+            string sql = @"
+        SELECT valor
+        FROM parametros
+        WHERE codigo = @Codigo";
+
+            return conn.QueryFirstOrDefault<string>(
+                sql,
+                new { Codigo = codigo });
+        }
+
         public void CrearParametro(
             string codigo,
             string valor)
