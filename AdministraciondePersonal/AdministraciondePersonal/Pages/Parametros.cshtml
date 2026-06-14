@@ -145,6 +145,30 @@
 
                         </table>
 
+                        <div class="paginacion">
+
+                            @if (Model.Pagina > 1)
+                            {
+                                <a href="/Parametros?Pagina=@(Model.Pagina - 1)"
+                                   class="btn-editar">
+                                    ← Anterior
+                                </a>
+                            }
+
+                            <span>
+                                Página @Model.Pagina de @Model.TotalPaginas
+                            </span>
+
+                            @if (Model.Pagina < Model.TotalPaginas)
+                            {
+                                <a href="/Parametros?Pagina=@(Model.Pagina + 1)"
+                                   class="btn-editar">
+                                    Siguiente →
+                                </a>
+                            }
+
+                        </div>
+
                     </div>
 
                 </div>

@@ -19,6 +19,7 @@ namespace AdministraciondePersonal.Pages
         public string InicialAvatar { get; set; }
         public string ColorAvatar { get; set; }
 
+
         //AGREGAR ESTO
         public List<Pantalla> MenuPantallas { get; set; } = new();
         //HASTA AQUI
@@ -31,6 +32,13 @@ namespace AdministraciondePersonal.Pages
         }
 
         public List<Pantalla> ListaPantallas { get; set; } = new();
+
+        [BindProperty(SupportsGet = true)]
+        public int PaginaActual { get; set; } = 1;
+
+        public int TotalPaginas { get; set; }
+
+        private const int RegistrosPorPagina = 10;
 
         [BindProperty]
         public int IdPantalla { get; set; }
@@ -55,7 +63,15 @@ namespace AdministraciondePersonal.Pages
                 return RedirectToPage("/Login", new { expirada = true });
             }
 
-            ListaPantallas = _service.ObtenerPantallas();
+            var pantallas = _service.ObtenerPantallas();
+
+            TotalPaginas = (int)Math.Ceiling(
+                pantallas.Count / (double)RegistrosPorPagina);
+
+            ListaPantallas = pantallas
+                .Skip((PaginaActual - 1) * RegistrosPorPagina)
+                .Take(RegistrosPorPagina)
+                .ToList();
 
             return Page();
         }

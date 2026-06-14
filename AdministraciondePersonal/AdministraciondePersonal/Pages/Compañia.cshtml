@@ -132,6 +132,32 @@
                             </tbody>
 
                         </table>
+                        @if (Model.TotalPaginas > 1)
+                        {
+                            <div class="mt-3 d-flex justify-content-center align-items-center gap-2">
+
+                                @if (Model.PaginaActual > 1)
+                                {
+                                    <a href="/Compañia?pagina=@(Model.PaginaActual - 1)"
+                                       class="btn-editar">
+                                        ← Anterior
+                                    </a>
+                                }
+
+                                <span>
+                                    Página @Model.PaginaActual de @Model.TotalPaginas
+                                </span>
+
+                                @if (Model.PaginaActual < Model.TotalPaginas)
+                                {
+                                    <a href="/Compañia?pagina=@(Model.PaginaActual + 1)"
+                                       class="btn-editar">
+                                        Siguiente →
+                                    </a>
+                                }
+
+                            </div>
+                        }
 
                     </div>
 

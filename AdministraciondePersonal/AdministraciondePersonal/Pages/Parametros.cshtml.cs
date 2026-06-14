@@ -12,6 +12,13 @@ namespace AdministraciondePersonal.Pages
         private readonly PantallaService _services;
         private readonly BitacoraService _bitacoraService;
 
+        [BindProperty(SupportsGet = true)]
+        public int Pagina { get; set; } = 1;
+
+        public int TotalPaginas { get; set; }
+
+        private const int RegistrosPorPagina = 10;
+
         public ParametrosModel(
             ParametroService service,
             BitacoraService bitacoraService,
@@ -54,7 +61,15 @@ namespace AdministraciondePersonal.Pages
                 return RedirectToPage("/Login", new { expirada = true });
             }
 
-            ListaParametros = _service.ObtenerParametros();
+            var todos = _service.ObtenerParametros();
+
+            TotalPaginas = (int)Math.Ceiling(
+                (double)todos.Count / RegistrosPorPagina);
+
+            ListaParametros = todos
+                .Skip((Pagina - 1) * RegistrosPorPagina)
+                .Take(RegistrosPorPagina)
+                .ToList();
 
             return Page();
         }
@@ -68,7 +83,15 @@ namespace AdministraciondePersonal.Pages
                 Codigo,
                 Valor);
 
-            ListaParametros = _service.ObtenerParametros();
+            var todos = _service.ObtenerParametros();
+
+            TotalPaginas = (int)Math.Ceiling(
+                (double)todos.Count / RegistrosPorPagina);
+
+            ListaParametros = todos
+                .Skip((Pagina - 1) * RegistrosPorPagina)
+                .Take(RegistrosPorPagina)
+                .ToList();
 
             MostrarMensajeModal = true;
 
@@ -101,7 +124,15 @@ namespace AdministraciondePersonal.Pages
 
             var resultado = _service.EliminarParametro(id);
 
-            ListaParametros = _service.ObtenerParametros();
+            var todos = _service.ObtenerParametros();
+
+            TotalPaginas = (int)Math.Ceiling(
+                (double)todos.Count / RegistrosPorPagina);
+
+            ListaParametros = todos
+                .Skip((Pagina - 1) * RegistrosPorPagina)
+                .Take(RegistrosPorPagina)
+                .ToList();
 
             MostrarMensajeModal = true;
 

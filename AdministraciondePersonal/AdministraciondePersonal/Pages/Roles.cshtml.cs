@@ -13,6 +13,13 @@ namespace AdministraciondePersonal.Pages
         private readonly RolService _service;
         private readonly BitacoraService _bitacoraService;
 
+        [BindProperty(SupportsGet = true)]
+        public int PaginaActual { get; set; } = 1;
+
+        public int TotalPaginas { get; set; }
+
+        private const int RegistrosPorPagina = 10;
+
         public string NombreUsuario { get; set; }
         public string InicialAvatar { get; set; }
         public string ColorAvatar { get; set; }
@@ -47,7 +54,16 @@ namespace AdministraciondePersonal.Pages
 
             PrepararSesion();
 
-            ListaRoles = _service.ObtenerRoles();
+            var roles = _service.ObtenerRoles();
+
+            TotalPaginas = (int)Math.Ceiling(
+                roles.Count / (double)RegistrosPorPagina);
+
+            ListaRoles = roles
+                .Skip((PaginaActual - 1) * RegistrosPorPagina)
+                .Take(RegistrosPorPagina)
+                .ToList();
+
             Pantallas = _service.ObtenerPantallas() ?? new List<Pantalla>();
         }
 

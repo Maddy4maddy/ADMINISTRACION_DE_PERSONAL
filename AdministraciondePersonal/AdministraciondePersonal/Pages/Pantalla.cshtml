@@ -127,6 +127,33 @@
                             </tbody>
 
                         </table>
+                        @if (Model.TotalPaginas > 1)
+                        {
+                            <div class="modal-buttons"
+                                 style="margin-top:20px; justify-content:center;">
+
+                                @if (Model.PaginaActual > 1)
+                                {
+                                    <a href="/Pantalla?PaginaActual=@(Model.PaginaActual - 1)"
+                                       class="btn-cancelar">
+                                        ← Anterior
+                                    </a>
+                                }
+
+                                <span style="padding:10px 15px;">
+                                    Página @Model.PaginaActual de @Model.TotalPaginas
+                                </span>
+
+                                @if (Model.PaginaActual < Model.TotalPaginas)
+                                {
+                                    <a href="/Pantalla?PaginaActual=@(Model.PaginaActual + 1)"
+                                       class="btn-guardar">
+                                        Siguiente →
+                                    </a>
+                                }
+
+                            </div>
+                        }
 
                     </div>
 

@@ -13,6 +13,13 @@ namespace AdministraciondePersonal.Pages
         private readonly PantallaService _services;
         private readonly BitacoraService _bitacoraService;
 
+
+        public int PaginaActual { get; set; } = 1;
+
+        public int TotalPaginas { get; set; }
+
+        private const int RegistrosPorPagina = 10;
+
         public CompaniasModel(
             CompaniaService service,
             PantallaService pantallaService,
@@ -100,7 +107,7 @@ namespace AdministraciondePersonal.Pages
             return true;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int pagina = 1)
         {
             if (!PrepararSesion())
             {
@@ -110,8 +117,19 @@ namespace AdministraciondePersonal.Pages
 
             try
             {
-                ListaCompanias =
+                var todasLasCompanias =
                     _service.ObtenerCompanias();
+
+                PaginaActual = pagina;
+
+                TotalPaginas = (int)Math.Ceiling(
+                    todasLasCompanias.Count /
+                    (double)RegistrosPorPagina);
+
+                ListaCompanias = todasLasCompanias
+                    .Skip((PaginaActual - 1) * RegistrosPorPagina)
+                    .Take(RegistrosPorPagina)
+                    .ToList();
 
                 MostrarFormulario = false;
 
@@ -192,8 +210,18 @@ namespace AdministraciondePersonal.Pages
 
                 MostrarMensajeModal = true;
 
-                ListaCompanias =
+                var todasLasCompanias =
                     _service.ObtenerCompanias();
+
+                PaginaActual = 1;
+
+                TotalPaginas = (int)Math.Ceiling(
+                    todasLasCompanias.Count /
+                    (double)RegistrosPorPagina);
+
+                ListaCompanias = todasLasCompanias
+                    .Take(RegistrosPorPagina)
+                    .ToList();
 
                 Compania = new Compania();
 
@@ -208,8 +236,18 @@ namespace AdministraciondePersonal.Pages
 
                 MostrarMensajeModal = true;
 
-                ListaCompanias =
+                var todasLasCompanias =
                     _service.ObtenerCompanias();
+
+                PaginaActual = 1;
+
+                TotalPaginas = (int)Math.Ceiling(
+                    todasLasCompanias.Count /
+                    (double)RegistrosPorPagina);
+
+                ListaCompanias = todasLasCompanias
+                    .Take(RegistrosPorPagina)
+                    .ToList();
 
                 _bitacoraService.RegistrarAccion(
                     NombreUsuario,
@@ -248,8 +286,18 @@ namespace AdministraciondePersonal.Pages
 
                 MostrarMensajeModal = true;
 
-                ListaCompanias =
+                var todasLasCompanias =
                     _service.ObtenerCompanias();
+
+                PaginaActual = 1;
+
+                TotalPaginas = (int)Math.Ceiling(
+                    todasLasCompanias.Count /
+                    (double)RegistrosPorPagina);
+
+                ListaCompanias = todasLasCompanias
+                    .Take(RegistrosPorPagina)
+                    .ToList();
 
                 return Page();
             }
@@ -260,8 +308,18 @@ namespace AdministraciondePersonal.Pages
 
                 MostrarMensajeModal = true;
 
-                ListaCompanias =
+                var todasLasCompanias =
                     _service.ObtenerCompanias();
+
+                PaginaActual = 1;
+
+                TotalPaginas = (int)Math.Ceiling(
+                    todasLasCompanias.Count /
+                    (double)RegistrosPorPagina);
+
+                ListaCompanias = todasLasCompanias
+                    .Take(RegistrosPorPagina)
+                    .ToList();
 
                 _bitacoraService.RegistrarAccion(
                     NombreUsuario,
