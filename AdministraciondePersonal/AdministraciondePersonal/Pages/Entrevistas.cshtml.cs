@@ -2,6 +2,7 @@ using AdministraciondePersonal.Entities;
 using AdministraciondePersonal.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
 namespace AdministraciondePersonal.Pages
 {
@@ -9,18 +10,22 @@ namespace AdministraciondePersonal.Pages
     {
         private readonly EntrevistaService _entrevistaService;
         private readonly BitacoraService _bitacoraService;
+        private readonly PantallaService _pantallaService;
 
         public EntrevistasModel(
             EntrevistaService entrevistaService,
-            BitacoraService bitacoraService)
+            BitacoraService bitacoraService,
+            PantallaService pantallaService)
         {
             _entrevistaService = entrevistaService;
             _bitacoraService = bitacoraService;
+            _pantallaService = pantallaService;
         }
 
         public List<Entrevista> ListaEntrevistas { get; set; } = new List<Entrevista>();
         public List<Oferente> Oferentes { get; set; } = new List<Oferente>();
         public List<Usuario> Entrevistadores { get; set; } = new List<Usuario>();
+        public List<Pantalla> MenuPantallas { get; set; } = new List<Pantalla>();
 
         [BindProperty]
         public Entrevista Entrevista { get; set; } = new Entrevista();
@@ -67,6 +72,21 @@ namespace AdministraciondePersonal.Pages
             };
 
             ColorAvatar = colores[Math.Abs(hash) % colores.Length];
+
+            var rolesJson =
+                HttpContext.Session.GetString("RolesUsuario");
+
+            if (!string.IsNullOrEmpty(rolesJson))
+            {
+                var rolesIds =
+                    JsonSerializer.Deserialize<List<int>>(rolesJson);
+
+                if (rolesIds != null)
+                {
+                    MenuPantallas =
+                        _pantallaService.ObtenerPantallasPorRoles(rolesIds);
+                }
+            }
 
             return true;
         }

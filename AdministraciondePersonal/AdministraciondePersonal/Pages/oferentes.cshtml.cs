@@ -2,6 +2,7 @@ using AdministraciondePersonal.Entities;
 using AdministraciondePersonal.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
 namespace AdministraciondePersonal.Pages
 {
@@ -9,11 +10,16 @@ namespace AdministraciondePersonal.Pages
     {
         private readonly OferenteService _oferenteService;
         private readonly BitacoraService _bitacoraService;
+        private readonly PantallaService _pantallaService;
 
-        public OferentesModel(OferenteService oferenteService, BitacoraService bitacoraService)
+        public OferentesModel(
+            OferenteService oferenteService,
+            BitacoraService bitacoraService,
+            PantallaService pantallaService)
         {
             _oferenteService = oferenteService;
             _bitacoraService = bitacoraService;
+            _pantallaService = pantallaService;
         }
 
         [BindProperty]
@@ -27,6 +33,7 @@ namespace AdministraciondePersonal.Pages
 
         public List<Oferente> ListaOferentes { get; set; } = new List<Oferente>();
         public List<Concurso> Concursos { get; set; } = new List<Concurso>();
+        public List<Pantalla> MenuPantallas { get; set; } = new List<Pantalla>();
 
         public string Mensaje { get; set; }
         public string Error { get; set; }
@@ -48,6 +55,7 @@ namespace AdministraciondePersonal.Pages
             InicialAvatar = NombreUsuario.Substring(0, 1).ToUpper();
 
             int hash = 0;
+
             foreach (char c in NombreUsuario)
             {
                 hash = c + ((hash << 5) - hash);
@@ -62,13 +70,32 @@ namespace AdministraciondePersonal.Pages
 
             ColorAvatar = colores[Math.Abs(hash) % colores.Length];
 
+            var rolesJson =
+                HttpContext.Session.GetString("RolesUsuario");
+
+            if (!string.IsNullOrEmpty(rolesJson))
+            {
+                var rolesIds =
+                    JsonSerializer.Deserialize<List<int>>(rolesJson);
+
+                if (rolesIds != null)
+                {
+                    MenuPantallas =
+                        _pantallaService.ObtenerPantallasPorRoles(rolesIds);
+                }
+            }
+
             return true;
         }
 
         private string ObtenerNombreConcurso(int codigoConcurso)
         {
-            var concurso = Concursos.FirstOrDefault(c => c.CodigoConcurso == codigoConcurso);
-            return concurso != null ? concurso.NombreConcurso : "Sin concurso";
+            var concurso =
+                Concursos.FirstOrDefault(c => c.CodigoConcurso == codigoConcurso);
+
+            return concurso != null
+                ? concurso.NombreConcurso
+                : "Sin concurso";
         }
 
         public IActionResult OnGet(string identificacion, bool nuevo = false)
@@ -94,7 +121,8 @@ namespace AdministraciondePersonal.Pages
                 }
                 else if (!string.IsNullOrWhiteSpace(identificacion))
                 {
-                    var oferenteEncontrado = _oferenteService.ObtenerPorIdentificacion(identificacion);
+                    var oferenteEncontrado =
+                        _oferenteService.ObtenerPorIdentificacion(identificacion);
 
                     if (oferenteEncontrado != null)
                     {
@@ -143,7 +171,8 @@ namespace AdministraciondePersonal.Pages
             {
                 CargarDatos();
 
-                string resultado = _oferenteService.Registrar(Oferente);
+                string resultado =
+                    _oferenteService.Registrar(Oferente);
 
                 if (resultado == "El oferente ha sido registrado correctamente.")
                 {
@@ -151,7 +180,8 @@ namespace AdministraciondePersonal.Pages
                     MostrarMensajeModal = true;
                     MostrarFormulario = false;
 
-                    string nombreConcurso = ObtenerNombreConcurso(Oferente.CodigoConcurso);
+                    string nombreConcurso =
+                        ObtenerNombreConcurso(Oferente.CodigoConcurso);
 
                     _bitacoraService.RegistrarAccion(
                         NombreUsuario,
@@ -207,7 +237,8 @@ namespace AdministraciondePersonal.Pages
                 string concursoActual =
                     ObtenerNombreConcurso(Oferente.CodigoConcurso);
 
-                string resultado = _oferenteService.Actualizar(Oferente);
+                string resultado =
+                    _oferenteService.Actualizar(Oferente);
 
                 if (resultado == "El oferente ha sido actualizado correctamente.")
                 {

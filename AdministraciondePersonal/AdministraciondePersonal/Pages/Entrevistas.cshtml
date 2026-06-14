@@ -12,11 +12,12 @@
     <meta charset="utf-8" />
     <title>Agendar Entrevistas</title>
 
-    <link rel="stylesheet" href="~/css/plantillaglobal.css">
-    <link rel="stylesheet" href="~/css/bienvenida.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/plantillaglobal.css">
+    <link rel="stylesheet" href="~/css/bienvenida.css">
+    <link rel="stylesheet" href="~/css/pantallas.css">
 
     <style>
             .entrevistas-container {
@@ -267,26 +268,14 @@
         </div>
 
         <ul class="nav-menu">
-            <li class="nav-item"><a href="/Bienvenida" class="nav-link">Dashboard</a></li>
-            <li class="nav-item"><a href="/Roles" class="nav-link">Administración Roles</a></li>
-            <li class="nav-item"><a href="/Usuarios" class="nav-link">Administración Usuarios</a></li>
-            <li class="nav-item"><a href="/Oferentes" class="nav-link">Registro Oferentes</a></li>
-            <li class="nav-item"><a href="/Concursos" class="nav-link">Registro Concursos</a></li>
-            <li class="nav-item"><a href="/PreparacionAcademica" class="nav-link">Registro Preparación Académica</a></li>
-            <li class="nav-item"><a href="/ExperienciaLaboral" class="nav-link">Experiencia Laboral</a></li>
-            <li class="nav-item"><a href="/Entrevistas" class="nav-link">Agendar Entrevista</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Contratar Empleado</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Administración Puestos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Administración Requisitos de Puestos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Administración Áreas</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Administración Acciones de Personal</a></li>
-            <li class="nav-item"><a href="/Bitacora" class="nav-link">Visualizar Bitácoras</a></li>
-            <li class="nav-item"><a href="/Parametros" class="nav-link">Administración Parámetros</a></li>
-            <li class="nav-item"><a href="/Compañia" class="nav-link">Administración Compañías</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Cargar Datos de Ubicación</a></li>
-            <li class="nav-item"><a href="/Pantalla" class="nav-link">Administracion de Pantallas</a></li>
-            <li class="nav-item"><a href="/InstitucionesEducativas" class="nav-link">Administración Instituciones Educativas</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Administración Módulos</a></li>
+            @foreach (var pantalla in Model.MenuPantallas)
+            {
+                <li class="nav-item">
+                    <a href="@pantalla.Ruta" class="nav-link">
+                        <span>@pantalla.NombrePantalla</span>
+                    </a>
+                </li>
+            }
         </ul>
     </div>
 
@@ -294,7 +283,7 @@
         <div class="topbar">
             <div class="user-info">
                 <span class="user-name">@Model.NombreUsuario</span>
-                <div class="user-avatar" style="background-color: @Model.ColorAvatar">
+                <div class="user-avatar" style="background-color:@Model.ColorAvatar">
                     @Model.InicialAvatar
                 </div>
             </div>
@@ -471,7 +460,9 @@
                         </button>
                     }
 
-                    <a href="/Entrevistas?pagina=@Model.PaginaActual" class="btn-cancelar">Cancelar</a>
+                    <a href="/Entrevistas?pagina=@Model.PaginaActual" class="btn-cancelar">
+                        Cancelar
+                    </a>
                 </div>
             </form>
         </div>
@@ -483,7 +474,9 @@
             <p>@(string.IsNullOrEmpty(Model.Error) ? Model.Mensaje : Model.Error)</p>
 
             <div class="modal-buttons">
-                <a href="/Entrevistas?pagina=@Model.PaginaActual" class="btn-guardar">Aceptar</a>
+                <a href="/Entrevistas?pagina=@Model.PaginaActual" class="btn-guardar">
+                    Aceptar
+                </a>
             </div>
         </div>
     </div>
